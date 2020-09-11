@@ -1,22 +1,28 @@
 import React from "react";
-import logo from "../../assets/logo.png";
 import medicalClinic from "../../assets/medicalClinicLogo.png";
 import styles from "./Navigation.module.scss";
-import { Button } from "@material-ui/core";
+import { Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const Navigation: React.FC = () => (
   <div className={styles.container}>
-    <div>
-      <img src={logo} alt="" className={styles.logo} />
+    <div className={styles.logos}>
       <img src={medicalClinic} alt="" className={styles.medicalClinic} />
     </div>
     <div>
-      <span className={styles.navTab}>Departments</span>
-      <span className={styles.navTab}>Doctors</span>
-      <span className={styles.navTab}>About</span>
-      <Button variant="contained" color="primary">
-        Sign in
-      </Button>
+      <Link to="/" className={styles.navTab}>
+        Home
+      </Link>
+      <Link to="/" className={styles.navTab}>
+        Departments
+      </Link>
+      <Link to="/" className={styles.navTab}>
+        Doctors
+      </Link>
+      <Link to="/" className={styles.navTab}>
+        About
+      </Link>
+      <Button variant="outline-dark">Sign in</Button>
     </div>
   </div>
 );

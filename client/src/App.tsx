@@ -1,9 +1,9 @@
-import './App.css';
+import "./App.scss";
 
-import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import React from "react";
+import { Route, Switch } from "react-router-dom";
 
-import Navigation from './components/Navigation/Navigation';
+import Navigation from "./components/Navigation/Navigation";
 
 const App = () => (
   <div>
