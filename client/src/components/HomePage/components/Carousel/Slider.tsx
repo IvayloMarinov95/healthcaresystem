@@ -27,7 +27,7 @@ const carouselItems: CarouselObjects[] = [
 
 const Slider: React.FC = () => (
   <div className={styles.container}>
-    <Carousel slide={true} controls={false} interval={4000}>
+    <Carousel slide={true} controls={false} interval={3000}>
       {carouselItems.map(({ img, text }, index) => (
         <CarouselItem className={styles.carousel} key={index}>
           <img className="d-block w-100" src={img} alt="" />
