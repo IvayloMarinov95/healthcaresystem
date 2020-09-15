@@ -8,17 +8,17 @@ import styles from "./Contacts.module.scss";
 const Contacts: React.FC = () => (
   <div className={styles.container}>
     <Contact
-      icon={<FaMobileAlt size={60} />}
+      icon={<FaMobileAlt size={30} />}
       text="Give us a Call"
       provider="1-888-123-4567"
     />
     <Contact
-      icon={<FiMail size={60} />}
+      icon={<FiMail size={30} />}
       text="Send us a Message"
       provider="test@test.com"
     />
     <Contact
-      icon={<GoLocation size={60} />}
+      icon={<GoLocation size={30} />}
       text="Visit our Location"
       provider="3213 Suitland Street"
     />

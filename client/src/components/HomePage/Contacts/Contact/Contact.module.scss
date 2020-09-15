@@ -2,17 +2,24 @@
 
 .text {
   color: rgba(58, 58, 58, 0.6);
+  margin-bottom: 2px;
 }
 
 .container {
-  margin-top: 3%;
   display: flex;
-  justify-content: space-around;
+  align-items: center;
   width: 25%;
-  color: $blue;
+  margin-top: 30px;
 }
 
 .provider {
   font-weight: bold;
   font-size: 20px;
+  color: $blue;
+  width: 200px;
+}
+
+.icon {
+  color: $blue;
+  margin-right: 25px;
 }

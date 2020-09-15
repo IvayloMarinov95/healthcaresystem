@@ -1,0 +1,21 @@
+@import "../../../variables.scss";
+
+.container {
+  height: 271px;
+  padding: 0 20% 0 20%;
+  position: relative;
+  display: flex;
+  margin-top: -80px;
+}
+
+.topDoctors {
+  background: $light-blue;
+}
+
+.service {
+  background: $blue;
+}
+
+.openingHours {
+  background: $dark-blue;
+}
