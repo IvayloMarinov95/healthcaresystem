@@ -1,0 +1,21 @@
+@import "../../../../variables.scss";
+
+.icon {
+  color: $blue;
+  margin-bottom: 10px;
+}
+
+.container {
+  width: 300px;
+  margin-right: 20px;
+  font-family: "Open Sans", Arial, Helvetica, "Nimbus Sans L", sans-serif;
+}
+
+.description {
+  color: #787878;
+}
+
+.service {
+  font-size: 18px;
+  font-weight: bold;
+}
