@@ -1,0 +1,15 @@
+@import "../../../../variables.scss";
+
+.phoneContainer {
+  display: flex;
+  align-items: center;
+}
+
+.phone {
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+.icon {
+  color: $blue;
+}

@@ -21,7 +21,7 @@ const ProvidedServices: React.FC = () => (
     <ProvidedService
       icon={<FaHeartbeat size={50} />}
       service="Medical professionals"
-      description="edical professional means any person licensed or certified to provide health care services to natural persons."
+      description="Medical professional means any person licensed or certified to provide health care services to natural persons."
     />
     <ProvidedService
       icon={<FaStethoscope size={50} />}

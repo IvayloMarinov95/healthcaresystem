@@ -1,0 +1,17 @@
+@import "../../../../variables.scss";
+
+.title {
+  color: $blue;
+}
+
+.body {
+  font-family: "Open Sans", Arial, Helvetica, "Nimbus Sans L", sans-serif;
+}
+
+.text {
+  color: #787878;
+}
+
+.card {
+  box-shadow: 0 10px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}

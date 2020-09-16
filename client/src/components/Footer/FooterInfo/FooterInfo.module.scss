@@ -1,0 +1,40 @@
+@import "../../variables.scss";
+
+.header {
+  font-size: 24px;
+  color: white;
+  font-weight: bold;
+
+  &::after {
+    display: block;
+    content: "";
+    width: 50px;
+    max-width: 100%;
+    margin-top: 10px;
+    bottom: 0;
+    left: 0;
+    right: auto;
+    border-bottom: 1px solid $light-blue;
+  }
+}
+
+.section {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  font-size: 16px;
+}
+
+.container {
+  width: 300px;
+  height: 307px;
+}
+
+.icon {
+  margin-right: 10px;
+  color: white;
+}
+
+.sectionContainer {
+  margin-top: 50px;
+}
