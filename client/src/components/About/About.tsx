@@ -1,7 +1,7 @@
 import { Carousel, CarouselItem } from "react-bootstrap";
+import React, { useEffect } from "react";
 
 import AccordionMenu from "./AccordionMenu/AccordionMenu";
-import React from "react";
 import Title from "../Title/Title";
 import pic1 from "../../assets/pic1.jpg";
 import pic2 from "../../assets/pic2.jpg";
@@ -24,24 +24,34 @@ const carouselItems: CarouselObjects[] = [
   },
 ];
 
-const About: React.FC = () => (
-  <div className={styles.container}>
-    <Title tinyHeader="Professionals" header="Welcome to Medical Clinic" />
-    <div className={styles.content}>
-      <div className={styles.carousel}>
-        <Carousel slide={true} interval={3000} indicators={false}>
-          {carouselItems.map(({ img }, index) => (
-            <CarouselItem className={styles.carousel} key={index}>
-              <img className="d-block w-100" src={img} alt="" />
-            </CarouselItem>
-          ))}
-        </Carousel>
-      </div>
-      <div className={styles.accordion}>
-        <AccordionMenu />
+const About: React.FC = () => {
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
+  }, []);
+
+  return (
+    <div className={styles.container}>
+      <Title tinyHeader="Professionals" header="Welcome to Medical Clinic" />
+      <div className={styles.content}>
+        <div className={styles.carousel}>
+          <Carousel slide={true} interval={3000} indicators={false}>
+            {carouselItems.map(({ img }, index) => (
+              <CarouselItem className={styles.carousel} key={index}>
+                <img className="d-block w-100" src={img} alt="" />
+              </CarouselItem>
+            ))}
+          </Carousel>
+        </div>
+        <div className={styles.accordion}>
+          <AccordionMenu />
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default About;
