@@ -2,6 +2,7 @@ import { Carousel, CarouselItem } from "react-bootstrap";
 
 import AccordionMenu from "./AccordionMenu/AccordionMenu";
 import React from "react";
+import Title from "../Title/Title";
 import pic1 from "../../assets/pic1.jpg";
 import pic2 from "../../assets/pic2.jpg";
 import pic3 from "../../assets/pic3.jpg";
@@ -25,8 +26,7 @@ const carouselItems: CarouselObjects[] = [
 
 const About: React.FC = () => (
   <div className={styles.container}>
-    <div className={styles.profs}>Professionals</div>
-    <div className={styles.welcome}>Welcome to Medical Clinic</div>
+    <Title tinyHeader="Professionals" header="Welcome to Medical Clinic" />
     <div className={styles.content}>
       <div className={styles.carousel}>
         <Carousel slide={true} interval={3000} indicators={false}>

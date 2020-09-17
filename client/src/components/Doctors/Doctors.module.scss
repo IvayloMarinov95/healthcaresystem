@@ -1,20 +1,14 @@
-@import "../variables.scss";
-
 .container {
   padding: 0 18% 0 18%;
   margin: 70px 0 100px 0;
   font-family: "Open Sans", Arial, Helvetica, "Nimbus Sans L", sans-serif;
 }
 
-.carousel {
-  width: 600px;
+.doctors {
+  margin-top: 80px;
 }
 
-.content {
+.cards {
   display: flex;
   justify-content: space-between;
-}
-
-.accordion {
-  width: 550px;
 }

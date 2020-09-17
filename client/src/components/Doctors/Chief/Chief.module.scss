@@ -1,0 +1,28 @@
+.chief {
+  border: 1px solid #c7c7c7;
+}
+
+.img {
+  width: 280px;
+  height: 250px;
+  padding: 20px 0 20px 20px;
+  margin-right: 50px;
+}
+
+.content {
+  display: flex;
+}
+
+.contacts {
+  padding: 30px 10px 10px 0;
+  width: 800px;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #c7c7c7;
+  font-size: 18px;
+}
+
+.description {
+  margin-top: 20px;
+  width: 800px;
+}

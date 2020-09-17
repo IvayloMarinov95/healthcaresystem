@@ -1,6 +1,7 @@
 import DoctorContacts from "./Contacts/DoctorContacts";
 import KitchenSink from "../Cards/KitchenSink/KitchenSink";
 import React from "react";
+import Title from "../../../Title/Title";
 import amy from "../../../../assets/amy.jpg";
 import julia from "../../../../assets/julia.jpg";
 import max from "../../../../assets/max.jpg";
@@ -9,8 +10,7 @@ import styles from "./OurProfessionals.module.scss";
 
 const OurProfessionals: React.FC = () => (
   <div className={styles.container}>
-    <div className={styles.profs}>Professionals</div>
-    <div className={styles.someProfs}>Some of our doctors</div>
+    <Title tinyHeader="Professionals" header="Some of our doctors" />
     <div className={styles.cards}>
       <KitchenSink
         image={julia}
