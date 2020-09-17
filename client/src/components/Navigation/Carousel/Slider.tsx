@@ -1,9 +1,9 @@
 import { Carousel, CarouselItem } from "react-bootstrap";
 
 import React from "react";
-import img1 from "../../../../assets/bg-4.jpg";
-import img2 from "../../../../assets/bg-3-1.jpg";
-import img3 from "../../../../assets/bg-2-1-1.jpg";
+import img1 from "../../../assets/bg-4.jpg";
+import img2 from "../../../assets/bg-3-1.jpg";
+import img3 from "../../../assets/bg-2-1-1.jpg";
 import styles from "./Slider.module.scss";
 
 interface CarouselObjects {

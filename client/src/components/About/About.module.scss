@@ -1,0 +1,30 @@
+@import "../variables.scss";
+
+.profs {
+  font-size: 14px;
+  color: $blue;
+}
+
+.welcome {
+  font-size: 24px;
+  margin-bottom: 50px;
+}
+
+.container {
+  padding: 0 18% 0 18%;
+  margin: 70px 0 100px 0;
+  font-family: "Open Sans", Arial, Helvetica, "Nimbus Sans L", sans-serif;
+}
+
+.carousel {
+  width: 600px;
+}
+
+.content {
+  display: flex;
+  justify-content: space-between;
+}
+
+.accordion {
+  width: 550px;
+}

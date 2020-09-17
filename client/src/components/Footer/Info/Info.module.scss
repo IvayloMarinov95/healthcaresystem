@@ -1,7 +1,7 @@
 @import "../../variables.scss";
 
 .header {
-  font-size: 20px;
+  font-size: 18px;
   color: white;
   font-weight: bold;
 
@@ -24,33 +24,23 @@
 }
 
 .section {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   font-size: 14px;
-  padding-bottom: 7px;
+  padding-bottom: 10px;
   border-bottom: 1px solid #646464;
 
   &::before {
-    content: "\e801";
-    font-family: "fontello-custom";
-    font-style: normal;
-    font-weight: normal;
     display: inline-block;
-    text-decoration: inherit;
-    width: 1em;
-    padding: 0;
-    margin: 0 10px 0 0;
-    text-align: center;
-    font-variant: normal;
-    text-transform: none;
-    line-height: 1em;
-    position: relative;
-    font-size: 8px;
-    bottom: 1px;
+    content: "";
     vertical-align: middle;
-    color: $light-blue;
+    width: 5px;
+    max-width: 100%;
+    margin-right: 8px;
+    right: auto;
+    border-bottom: 1px solid $light-blue;
   }
 }
 
 .sectionContainer {
-  margin-top: 20px;
+  margin-top: 30px;
 }
