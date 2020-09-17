@@ -3,9 +3,9 @@ import { FaMobileAlt } from "react-icons/fa";
 import { FiMail } from "react-icons/fi";
 import React from "react";
 import { VscLocation } from "react-icons/vsc";
-import styles from "./FooterInfo.module.scss";
+import styles from "./ContactInfo.module.scss";
 
-const FooterInfo: React.FC = () => (
+const ContactInfo: React.FC = () => (
   <div className={styles.container}>
     <span className={styles.header}>Contact Information</span>
     <div className={styles.sectionContainer}>
@@ -29,4 +29,4 @@ const FooterInfo: React.FC = () => (
   </div>
 );
 
-export default FooterInfo;
+export default ContactInfo;

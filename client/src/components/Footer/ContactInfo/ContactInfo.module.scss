@@ -1,7 +1,7 @@
 @import "../../variables.scss";
 
 .header {
-  font-size: 24px;
+  font-size: 18px;
   color: white;
   font-weight: bold;
 
@@ -22,19 +22,19 @@
   display: flex;
   align-items: center;
   margin-top: 20px;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .container {
   width: 300px;
-  height: 307px;
+  height: 250px;
 }
 
 .icon {
   margin-right: 10px;
-  color: white;
+  color: #646464;
 }
 
 .sectionContainer {
-  margin-top: 50px;
+  margin-top: 30px;
 }

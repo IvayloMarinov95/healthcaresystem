@@ -1,12 +1,13 @@
 .container {
   padding: 0 18% 0 18%;
-  height: 400px;
+  height: 350px;
   background: #1c1a1a;
-  display: flex;
-  justify-content: space-between;
+  font-family: "Open Sans", Arial, Helvetica, "Nimbus Sans L", sans-serif;
 }
 
 .infoContainer {
-  color: white;
+  color: #646464;
   padding-top: 50px;
+  display: flex;
+  justify-content: space-between;
 }
