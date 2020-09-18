@@ -1,0 +1,21 @@
+@import "../../variables.scss";
+
+.div {
+  border-bottom: 1px groove white;
+  padding: 20px 0 0 0;
+  margin: 0 20px 0 20px;
+  font-size: 14px;
+}
+
+.container {
+  background: #3065b5;
+  padding: 20px 20px 50px 20px;
+  color: white;
+}
+
+.title {
+  font-size: 26px;
+  font-weight: bold;
+  padding-top: 10px;
+  text-align: center;
+}

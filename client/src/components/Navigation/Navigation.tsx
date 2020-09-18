@@ -33,7 +33,7 @@ const Navigation: React.FC = () => {
           <Link to="/" className={styles.navTab}>
             Home
           </Link>
-          <Link to="/" className={styles.navTab}>
+          <Link to="/departments" className={styles.navTab}>
             Departments
           </Link>
           <Link to="/doctors" className={styles.navTab}>
