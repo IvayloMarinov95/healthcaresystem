@@ -8,3 +8,9 @@
 .service {
   margin-bottom: 30px;
 }
+
+@media (max-width: 1220px) {
+  .container {
+    padding: 25px;
+  }
+}

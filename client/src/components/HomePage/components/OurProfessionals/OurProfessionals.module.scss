@@ -8,4 +8,35 @@
 .container {
   padding: 0 18% 0 18%;
   margin: 70px 0 100px 0;
+  font-family: "Open Sans", Arial, Helvetica, "Nimbus Sans L", sans-serif;
+}
+
+@media (max-width: 1950px) {
+  .container {
+    padding: 0 16% 0 16%;
+  }
+}
+
+@media (max-width: 1770px) {
+  .container {
+    padding: 0 14% 0 14%;
+  }
+}
+
+@media (max-width: 1670px) {
+  .container {
+    padding: 0 12% 0 12%;
+  }
+}
+
+@media (max-width: 1480px) {
+  .container {
+    padding: 0 8% 0 8%;
+  }
+}
+
+@media (max-width: 1480px) {
+  .container {
+    padding: 0 4% 0 4%;
+  }
 }

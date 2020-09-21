@@ -16,3 +16,9 @@
   font-size: 24px;
   color: $grey;
 }
+
+@media (max-width: 1480px) {
+  .container {
+    padding: 0 8% 0 8%;
+  }
+}

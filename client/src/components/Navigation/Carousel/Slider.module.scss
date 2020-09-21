@@ -18,3 +18,33 @@
     }
   }
 }
+
+@media (max-width: 1480px) {
+  .container {
+    div {
+      height: 460px;
+    }
+  }
+}
+
+@media (max-width: 1220px) {
+  .container {
+    div {
+      height: 360px;
+    }
+  }
+}
+
+@media (max-width: 950px) {
+  .container {
+    div {
+      height: 300px;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    display: none;
+  }
+}

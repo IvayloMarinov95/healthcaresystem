@@ -25,7 +25,13 @@ const Navigation: React.FC = () => {
 
   return (
     <>
-      <div className={scrolled ? styles.containerScroll : styles.container}>
+      <div
+        className={
+          scrolled || window.outerWidth < 769
+            ? styles.containerScroll
+            : styles.container
+        }
+      >
         <Link to="/" className={styles.logoContainer}>
           <img src={medicalClinic} alt="" className={styles.medicalClinic} />
         </Link>

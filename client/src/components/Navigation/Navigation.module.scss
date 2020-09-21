@@ -55,3 +55,16 @@
     opacity: 1;
   }
 }
+
+@media (max-width: 768px) {
+  .container {
+    div {
+      height: 300px;
+    }
+  }
+
+  .containerScroll {
+    position: sticky;
+    top: 0;
+  }
+}

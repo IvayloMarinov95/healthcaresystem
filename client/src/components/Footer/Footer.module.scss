@@ -11,3 +11,15 @@
   display: flex;
   justify-content: space-between;
 }
+
+@media (max-width: 1480px) {
+  .container {
+    padding: 0 8% 0 8%;
+  }
+}
+
+@media (max-width: 840px) {
+  .infoContainer {
+    display: block;
+  }
+}

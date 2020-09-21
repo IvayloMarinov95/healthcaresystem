@@ -44,3 +44,9 @@
 .sectionContainer {
   margin-top: 30px;
 }
+
+@media (max-width: 1070px) {
+  .container {
+    width: 180px;
+  }
+}
