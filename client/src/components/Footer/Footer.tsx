@@ -8,13 +8,6 @@ const Footer: React.FC = () => (
     <div className={styles.infoContainer}>
       <ContactInfo />
       <Info
-        header="Doctors"
-        item1="Dr. Julia Jameson"
-        item2="Dr. Max Turner"
-        item3="Dr. Amy Adams"
-        item4="Dr. Michael Linden"
-      />
-      <Info
         header="Services"
         item1="Pediatrist"
         item2="Cardiologist"

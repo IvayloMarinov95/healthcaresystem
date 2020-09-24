@@ -12,14 +12,14 @@ interface Props {
 }
 
 const KitchenSink: React.FC<Props> = ({ image, title, text, item1, item2 }) => (
-  <Card style={{ width: "286px" }} className={styles.card}>
+  <Card className={styles.card}>
     <Card.Img variant="top" src={image} />
     <Card.Body className={styles.body}>
       <Card.Title className={styles.title}>{title}</Card.Title>
       <Card.Text className={styles.text}>{text}</Card.Text>
     </Card.Body>
     <ListGroup>
-      <ListGroupItem>{item1}</ListGroupItem>
+      <ListGroupItem className={styles.group}>{item1}</ListGroupItem>
       <ListGroupItem>{item2}</ListGroupItem>
     </ListGroup>
   </Card>

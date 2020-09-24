@@ -2,13 +2,18 @@
 
 .cards {
   display: flex;
-  justify-content: space-between;
 }
 
 .container {
   padding: 0 18% 0 18%;
   margin: 70px 0 100px 0;
   font-family: "Open Sans", Arial, Helvetica, "Nimbus Sans L", sans-serif;
+}
+
+.column {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
 }
 
 @media (max-width: 1950px) {
@@ -31,12 +36,25 @@
 
 @media (max-width: 1480px) {
   .container {
-    padding: 0 8% 0 8%;
+    padding: 0 5% 0 5%;
   }
 }
 
 @media (max-width: 1480px) {
   .container {
-    padding: 0 4% 0 4%;
+    padding: 0 5% 0 5%;
+  }
+}
+
+@media (max-width: 1280px) {
+  .column {
+    flex-direction: column;
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 768px) {
+  .cards {
+    display: block;
   }
 }

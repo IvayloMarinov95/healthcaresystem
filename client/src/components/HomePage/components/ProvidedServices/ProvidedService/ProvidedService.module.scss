@@ -19,3 +19,13 @@
   font-size: 18px;
   font-weight: bold;
 }
+
+@media (max-width: 768px) {
+  .container {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  .description {
+    width: 100%;
+  }
+}

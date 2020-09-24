@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 
 import Contacts from "./Contacts/Contacts";
-import Information from "./Information/Informatino";
+import Information from "./Information/Information";
 import InformationBoxes from "./InformationBoxes/InformationBoxes";
 import OurProfessionals from "./OurProfessionals/OurProfessionals";
 import ParallaxComponent from "./Parallax/ParallaxComponent";

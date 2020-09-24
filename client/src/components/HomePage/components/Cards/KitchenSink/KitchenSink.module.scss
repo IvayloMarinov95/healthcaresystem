@@ -12,6 +12,26 @@
   color: $grey;
 }
 
+.group {
+  padding: 20px 20px 20px 20px;
+}
+
 .card {
   box-shadow: 0 10px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  width: 286px;
+}
+
+@media (max-width: 1280px) {
+  .card {
+    width: 90%;
+    margin-bottom: 20px;
+    height: 500px;
+  }
+}
+
+@media (max-width: 768px) {
+  .card {
+    height: 600px;
+    width: 100%;
+  }
 }

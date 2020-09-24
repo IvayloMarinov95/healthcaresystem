@@ -29,6 +29,16 @@
 
 @media (max-width: 1220px) {
   .container {
-    padding: 0;
+    padding: 0 40px 0 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    display: block;
+    width: 100%;
+    padding: 0 50px 0 50px;
+    margin-top: -50px;
+    height: 600px;
   }
 }

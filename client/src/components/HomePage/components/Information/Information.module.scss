@@ -22,3 +22,17 @@
     padding: 0 8% 0 8%;
   }
 }
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 0 0 20px;
+  }
+
+  .title {
+    font-size: 30px;
+  }
+
+  .text {
+    font-size: 18px;
+  }
+}

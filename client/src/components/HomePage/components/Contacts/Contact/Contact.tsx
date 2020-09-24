@@ -10,7 +10,7 @@ const Contact: React.FC<Props> = ({ icon, text, provider }) => (
   <div className={styles.container}>
     <div className={styles.icon}>{icon}</div>
     <div>
-      <h6 className={styles.text}>{text}</h6>
+      <span className={styles.text}>{text}</span>
       <div className={styles.provider}>{provider}</div>
     </div>
   </div>

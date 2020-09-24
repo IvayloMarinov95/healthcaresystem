@@ -1,5 +1,4 @@
 .container {
-  padding: 0 18% 0 18%;
   height: 350px;
   background: #1c1a1a;
   font-family: "Open Sans", Arial, Helvetica, "Nimbus Sans L", sans-serif;
@@ -9,17 +8,11 @@
   color: #646464;
   padding-top: 50px;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 @media (max-width: 1480px) {
   .container {
-    padding: 0 8% 0 8%;
-  }
-}
-
-@media (max-width: 840px) {
-  .infoContainer {
-    display: block;
+    padding: 0 20px 0 20px;
   }
 }
