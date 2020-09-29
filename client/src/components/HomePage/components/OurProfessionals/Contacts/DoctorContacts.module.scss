@@ -13,3 +13,9 @@
 .icon {
   color: $blue;
 }
+
+@media (max-width: 500px) {
+  .phone {
+    font-size: 14px;
+  }
+}

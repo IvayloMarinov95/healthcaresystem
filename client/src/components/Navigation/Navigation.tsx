@@ -39,7 +39,7 @@ const Navigation: React.FC = () => {
           <Link to="/" className={styles.navTab}>
             Home
           </Link>
-          <Link to="/departments" className={styles.navTab}>
+          {/* <Link to="/departments" className={styles.navTab}>
             Departments
           </Link>
           <Link to="/doctors" className={styles.navTab}>
@@ -47,7 +47,7 @@ const Navigation: React.FC = () => {
           </Link>
           <Link to="/about" className={styles.navTab}>
             About
-          </Link>
+          </Link> */}
           <Button variant="dark">Sign in</Button>
         </div>
       </div>

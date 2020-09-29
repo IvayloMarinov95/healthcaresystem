@@ -29,9 +29,27 @@
   }
 }
 
+@media (max-width: 900px) {
+  .card {
+    height: 460px;
+  }
+}
+
 @media (max-width: 768px) {
   .card {
     height: 600px;
     width: 100%;
+  }
+}
+
+@media (max-width: 630px) {
+  .card {
+    height: 550px;
+  }
+}
+
+@media (max-width: 500px) {
+  .card {
+    height: 480px;
   }
 }

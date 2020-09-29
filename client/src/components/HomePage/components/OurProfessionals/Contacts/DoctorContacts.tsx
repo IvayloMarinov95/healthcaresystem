@@ -9,16 +9,16 @@ interface Props {
 }
 
 const DoctorContacts: React.FC<Props> = ({ phone, email }) => (
-  <div>
+  <>
     <div className={styles.phoneContainer}>
       <FaMobileAlt className={styles.icon} />
-      <h6 className={styles.phone}>{phone}</h6>
+      <span className={styles.phone}>{phone}</span>
     </div>
     <div className={styles.phoneContainer}>
       <FiMail className={styles.icon} />
-      <h6 className={styles.phone}>{email}</h6>
+      <span className={styles.phone}>{email}</span>
     </div>
-  </div>
+  </>
 );
 
 export default DoctorContacts;

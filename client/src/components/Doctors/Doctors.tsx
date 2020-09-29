@@ -26,6 +26,7 @@ const Doctors: React.FC = () => {
       <div className={styles.doctors}>
         <Title tinyHeader="Professionals" header="Doctors" />
         <div className={styles.cards}>
+          <div className={styles.column}>
           <KitchenSink
             image={julia}
             title="Dr. Julia Jameson"
@@ -50,6 +51,7 @@ const Doctors: React.FC = () => {
               />
             }
           />
+          </div>
           <KitchenSink
             image={amy}
             title="Dr. Amy Adams"

@@ -48,3 +48,10 @@
 .sectionContainer {
   margin-top: 30px;
 }
+
+@media (max-width: 768px) {
+  .container {
+    margin-top: 20px;
+    width: 100%;
+  }
+}

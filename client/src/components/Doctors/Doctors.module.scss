@@ -12,3 +12,55 @@
   display: flex;
   justify-content: space-between;
 }
+
+.column {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+@media (max-width: 1950px) {
+  .container {
+    padding: 0 16% 0 16%;
+  }
+}
+
+@media (max-width: 1770px) {
+  .container {
+    padding: 0 14% 0 14%;
+  }
+}
+
+@media (max-width: 1670px) {
+  .container {
+    padding: 0 12% 0 12%;
+  }
+}
+
+@media (max-width: 1480px) {
+  .container {
+    padding: 0 5% 0 5%;
+  }
+}
+
+@media (max-width: 1480px) {
+  .container {
+    padding: 0 5% 0 5%;
+  }
+}
+
+@media (max-width: 1280px) {
+  .column {
+    flex-direction: column;
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 50px 0 50px;
+  }
+  .cards {
+    display: block;
+  }
+}
