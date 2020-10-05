@@ -5,8 +5,12 @@
 .img {
   width: 280px;
   height: 250px;
-  padding: 20px 0 20px 20px;
+  padding: 20px 20px 20px 20px;
   margin-right: 50px;
+}
+
+.contactsContainer {
+  width: 95%;
 }
 
 .content {
@@ -14,8 +18,8 @@
 }
 
 .contacts {
-  padding: 30px 10px 10px 0;
-  width: 800px;
+  padding: 30px 0 10px 0;
+  width: 95%;
   display: flex;
   justify-content: space-between;
   border-bottom: 1px solid #c7c7c7;
@@ -24,5 +28,49 @@
 
 .description {
   margin-top: 20px;
-  width: 800px;
+  width: 95%;
+}
+
+@media (max-width: 1200px) {
+  .img {
+    width: 350px;
+    height: 350px;
+  }
+}
+
+@media (max-width: 880px) {
+  .content {
+    flex-direction: column;
+  }
+
+  .contactsContainer,
+  .contacts,
+  .description {
+    width: 100%;
+    padding: 0 20px 20px 20px;
+  }
+
+  .img {
+    width: 100%;
+  }
+}
+
+@media (max-width: 550px) {
+  .contacts {
+    flex-direction: column;
+    padding: 0;
+  }
+
+  .description,
+  .contactsContainer {
+    padding: 0 10px 10px 10px;
+  }
+
+  .profession {
+    margin-bottom: 20px;
+  }
+
+  .img {
+    padding: 0 0 10px 0;
+  }
 }

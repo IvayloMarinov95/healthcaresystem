@@ -9,7 +9,7 @@ interface Props {
 }
 
 const DoctorContacts: React.FC<Props> = ({ phone, email }) => (
-  <>
+  <div>
     <div className={styles.phoneContainer}>
       <FaMobileAlt className={styles.icon} />
       <span className={styles.phone}>{phone}</span>
@@ -18,7 +18,7 @@ const DoctorContacts: React.FC<Props> = ({ phone, email }) => (
       <FiMail className={styles.icon} />
       <span className={styles.phone}>{email}</span>
     </div>
-  </>
+  </div>
 );
 
 export default DoctorContacts;
