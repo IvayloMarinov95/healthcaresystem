@@ -40,19 +40,45 @@
   box-shadow: 0 4px 6px -6px #222;
 }
 
+.active {
+  text-decoration: none !important;
+  opacity: 1 !important;
+  color: white !important;
+}
+
 .navTab {
+  position: relative;
   cursor: pointer;
   padding: 6px 8px;
   text-decoration: none;
   color: white;
   width: 50px;
   height: 30px;
+  opacity: 0.6;
+  margin-right: 5px;
 
-  &:hover {
-    cursor: pointer;
-    text-decoration: none;
-    color: black;
+  &:hover:not(.active) {
     opacity: 1;
+    color: white;
+    text-decoration: none;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background-color: #fff;
+    visibility: hidden;
+    transform: scaleX(0);
+    transition: all 0.4s ease-in-out;
+  }
+
+  &:hover:before {
+    visibility: visible;
+    transform: scaleX(1);
   }
 }
 
