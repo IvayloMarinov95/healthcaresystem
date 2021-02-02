@@ -23,31 +23,21 @@ const MobileNavigation = () => {
       </div>
       {isOpen && (
         <div className={styles.mobileTabsContainer}>
-          <div>
-            <Link to="/" className={styles.mobileTabs}>
-              Home
-            </Link>
-          </div>
-          <div>
-            <Link to="/departments" className={styles.mobileTabs}>
-              Departments
-            </Link>
-          </div>
-          <div>
-            <Link to="/doctors" className={styles.mobileTabs}>
-              Doctors
-            </Link>
-          </div>
-          <div>
-            <Link to="/about" className={styles.mobileTabs}>
-              About
-            </Link>
-          </div>
-          <div>
-            <Button variant="dark" size="lg">
-              Sign in
-            </Button>
-          </div>
+          <Link to="/" className={styles.mobileTabs}>
+            Home
+          </Link>
+          <Link to="/departments" className={styles.mobileTabs}>
+            Departments
+          </Link>
+          <Link to="/doctors" className={styles.mobileTabs}>
+            Doctors
+          </Link>
+          <Link to="/about" className={styles.mobileTabs}>
+            About
+          </Link>
+          <Button variant="dark" size="lg">
+            Sign in
+          </Button>
         </div>
       )}
     </>

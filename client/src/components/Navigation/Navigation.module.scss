@@ -82,17 +82,9 @@
   }
 }
 
-@media (max-width: 768px) {
-  .container {
-    div {
-      height: 300px;
-    }
-  }
-
-  .containerScroll {
-    position: sticky;
-    top: 0;
-  }
+.containerScroll {
+  position: sticky;
+  top: 0;
 }
 
 .mobileTabsContainer {
@@ -104,4 +96,19 @@
 .mobileTabs {
   color: white;
   text-decoration: none;
+  display: block;
+
+  &:hover {
+    box-shadow: 0 0 5px #ccc;
+    color: white;
+    text-decoration: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    div {
+      height: 300px;
+    }
+  }
 }
