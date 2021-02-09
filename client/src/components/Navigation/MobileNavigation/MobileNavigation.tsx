@@ -23,7 +23,7 @@ const MobileNavigation = () => {
   }, []);
 
   return (
-    <>
+    <div ref={ref}>
       <div className={styles.containerScroll}>
         <Link to="/" className={styles.logoContainer}>
           <img src={medicalClinic} alt="" className={styles.medicalClinic} />
@@ -36,7 +36,7 @@ const MobileNavigation = () => {
         />
       </div>
       {isOpen && (
-        <div className={styles.mobileTabsContainer} ref={ref}>
+        <div className={styles.mobileTabsContainer}>
           <Link to="/" className={styles.mobileTabs}>
             Home
           </Link>
@@ -54,7 +54,7 @@ const MobileNavigation = () => {
           </Button>
         </div>
       )}
-    </>
+    </div>
   );
 };
 
