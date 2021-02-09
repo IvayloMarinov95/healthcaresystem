@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import medicalClinic from "../../../assets/medicalClinicLogo.png";
 import styles from "../Navigation.module.scss";
@@ -7,6 +7,20 @@ import { Button } from "react-bootstrap";
 
 const MobileNavigation = () => {
   const [isOpen, setOpen] = useState<boolean>(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  const handleClickOutside = (event: MouseEvent) => {
+    if (ref.current && !ref.current.contains(event.target as Node)) {
+      setOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("click", handleClickOutside, true);
+    return () => {
+      document.removeEventListener("click", handleClickOutside, true);
+    };
+  }, []);
 
   return (
     <>
@@ -22,7 +36,7 @@ const MobileNavigation = () => {
         />
       </div>
       {isOpen && (
-        <div className={styles.mobileTabsContainer}>
+        <div className={styles.mobileTabsContainer} ref={ref}>
           <Link to="/" className={styles.mobileTabs}>
             Home
           </Link>
@@ -35,7 +49,7 @@ const MobileNavigation = () => {
           <Link to="/about" className={styles.mobileTabs}>
             About
           </Link>
-          <Button variant="dark" size="lg">
+          <Button variant="dark" size="lg" className={styles.mobileBtn}>
             Sign in
           </Button>
         </div>

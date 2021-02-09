@@ -35,7 +35,7 @@
   align-items: center;
   position: fixed;
   width: 100%;
-  background: $dark-blue;
+  background: $navigation-blue;
   z-index: 100;
   box-shadow: 0 4px 6px -6px #222;
 }
@@ -87,10 +87,17 @@
   top: 0;
 }
 
+.mobileBtn {
+  width: 100%;
+}
+
 .mobileTabsContainer {
+  position: fixed;
   text-align: center;
   font-size: 40px;
-  background-color: $dark-blue;
+  background-color: $navigation-blue;
+  width: 100%;
+  z-index: 2;
 }
 
 .mobileTabs {
@@ -99,9 +106,10 @@
   display: block;
 
   &:hover {
-    box-shadow: 0 0 5px #ccc;
+    box-shadow: 0 0 5px black;
     color: white;
     text-decoration: none;
+    border: 1px solid black;
   }
 }
 
