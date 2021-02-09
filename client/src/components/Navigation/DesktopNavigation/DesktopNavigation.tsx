@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
-import { Button } from "react-bootstrap";
+import { Button, Modal } from "react-bootstrap";
 import Carousel from "../Carousel/Slider";
 import { Link } from "react-router-dom";
 import medicalClinic from "../../../assets/medicalClinicLogo.png";
+import SignIn from "../SignIn/SignIn";
 import styles from "../Navigation.module.scss";
 import classNames from "classnames";
 
 const DesktopNavigation: React.FC = () => {
   const [scrolled, setScrolled] = useState<boolean>(false);
   const [resized, setResize] = useState<boolean>(false);
+  const [openModal, setOpenModal] = useState<boolean>(false);
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
   const location = useLocation();
 
   useEffect(() => {
@@ -40,6 +44,14 @@ const DesktopNavigation: React.FC = () => {
       window.removeEventListener("resize", handleMobile);
     };
   });
+
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+  };
+
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
+  };
 
   return (
     <>
@@ -92,11 +104,38 @@ const DesktopNavigation: React.FC = () => {
           >
             About
           </Link>
-          <Button variant="dark">Sign in</Button>
+          <Button variant="dark" onClick={() => setOpenModal(true)}>
+            Sign in
+          </Button>
         </div>
       </div>
-
       <Carousel />
+      <Modal
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+        show={openModal}
+        onHide={() => setOpenModal(false)}
+        onEscapeKeyDown={() => setOpenModal(false)}
+        backdrop="static"
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">Sign in</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <SignIn
+            email={email}
+            password={password}
+            handleEmailChange={handleEmailChange}
+            handlePasswordChange={handlePasswordChange}
+          />
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={() => console.log()}>Sign in</Button>
+          <Button variant="danger" onClick={() => setOpenModal(false)}>
+            Cancel
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 };
