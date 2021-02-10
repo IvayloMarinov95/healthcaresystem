@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
-import { Button, Modal } from "react-bootstrap";
+import { Button, ButtonGroup, Modal } from "react-bootstrap";
 import Carousel from "../Carousel/Slider";
 import { Link } from "react-router-dom";
 import medicalClinic from "../../../assets/medicalClinicLogo.png";
 import SignIn from "../SignIn/SignIn";
+import SignUp from "../SignUp/SignUp";
 import styles from "../Navigation.module.scss";
 import classNames from "classnames";
 
@@ -13,6 +14,8 @@ const DesktopNavigation: React.FC = () => {
   const [scrolled, setScrolled] = useState<boolean>(false);
   const [resized, setResize] = useState<boolean>(false);
   const [openModal, setOpenModal] = useState<boolean>(false);
+  const [toggle, setToggle] = useState<string>("");
+  const [username, setUsername] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const location = useLocation();
@@ -45,12 +48,28 @@ const DesktopNavigation: React.FC = () => {
     };
   });
 
+  const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUsername(e.target.value);
+  };
+
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
+  };
+
+  const handleClick = (toggle: string) => {
+    setOpenModal(true);
+    setToggle(toggle);
+  };
+
+  const handleModalContentChange = (toggle: string) => {
+    setEmail("");
+    setPassword("");
+    setUsername("");
+    setToggle(toggle);
   };
 
   return (
@@ -104,9 +123,14 @@ const DesktopNavigation: React.FC = () => {
           >
             About
           </Link>
-          <Button variant="dark" onClick={() => setOpenModal(true)}>
-            Sign in
-          </Button>
+          <ButtonGroup>
+            <Button variant="secondary" onClick={() => handleClick("signIn")}>
+              Sign In
+            </Button>
+            <Button variant="dark" onClick={() => handleClick("signUp")}>
+              Sign Up
+            </Button>
+          </ButtonGroup>
         </div>
       </div>
       <Carousel />
@@ -119,18 +143,40 @@ const DesktopNavigation: React.FC = () => {
         backdrop="static"
       >
         <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">Sign in</Modal.Title>
+          <Modal.Title id="contained-modal-title-vcenter">
+            {toggle === "signIn" ? "Sign In" : "Sign Up"}
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <SignIn
-            email={email}
-            password={password}
-            handleEmailChange={handleEmailChange}
-            handlePasswordChange={handlePasswordChange}
-          />
+          {toggle === "signIn" && (
+            <SignIn
+              email={email}
+              password={password}
+              handleModalContentChange={() =>
+                handleModalContentChange("signUp")
+              }
+              handleEmailChange={handleEmailChange}
+              handlePasswordChange={handlePasswordChange}
+            />
+          )}
+          {toggle === "signUp" && (
+            <SignUp
+              username={username}
+              email={email}
+              password={password}
+              handleModalContentChange={() =>
+                handleModalContentChange("signIn")
+              }
+              handleUsernameChange={handleUsernameChange}
+              handleEmailChange={handleEmailChange}
+              handlePasswordChange={handlePasswordChange}
+            />
+          )}
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={() => console.log()}>Sign in</Button>
+          <Button onClick={() => console.log()}>
+            {toggle === "signIn" ? "Sign In" : "Sign Up"}
+          </Button>
           <Button variant="danger" onClick={() => setOpenModal(false)}>
             Cancel
           </Button>

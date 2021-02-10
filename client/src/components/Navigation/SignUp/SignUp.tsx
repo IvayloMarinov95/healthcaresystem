@@ -3,21 +3,34 @@ import { Button, Form } from "react-bootstrap";
 import styles from "../Navigation.module.scss";
 
 interface Props {
+  username: string;
   email: string;
   password: string;
   handleModalContentChange: () => void;
+  handleUsernameChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleEmailChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handlePasswordChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const SignIn: React.FC<Props> = ({
+const SignUp: React.FC<Props> = ({
+  username,
   email,
   password,
   handleModalContentChange,
   handleEmailChange,
   handlePasswordChange,
+  handleUsernameChange,
 }) => (
   <>
+    <Form.Group controlId="email">
+      <Form.Label>Username</Form.Label>
+      <Form.Control
+        type="text"
+        placeholder="Enter username"
+        value={username}
+        onChange={handleUsernameChange}
+      />
+    </Form.Group>
     <Form.Group controlId="email">
       <Form.Label>Email</Form.Label>
       <Form.Control
@@ -37,18 +50,18 @@ const SignIn: React.FC<Props> = ({
       />
     </Form.Group>
     <div className={styles.signUp}>
-      <label>If you don't have a registration</label>
+      <label>You already have a registration?</label>
       <div>
         <Button
           variant="dark"
           size="sm"
           onClick={() => handleModalContentChange()}
         >
-          Sign Up
+          Sign In
         </Button>
       </div>
     </div>
   </>
 );
 
-export default SignIn;
+export default SignUp;
