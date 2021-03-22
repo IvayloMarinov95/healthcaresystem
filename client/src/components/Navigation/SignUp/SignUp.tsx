@@ -43,7 +43,7 @@ const SignUp: React.FC<Props> = ({
     <Form.Group controlId="password">
       <Form.Label>Password</Form.Label>
       <Form.Control
-        type="passwaord"
+        type="password"
         placeholder="Password"
         value={password}
         onChange={handlePasswordChange}

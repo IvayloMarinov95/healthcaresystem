@@ -3,9 +3,8 @@ import { Link } from "react-router-dom";
 import medicalClinic from "../../../assets/medicalClinicLogo.png";
 import styles from "../Navigation.module.scss";
 import Hamburger from "hamburger-react";
-import { Button, Modal } from "react-bootstrap";
-import SignIn from "../SignIn/SignIn";
-import SignUp from "../SignUp/SignUp";
+import { Button } from "react-bootstrap";
+import AuthenticationModal from "../AuthenticationModal/AuthenticationModal";
 
 const MobileNavigation = () => {
   const [isOpen, setOpen] = useState<boolean>(false);
@@ -27,7 +26,7 @@ const MobileNavigation = () => {
     return () => {
       document.removeEventListener("click", handleClickOutside, true);
     };
-  }, []);
+  });
 
   const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUsername(e.target.value);
@@ -51,6 +50,10 @@ const MobileNavigation = () => {
     setPassword("");
     setUsername("");
     setToggle(toggle);
+  };
+
+  const handleHide = () => {
+    setOpenModal(false);
   };
 
   return (
@@ -96,54 +99,18 @@ const MobileNavigation = () => {
           </Button>
         </div>
       )}
-      <Modal
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-        show={openModal}
-        onHide={() => setOpenModal(false)}
-        onEscapeKeyDown={() => setOpenModal(false)}
-        backdrop="static"
-      >
-        <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">
-            {toggle === "signIn" ? "Sign In" : "Sign Up"}
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          {toggle === "signIn" && (
-            <SignIn
-              email={email}
-              password={password}
-              handleModalContentChange={() =>
-                handleModalContentChange("signUp")
-              }
-              handleEmailChange={handleEmailChange}
-              handlePasswordChange={handlePasswordChange}
-            />
-          )}
-          {toggle === "signUp" && (
-            <SignUp
-              username={username}
-              email={email}
-              password={password}
-              handleModalContentChange={() =>
-                handleModalContentChange("signIn")
-              }
-              handleUsernameChange={handleUsernameChange}
-              handleEmailChange={handleEmailChange}
-              handlePasswordChange={handlePasswordChange}
-            />
-          )}
-        </Modal.Body>
-        <Modal.Footer>
-          <Button onClick={() => console.log()}>
-            {toggle === "signIn" ? "Sign In" : "Sign Up"}
-          </Button>
-          <Button variant="danger" onClick={() => setOpenModal(false)}>
-            Cancel
-          </Button>
-        </Modal.Footer>
-      </Modal>
+      <AuthenticationModal
+        openModal={openModal}
+        handleHide={handleHide}
+        toggle={toggle}
+        username={username}
+        email={email}
+        password={password}
+        handleUsernameChange={handleUsernameChange}
+        handleEmailChange={handleEmailChange}
+        handlePasswordChange={handlePasswordChange}
+        handleModalContentChange={handleModalContentChange}
+      />
     </div>
   );
 };
