@@ -14,7 +14,7 @@ import React from "react";
 const App = () => {
   const location = useLocation();
   return (
-    <div>
+    <div className={location.pathname === "/healthFund" ? "body" : ""}>
       {location.pathname !== "/healthFund" && <Navigation />}
       <Switch>
         <Route exact path="/" component={HomePage} />
