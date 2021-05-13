@@ -10,6 +10,7 @@ import HealthFund from "./components/HealthFund/HealthFund";
 import HomePage from "./components/HomePage/components/HomePage";
 import Navigation from "./components/Navigation/Navigation";
 import React from "react";
+import Patients from "./components/Patients/Patients";
 
 const App = () => {
   const location = useLocation();
@@ -21,6 +22,7 @@ const App = () => {
         <Route path="/about" component={About} />
         <Route path="/departments" component={Departments} />
         <Route path="/doctors" component={Doctors} />
+        <Route path="/patients" component={Patients} />
         <Route path="/healthFund" component={HealthFund} />
       </Switch>
       {location.pathname !== "/healthFund" && <Footer />}

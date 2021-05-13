@@ -22,7 +22,7 @@ const SignUp: React.FC<Props> = ({
   handleUsernameChange,
 }) => (
   <>
-    <Form.Group controlId="email">
+    <Form.Group controlId="username">
       <Form.Label>Username</Form.Label>
       <Form.Control
         type="text"

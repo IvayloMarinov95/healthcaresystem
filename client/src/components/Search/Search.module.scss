@@ -1,0 +1,15 @@
+.search {
+  display: flex;
+  margin: 10px auto;
+  width: 50%;
+}
+
+.btn {
+  margin-left: -5%;
+}
+
+@media (max-width: 768px) {
+  .search {
+    width: 70%;
+  }
+}

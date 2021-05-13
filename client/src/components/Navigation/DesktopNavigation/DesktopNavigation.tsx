@@ -47,6 +47,14 @@ const DesktopNavigation: React.FC = () => {
     };
   });
 
+  useEffect(() => {
+    return () => {
+      setEmail("");
+      setPassword("");
+      setUsername("");
+    };
+  }, [openModal]);
+
   const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUsername(e.target.value);
   };
@@ -115,6 +123,16 @@ const DesktopNavigation: React.FC = () => {
             }
           >
             Doctors
+          </Link>
+          <Link
+            to="/patients"
+            className={
+              location.pathname === "/patients"
+                ? classNames(styles.navTab, styles.active)
+                : styles.navTab
+            }
+          >
+            Patients
           </Link>
           <Link
             to="/about"

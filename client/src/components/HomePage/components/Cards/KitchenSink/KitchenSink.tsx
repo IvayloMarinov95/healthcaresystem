@@ -9,10 +9,18 @@ interface Props {
   text: string;
   item1: string;
   item2: string | React.ReactNode;
+  handleClick?: (e: React.MouseEvent<HTMLElement>) => void;
 }
 
-const KitchenSink: React.FC<Props> = ({ image, title, text, item1, item2 }) => (
-  <Card className={styles.card}>
+const KitchenSink: React.FC<Props> = ({
+  image,
+  title,
+  text,
+  item1,
+  item2,
+  handleClick,
+}) => (
+  <Card className={styles.card} onClick={handleClick}>
     <Card.Img variant="top" src={image} />
     <Card.Body className={styles.body}>
       <Card.Title className={styles.title}>{title}</Card.Title>

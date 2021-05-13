@@ -15,18 +15,26 @@ const MobileNavigation = () => {
   const [password, setPassword] = useState<string>("");
   const ref = useRef<HTMLDivElement>(null);
 
-  const handleClickOutside = (event: MouseEvent) => {
-    if (ref.current && !ref.current.contains(event.target as Node)) {
-      setOpen(false);
-    }
-  };
-
   useEffect(() => {
     document.addEventListener("click", handleClickOutside, true);
     return () => {
       document.removeEventListener("click", handleClickOutside, true);
     };
   });
+
+  useEffect(() => {
+    return () => {
+      setEmail("");
+      setPassword("");
+      setUsername("");
+    };
+  }, [openModal]);
+
+  const handleClickOutside = (event: MouseEvent) => {
+    if (ref.current && !ref.current.contains(event.target as Node)) {
+      setOpen(false);
+    }
+  };
 
   const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUsername(e.target.value);
@@ -79,6 +87,9 @@ const MobileNavigation = () => {
           </Link>
           <Link to="/doctors" className={styles.mobileTabs}>
             Doctors
+          </Link>
+          <Link to="/patients" className={styles.mobileTabs}>
+            Patients
           </Link>
           <Link to="/about" className={styles.mobileTabs}>
             About
