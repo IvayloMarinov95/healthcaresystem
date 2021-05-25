@@ -25,6 +25,7 @@
   background: rgba(255, 255, 255, 0.1);
   z-index: 100;
   box-shadow: 0 4px 6px -6px #222;
+  transition: 0.7s ease;
 }
 
 .containerScroll {
@@ -38,6 +39,7 @@
   background: $navigation-blue;
   z-index: 100;
   box-shadow: 0 4px 6px -6px #222;
+  transition: 0.7s ease;
 }
 
 .active {
