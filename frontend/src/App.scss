@@ -1,5 +1,8 @@
 @import "~bootstrap/scss/bootstrap";
 
+html {
+  scroll-behavior: smooth;
+}
 .body {
   background: #f8f9fa;
 }

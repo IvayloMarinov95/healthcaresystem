@@ -84,11 +84,6 @@
   }
 }
 
-.containerScroll {
-  position: sticky;
-  top: 0;
-}
-
 .signUp {
   text-align: center;
 }
@@ -99,7 +94,7 @@
 }
 
 .mobileTabsContainer {
-  position: fixed;
+  position: absolute;
   text-align: center;
   font-size: 36px;
   background-color: $navigation-blue;
@@ -125,5 +120,9 @@
     div {
       height: 300px;
     }
+  }
+  .containerScroll {
+    position: sticky;
+    top: 0;
   }
 }
