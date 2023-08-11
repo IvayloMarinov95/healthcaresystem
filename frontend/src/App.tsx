@@ -9,21 +9,30 @@ import Footer from "./components/Footer/Footer";
 import HealthFund from "./components/HealthFund/HealthFund";
 import HomePage from "./components/HomePage/components/HomePage";
 import Navigation from "./components/Navigation/Navigation";
-import React from "react";
+import React, { useEffect } from "react";
 import Patients from "./components/Patients/Patients";
 
 const App = () => {
   const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
+  }, [location.pathname]);
+
   return (
     <div className={location.pathname === "/healthFund" ? "body" : ""}>
       {location.pathname !== "/healthFund" && <Navigation />}
       <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route path="/about" component={About} />
-        <Route path="/departments" component={Departments} />
-        <Route path="/doctors" component={Doctors} />
-        <Route path="/patients" component={Patients} />
-        <Route path="/healthFund" component={HealthFund} />
+        <Route exact path='/' component={HomePage} />
+        <Route path='/about' component={About} />
+        <Route path='/departments' component={Departments} />
+        <Route path='/doctors' component={Doctors} />
+        <Route path='/patients' component={Patients} />
+        <Route path='/healthFund' component={HealthFund} />
       </Switch>
       {location.pathname !== "/healthFund" && <Footer />}
     </div>
