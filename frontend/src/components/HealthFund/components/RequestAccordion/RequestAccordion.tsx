@@ -24,7 +24,7 @@ const RequestAccordion = () => {
           <Card.Body className={styles.collapse}>
             <div>Hello! I'm the body</div>
             <div>
-              <Button variant="primary">
+              <Button variant="success">
                 <FaCheck />
               </Button>{" "}
               <Button variant="danger">

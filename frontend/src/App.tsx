@@ -24,17 +24,17 @@ const App = () => {
   }, [location.pathname]);
 
   return (
-    <div className={location.pathname === "/healthFund" ? "body" : ""}>
-      {location.pathname !== "/healthFund" && <Navigation />}
+    <div className={location.pathname === "/healthfund" ? "body" : ""}>
+      {location.pathname !== "/healthfund" && <Navigation />}
       <Switch>
         <Route exact path='/' component={HomePage} />
         <Route path='/about' component={About} />
         <Route path='/departments' component={Departments} />
         <Route path='/doctors' component={Doctors} />
         <Route path='/patients' component={Patients} />
-        <Route path='/healthFund' component={HealthFund} />
+        <Route path='/healthfund' component={HealthFund} />
       </Switch>
-      {location.pathname !== "/healthFund" && <Footer />}
+      {location.pathname !== "/healthfund" && <Footer />}
     </div>
   );
 };

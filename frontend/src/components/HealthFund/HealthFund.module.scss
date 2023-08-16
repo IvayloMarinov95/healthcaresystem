@@ -2,9 +2,37 @@
   padding: 0 !important;
 }
 
+.container {
+  background-image: url('../../assets/healthFundBackground2.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+a {
+  color: #1da39b;
+
+  &:active {
+    background: #1da39b !important;
+    color: #fff;
+  }
+}
+
+.navItem {
+  background: #1da39b !important;
+  color: #fff;
+}
+
 .nav,
 .row {
   margin: 0 !important;
+}
+
+.navTab {
+  &:hover {
+    background: #b8d6d4;
+    color: #fff;
+  }
 }
 
 .cardHeader {
@@ -27,10 +55,15 @@
 .rightSide {
   margin-top: 10px;
   height: 98vh;
+  background: transparent;
 }
 
 .accordions {
   margin-bottom: 10px;
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .collapse {

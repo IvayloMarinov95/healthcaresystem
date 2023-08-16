@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { useState } from "react";
 import { Col, Nav, Row, Tab, Card } from "react-bootstrap";
 import RequestAccordion from "../RequestAccordion/RequestAccordion";
 import styles from "../../HealthFund.module.scss";
@@ -22,10 +22,13 @@ const TabLayout = () => {
                 className={classNames("flex-column", styles.nav)}
               >
                 <Nav.Item>
-                  <Nav.Link eventKey="1">Tab 1</Nav.Link>
+                  <Nav.Link eventKey="1" className={styles.navTab}>Заявления</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                  <Nav.Link eventKey="2">Tab 2</Nav.Link>
+                  <Nav.Link eventKey="2" className={styles.navTab}>Доктори</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link eventKey="3" className={styles.navTab}>Пациенти</Nav.Link>
                 </Nav.Item>
               </Nav>
             </Card.Body>
