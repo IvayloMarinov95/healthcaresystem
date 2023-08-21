@@ -3,24 +3,14 @@
 }
 
 .container {
-  background-image: url('../../assets/healthFundBackground2.jpg');
+  background-image: url('../../assets/healthFundBackground.jpg');
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
 }
 
 a {
-  color: #1da39b;
-
-  &:active {
-    background: #1da39b !important;
-    color: #fff;
-  }
-}
-
-.navItem {
-  background: #1da39b !important;
-  color: #fff;
+  color: #007bff;
 }
 
 .nav,
@@ -30,7 +20,7 @@ a {
 
 .navTab {
   &:hover {
-    background: #b8d6d4;
+    background: #78acfa;
     color: #fff;
   }
 }
@@ -38,6 +28,9 @@ a {
 .cardHeader {
   display: flex;
   align-items: center;
+  background: #1786fc;
+  color: #fff;
+  font-weight: bold;
 
   > div {
     margin-right: 10px;
@@ -59,8 +52,6 @@ a {
 }
 
 .accordions {
-  margin-bottom: 10px;
-
   &:hover {
     cursor: pointer;
   }

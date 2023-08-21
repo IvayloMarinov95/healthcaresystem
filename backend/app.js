@@ -6,11 +6,15 @@ require("dotenv").config();
 const { json } = require("body-parser");
 const mongoose = require("mongoose");
 
+const usersRoutes = require("./routes/users-routes");
+
 const HttpError = require("./models/http-error");
 
 const app = express();
 
 app.use(json());
+
+app.use("/api/users", usersRoutes);
 
 app.use("/uploads/images", express.static(path.join("uploads", "images")));
 app.use(
