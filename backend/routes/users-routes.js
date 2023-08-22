@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const { check } = require("express-validator");
 
-const usersController = require("../controllers/users-controllers");
+const usersController = require("../controllers/users-controller");
 
 const router = Router();
 
@@ -18,5 +18,7 @@ router.post(
 );
 
 router.post("/login", usersController.login);
+
+router.delete("/deleteUser/:uid", usersController.deleteUser);
 
 module.exports = router;
