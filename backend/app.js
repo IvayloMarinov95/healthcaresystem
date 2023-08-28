@@ -15,15 +15,6 @@ const app = express();
 
 app.use(json());
 
-app.use("/api/users", usersRoutes);
-app.use("/api/roles", rolesRoutes);
-
-app.use("/uploads/images", express.static(path.join("uploads", "images")));
-app.use(
-  "/uploads/documents",
-  express.static(path.join("uploads", "documents"))
-);
-
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
@@ -40,6 +31,15 @@ app.use((req, res, next) => {
   throw error;
 });
 
+app.use("/api/users", usersRoutes);
+app.use("/api/roles", rolesRoutes);
+
+app.use("/uploads/images", express.static(path.join("uploads", "images")));
+app.use(
+  "/uploads/documents",
+  express.static(path.join("uploads", "documents"))
+);
+
 app.use((error, req, res, next) => {
   if (req.file) {
     fs.unlink(req.file.path, (err) => {
@@ -55,7 +55,7 @@ app.use((error, req, res, next) => {
 
 mongoose
   .connect(
-    `mongodb+srv://${process.env.DATABASE_USERNAME}:${process.env.DATABASE_PASSWORD}@learningcluster.ri80o.mongodb.net/healthcaresystem?retryWrites=true&w=majority`
+    `mongodb+srv://${process.env.DATABASE_USERNAME}:${process.env.DATABASE_PASSWORD}@cluster0.atgne4o.mongodb.net/healthcaresystem?retryWrites=true&w=majority`
   )
   .then(() => {
     app.listen(5000);

@@ -1,7 +1,7 @@
 import "./App.scss";
-
 import { Route, Switch, useLocation } from "react-router-dom";
 
+import { useAppDispatch } from './app/hooks';
 import About from "./components/About/About";
 import Departments from "./components/Departments/Departments";
 import Doctors from "./components/Doctors/Doctors";
@@ -11,9 +11,12 @@ import HomePage from "./components/HomePage/components/HomePage";
 import Navigation from "./components/Navigation/Navigation";
 import React, { useEffect } from "react";
 import Patients from "./components/Patients/Patients";
+import axios from 'axios';
+import { setRoles } from './features/roles/roles-slice';
 
 const App = () => {
   const location = useLocation();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     window.scrollTo({
@@ -22,6 +25,16 @@ const App = () => {
       behavior: "smooth",
     });
   }, [location.pathname]);
+
+  useEffect(() => {
+    axios.get('http://localhost:5000/api/roles')
+      .then(response => {
+        if (response?.data?.roles) {
+          dispatch(setRoles(response.data.roles));
+        }
+      })
+      .catch(error => console.log('error: ', error))
+  }, [])
 
   return (
     <div className={location.pathname === "/healthfund" ? "body" : ""}>
