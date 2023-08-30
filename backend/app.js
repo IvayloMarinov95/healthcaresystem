@@ -55,7 +55,8 @@ app.use((error, req, res, next) => {
 
 mongoose
   .connect(
-    `mongodb+srv://${process.env.DATABASE_USERNAME}:${process.env.DATABASE_PASSWORD}@cluster0.atgne4o.mongodb.net/healthcaresystem?retryWrites=true&w=majority`
+    `mongodb+srv://${process.env.DATABASE_USERNAME}:${process.env.DATABASE_PASSWORD}@cluster0.atgne4o.mongodb.net/healthcaresystem?retryWrites=true&w=majority`,
+    { useUnifiedTopology: true, useNewUrlParser: true, useFindAndModify: false, useCreateIndex: true }
   )
   .then(() => {
     app.listen(5000);

@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 const uuid = require("uuid/v4");
 const { validationResult } = require("express-validator");
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 const HttpError = require("../models/http-error");
 const User = require("../models/users");
@@ -47,11 +49,19 @@ const signup = async (req, res, next) => {
     return next(error);
   }
 
+  let hashedPassword;
+  try {
+    hashedPassword = await bcrypt.hash(password, 12);
+  } catch (err) {
+    const error = new HttpError('Could not create user, please try again later.', 500);
+    return next(error);
+  }
+
   const createdUser = new User({
     id: uuid(),
     name,
     email,
-    password,
+    password: hashedPassword,
     role,
   });
 
@@ -87,22 +97,62 @@ const signup = async (req, res, next) => {
     return next(error);
   }
 
-  res.status(201).json({ user: createdUser.toObject({ getters: true }) });
-};
-
-const login = (req, res, next) => {
-  const { email, password } = req.body;
-
-  const identifiedUser = null;
-  if (!identifiedUser || identifiedUser.password !== password) {
-    throw new HttpError(
-      "Could not identify user, credetials seem to be wrong.",
-      401
-    );
+  let token;
+  try {
+    token = await jwt.sign({ userId: createdUser.id, email: createdUser.email }, 'private_key', { expiresIn: '1h' });
+  } catch (err) {
+    const error = new HttpError("Signing up failed, please try again later.", 500);
+    return next(error);
   }
 
-  console.log(identifiedUser);
-  res.json({ message: "Logged in!" });
+  res.status(201).json({ userId: createdUser.id, email: createdUser.email, token: token });
+};
+
+const login = async (req, res, next) => {
+  const { email, password } = req.body;
+
+  let existingUser;
+
+  try {
+    existingUser = await User.findOne({ email: email });
+  } catch (err) {
+    const error = new HttpError('Logging in failed, please try again later.', 401);
+    return next(error);
+  }
+
+  if (!existingUser) {
+    const error = new HttpError(
+      "Invalid credentials, could not log you in.",
+      401
+    );
+    return next(error);
+  }
+
+  let isValidPassword = false;
+  try {
+    isValidPassword = await bcrypt.compare(password, existingUser.password);
+  } catch (err) {
+    const error = new HttpError('Could bot log you in, please your credetials and try again', 500);
+    return next(error);
+  }
+
+  if (!isValidPassword) {
+    const error = new HttpError(
+      "Invalid credentials, could not log you in.",
+      401
+    );
+    return next(error);
+  }
+
+  let token;
+  try {
+    token = await jwt.sign({ userId: createdUser.id, email: createdUser.email }, 'private_key', { expiresIn: '1h' });
+  } catch (err) {
+    const error = new HttpError("Logging in failed, please try again later.", 500);
+    return next(error);
+  }
+
+  res.json({ userId: existingUser.id, email: existingUser.email, token: token });
 };
 
 const deleteUser = async (req, res, next) => {
