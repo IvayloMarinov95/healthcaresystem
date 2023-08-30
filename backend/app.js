@@ -26,13 +26,14 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use("/api/users", usersRoutes);
+app.use("/api/roles", rolesRoutes);
+
 app.use((req, res, next) => {
   const error = new HttpError("Could not find this route.", 404);
   throw error;
 });
 
-app.use("/api/users", usersRoutes);
-app.use("/api/roles", rolesRoutes);
 
 app.use("/uploads/images", express.static(path.join("uploads", "images")));
 app.use(
@@ -56,7 +57,11 @@ app.use((error, req, res, next) => {
 mongoose
   .connect(
     `mongodb+srv://${process.env.DATABASE_USERNAME}:${process.env.DATABASE_PASSWORD}@cluster0.atgne4o.mongodb.net/healthcaresystem?retryWrites=true&w=majority`,
-    { useUnifiedTopology: true, useNewUrlParser: true, useFindAndModify: false, useCreateIndex: true }
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useCreateIndex: true
+    }
   )
   .then(() => {
     app.listen(5000);
