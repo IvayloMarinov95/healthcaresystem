@@ -1,32 +1,36 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
-import medicalClinic from "../../../assets/medicalClinicLogo.png";
-import styles from "../Navigation.module.scss";
-import Hamburger from "hamburger-react";
-import { Button } from "react-bootstrap";
-import AuthenticationModal from "../AuthenticationModal/AuthenticationModal";
+import React, { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
+import medicalClinic from '../../../assets/medicalClinicLogo.png';
+import styles from '../Navigation.module.scss';
+import Hamburger from 'hamburger-react';
+import { Button } from 'react-bootstrap';
+import AuthenticationModal from '../AuthenticationModal/AuthenticationModal';
+import { RootState } from '../../../app/store';
+import { useAppSelector } from '../../../app/hooks';
 
 const MobileNavigation = () => {
   const [isOpen, setOpen] = useState<boolean>(false);
   const [openModal, setOpenModal] = useState<boolean>(false);
-  const [toggle, setToggle] = useState<string>("");
-  const [username, setUsername] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const [toggle, setToggle] = useState<string>('');
+  const [username, setUsername] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
   const ref = useRef<HTMLDivElement>(null);
+  const user = useAppSelector((state: RootState) => state.user.value);
+  const userIsLoggedIn = user && Object.keys(user).length > 1 ? true : false;
 
   useEffect(() => {
-    document.addEventListener("click", handleClickOutside, true);
+    document.addEventListener('click', handleClickOutside, true);
     return () => {
-      document.removeEventListener("click", handleClickOutside, true);
+      document.removeEventListener('click', handleClickOutside, true);
     };
   });
 
   useEffect(() => {
     return () => {
-      setEmail("");
-      setPassword("");
-      setUsername("");
+      setEmail('');
+      setPassword('');
+      setUsername('');
     };
   }, [openModal]);
 
@@ -54,9 +58,9 @@ const MobileNavigation = () => {
   };
 
   const handleModalContentChange = (toggle: string) => {
-    setEmail("");
-    setPassword("");
-    setUsername("");
+    setEmail('');
+    setPassword('');
+    setUsername('');
     setToggle(toggle);
   };
 
@@ -94,20 +98,29 @@ const MobileNavigation = () => {
           <Link to="/about" className={styles.mobileTabs}>
             About
           </Link>
-          <Button
-            variant="secondary"
-            className={styles.mobileBtn}
-            onClick={() => handleClick("signIn")}
-          >
-            Sign In
-          </Button>
-          <Button
-            variant="dark"
-            className={styles.mobileBtn}
-            onClick={() => handleClick("signUp")}
-          >
-            Sign Up
-          </Button>
+          {!userIsLoggedIn && (
+            <>
+              <Button
+                variant="secondary"
+                className={styles.mobileBtn}
+                onClick={() => handleClick('signIn')}
+              >
+                Sign In
+              </Button>
+              <Button
+                variant="dark"
+                className={styles.mobileBtn}
+                onClick={() => handleClick('signUp')}
+              >
+                Sign Up
+              </Button>
+            </>
+          )}
+          {userIsLoggedIn && (
+            <Button variant="dark" className={styles.mobileBtn}>
+              Logout
+            </Button>
+          )}
         </div>
       )}
       <AuthenticationModal

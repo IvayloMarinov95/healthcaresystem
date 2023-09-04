@@ -1,23 +1,27 @@
-import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
-import { Button, ButtonGroup } from "react-bootstrap";
-import Carousel from "../Carousel/Slider";
-import { Link } from "react-router-dom";
-import medicalClinic from "../../../assets/medicalClinicLogo.png";
-import styles from "../Navigation.module.scss";
-import classNames from "classnames";
-import AuthenticationModal from "../AuthenticationModal/AuthenticationModal";
+import { Button, ButtonGroup } from 'react-bootstrap';
+import Carousel from '../Carousel/Slider';
+import { Link } from 'react-router-dom';
+import medicalClinic from '../../../assets/medicalClinicLogo.png';
+import styles from '../Navigation.module.scss';
+import classNames from 'classnames';
+import AuthenticationModal from '../AuthenticationModal/AuthenticationModal';
+import { RootState } from '../../../app/store';
+import { useAppSelector } from '../../../app/hooks';
 
 const DesktopNavigation: React.FC = () => {
   const [scrolled, setScrolled] = useState<boolean>(false);
   const [resized, setResize] = useState<boolean>(false);
   const [openModal, setOpenModal] = useState<boolean>(false);
-  const [toggle, setToggle] = useState<string>("");
-  const [username, setUsername] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const [toggle, setToggle] = useState<string>('');
+  const [username, setUsername] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
   const location = useLocation();
+  const user = useAppSelector((state: RootState) => state.user.value);
+  const userIsLoggedIn = user && Object.keys(user).length > 1 ? true : false;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -27,9 +31,9 @@ const DesktopNavigation: React.FC = () => {
         setScrolled(false);
       }
     };
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
@@ -41,17 +45,17 @@ const DesktopNavigation: React.FC = () => {
         setResize(false);
       }
     };
-    window.addEventListener("resize", handleMobile);
+    window.addEventListener('resize', handleMobile);
     return () => {
-      window.removeEventListener("resize", handleMobile);
+      window.removeEventListener('resize', handleMobile);
     };
   });
 
   useEffect(() => {
     return () => {
-      setEmail("");
-      setPassword("");
-      setUsername("");
+      setEmail('');
+      setPassword('');
+      setUsername('');
     };
   }, [openModal]);
 
@@ -73,9 +77,9 @@ const DesktopNavigation: React.FC = () => {
   };
 
   const handleModalContentChange = (toggle: string) => {
-    setEmail("");
-    setPassword("");
-    setUsername("");
+    setEmail('');
+    setPassword('');
+    setUsername('');
     setToggle(toggle);
   };
 
@@ -97,7 +101,7 @@ const DesktopNavigation: React.FC = () => {
           <Link
             to="/"
             className={
-              location.pathname === "/"
+              location.pathname === '/'
                 ? classNames(styles.navTab, styles.active)
                 : styles.navTab
             }
@@ -107,7 +111,7 @@ const DesktopNavigation: React.FC = () => {
           <Link
             to="/departments"
             className={
-              location.pathname === "/departments"
+              location.pathname === '/departments'
                 ? classNames(styles.navTab, styles.active)
                 : styles.navTab
             }
@@ -117,7 +121,7 @@ const DesktopNavigation: React.FC = () => {
           <Link
             to="/doctors"
             className={
-              location.pathname === "/doctors"
+              location.pathname === '/doctors'
                 ? classNames(styles.navTab, styles.active)
                 : styles.navTab
             }
@@ -127,7 +131,7 @@ const DesktopNavigation: React.FC = () => {
           <Link
             to="/patients"
             className={
-              location.pathname === "/patients"
+              location.pathname === '/patients'
                 ? classNames(styles.navTab, styles.active)
                 : styles.navTab
             }
@@ -137,21 +141,28 @@ const DesktopNavigation: React.FC = () => {
           <Link
             to="/about"
             className={
-              location.pathname === "/about"
+              location.pathname === '/about'
                 ? classNames(styles.navTab, styles.active)
                 : styles.navTab
             }
           >
             About
           </Link>
-          <ButtonGroup>
-            <Button variant="secondary" onClick={() => handleClick("signIn")}>
-              Sign In
+          {!userIsLoggedIn && (
+            <ButtonGroup>
+              <Button variant="secondary" onClick={() => handleClick('signIn')}>
+                Sign In
+              </Button>
+              <Button variant="dark" onClick={() => handleClick('signUp')}>
+                Sign Up
+              </Button>
+            </ButtonGroup>
+          )}
+          {userIsLoggedIn && (
+            <Button variant="dark" onClick={() => console.log()}>
+              Logout
             </Button>
-            <Button variant="dark" onClick={() => handleClick("signUp")}>
-              Sign Up
-            </Button>
-          </ButtonGroup>
+          )}
         </div>
       </div>
       <Carousel />

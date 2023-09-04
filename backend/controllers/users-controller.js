@@ -146,7 +146,7 @@ const login = async (req, res, next) => {
 
   let token;
   try {
-    token = await jwt.sign({ userId: createdUser.id, email: createdUser.email }, 'private_key', { expiresIn: '1h' });
+    token = await jwt.sign({ userId: existingUser.id, email: existingUser.email }, 'private_key', { expiresIn: '1h' });
   } catch (err) {
     const error = new HttpError("Logging in failed, please try again later.", 500);
     return next(error);

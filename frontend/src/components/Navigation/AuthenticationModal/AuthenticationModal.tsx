@@ -1,10 +1,11 @@
 import React from 'react';
 import { Button, Modal } from 'react-bootstrap';
-import { useAppSelector } from '../../../app/hooks';
+import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import { RootState } from '../../../app/store';
 import SignIn from '../SignIn/SignIn';
 import SignUp from '../SignUp/SignUp';
 import axios from 'axios';
+import { setUser } from '../../../features/user/user-slice';
 
 interface Props {
   openModal: boolean;
@@ -32,6 +33,7 @@ const AuthenticationModal: React.FC<Props> = ({
   handleModalContentChange,
 }) => {
   const roles = useAppSelector((state: RootState) => state.roles.value);
+  const dispatch = useAppDispatch();
 
   const handleClick = (toggle: string) => {
     if (toggle === 'signIn') {
@@ -42,7 +44,23 @@ const AuthenticationModal: React.FC<Props> = ({
     }
   };
 
-  const signIn = () => console.log();
+  const signIn = async () => {
+    const url = 'http://localhost:5000/api/users/login';
+    const loginData = {
+      email,
+      password,
+    };
+
+    await axios
+      .post(url, loginData)
+      .then((response) => {
+        if (response?.data) {
+          dispatch(setUser(response.data));
+        }
+        handleHide();
+      })
+      .catch((error) => console.log('error: ', error));
+  };
 
   const signUp = async () => {
     const url = 'http://localhost:5000/api/users/signup';

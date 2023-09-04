@@ -1,9 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 import rolesReducer from '../features/roles/roles-slice';
+import userReducer from '../features/user/user-slice';
 
 export const store = configureStore({
-    reducer: { roles: rolesReducer }
-})
+  reducer: {
+    roles: rolesReducer,
+    user: userReducer,
+  },
+});
 
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;
