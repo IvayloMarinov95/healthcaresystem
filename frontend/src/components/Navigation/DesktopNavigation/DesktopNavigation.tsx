@@ -11,7 +11,11 @@ import AuthenticationModal from '../AuthenticationModal/AuthenticationModal';
 import { RootState } from '../../../app/store';
 import { useAppSelector } from '../../../app/hooks';
 
-const DesktopNavigation: React.FC = () => {
+interface Props {
+  logout: (e: React.MouseEvent<HTMLElement>) => void;
+}
+
+const DesktopNavigation: React.FC<Props> = ({ logout }) => {
   const [scrolled, setScrolled] = useState<boolean>(false);
   const [resized, setResize] = useState<boolean>(false);
   const [openModal, setOpenModal] = useState<boolean>(false);
@@ -159,7 +163,7 @@ const DesktopNavigation: React.FC = () => {
             </ButtonGroup>
           )}
           {userIsLoggedIn && (
-            <Button variant="dark" onClick={() => console.log()}>
+            <Button variant="dark" onClick={logout}>
               Logout
             </Button>
           )}

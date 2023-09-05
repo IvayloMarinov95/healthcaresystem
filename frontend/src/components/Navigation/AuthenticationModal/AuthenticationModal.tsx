@@ -6,6 +6,7 @@ import SignIn from '../SignIn/SignIn';
 import SignUp from '../SignUp/SignUp';
 import axios from 'axios';
 import { setUser } from '../../../features/user/user-slice';
+import { setIsLoading } from '../../../features/spinner/isLoading-slice';
 
 interface Props {
   openModal: boolean;
@@ -45,6 +46,7 @@ const AuthenticationModal: React.FC<Props> = ({
   };
 
   const signIn = async () => {
+    dispatch(setIsLoading(true));
     const url = 'http://localhost:5000/api/users/login';
     const loginData = {
       email,
@@ -55,14 +57,27 @@ const AuthenticationModal: React.FC<Props> = ({
       .post(url, loginData)
       .then((response) => {
         if (response?.data) {
+          const tokenExpirationDate = new Date(
+            new Date().getTime() + 1000 * 60 * 60
+          );
+          localStorage.setItem(
+            'userData',
+            JSON.stringify({
+              userId: response.data.userId,
+              token: response.data.token,
+              expiration: tokenExpirationDate.toISOString(),
+            })
+          );
           dispatch(setUser(response.data));
         }
         handleHide();
       })
-      .catch((error) => console.log('error: ', error));
+      .catch((error) => console.log('error: ', error))
+      .finally(() => dispatch(setIsLoading(false)));
   };
 
   const signUp = async () => {
+    dispatch(setIsLoading(true));
     const url = 'http://localhost:5000/api/users/signup';
     const signUpData = {
       name: username,
@@ -74,8 +89,25 @@ const AuthenticationModal: React.FC<Props> = ({
 
     await axios
       .post(url, signUpData)
-      .then((response) => console.log(response.data))
-      .catch((error) => console.log('error: ', error));
+      .then((response) => {
+        if (response?.data) {
+          const tokenExpirationDate = new Date(
+            new Date().getTime() + 1000 * 60 * 60
+          );
+          dispatch(setUser(response.data));
+          localStorage.setItem(
+            'userData',
+            JSON.stringify({
+              userId: response.data.userId,
+              token: response.data.token,
+              expiration: tokenExpirationDate.toISOString(),
+            })
+          );
+          handleHide();
+        }
+      })
+      .catch((error) => console.log('error: ', error))
+      .finally(() => dispatch(setIsLoading(false)));
   };
 
   return (

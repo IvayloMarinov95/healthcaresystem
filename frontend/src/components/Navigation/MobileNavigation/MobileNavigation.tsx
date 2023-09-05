@@ -8,7 +8,11 @@ import AuthenticationModal from '../AuthenticationModal/AuthenticationModal';
 import { RootState } from '../../../app/store';
 import { useAppSelector } from '../../../app/hooks';
 
-const MobileNavigation = () => {
+interface Props {
+  logout: (e: React.MouseEvent<HTMLElement>) => void;
+}
+
+const MobileNavigation: React.FC<Props> = ({ logout }) => {
   const [isOpen, setOpen] = useState<boolean>(false);
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [toggle, setToggle] = useState<string>('');
@@ -117,7 +121,11 @@ const MobileNavigation = () => {
             </>
           )}
           {userIsLoggedIn && (
-            <Button variant="dark" className={styles.mobileBtn}>
+            <Button
+              variant="dark"
+              className={styles.mobileBtn}
+              onClick={logout}
+            >
               Logout
             </Button>
           )}
