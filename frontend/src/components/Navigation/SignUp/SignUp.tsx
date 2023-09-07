@@ -1,6 +1,6 @@
-import React from "react";
-import { Button, Form } from "react-bootstrap";
-import styles from "../Navigation.module.scss";
+import React from 'react';
+import { Button, Form } from 'react-bootstrap';
+import styles from '../Navigation.module.scss';
 
 interface Props {
   username: string;
@@ -22,11 +22,11 @@ const SignUp: React.FC<Props> = ({
   handleUsernameChange,
 }) => (
   <>
-    <Form.Group controlId="username">
-      <Form.Label>Username</Form.Label>
+    <Form.Group controlId="name">
+      <Form.Label>Name</Form.Label>
       <Form.Control
         type="text"
-        placeholder="Enter username"
+        placeholder="Enter name"
         value={username}
         onChange={handleUsernameChange}
       />

@@ -6,6 +6,7 @@ const usersController = require("../controllers/users-controller");
 const router = Router();
 
 router.get("/", usersController.getUsers);
+router.get("/:role", usersController.getUsersByRole);
 
 router.post(
   "/signup",

@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Col, Nav, Row, Tab, Card } from 'react-bootstrap';
 import RequestAccordion from '../RequestAccordion/RequestAccordion';
 import styles from '../../HealthFund.module.scss';
 import classNames from 'classnames';
-import Search from '../../../Search/Search';
 import DoctorsSection from '../DoctorsSection/DoctorsSection';
 
 const TabLayout = () => {

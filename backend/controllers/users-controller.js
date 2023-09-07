@@ -23,6 +23,21 @@ const getUsers = async (req, res, next) => {
   res.json({ users: users.map((user) => user.toObject({ getter: true })) });
 };
 
+const getUsersByRole = async (req, res, next) => {
+  let users;
+  try {
+    users = await User.find({ role: req.params.role });
+  } catch (err) {
+    const error = new HttpError(
+      "Fetching users failed, please try again later.",
+      500
+    );
+    return next(error);
+  }
+
+  res.json({ users: users.map((user) => user.toObject({ getter: true })) });
+};
+
 const signup = async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -193,6 +208,7 @@ const deleteUser = async (req, res, next) => {
 };
 
 exports.getUsers = getUsers;
+exports.getUsersByRole = getUsersByRole;
 exports.signup = signup;
 exports.login = login;
 exports.deleteUser = deleteUser;
