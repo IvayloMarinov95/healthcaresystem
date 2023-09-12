@@ -1,11 +1,33 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Col, Nav, Row, Tab, Card } from 'react-bootstrap';
 import RequestAccordion from '../RequestAccordion/RequestAccordion';
 import styles from '../../HealthFund.module.scss';
 import classNames from 'classnames';
 import DoctorsSection from '../DoctorsSection/DoctorsSection';
+import axios from 'axios';
+import { setIsLoading } from '../../../../features/spinner/isLoading-slice';
 
 const TabLayout = () => {
+  const [doctors, setDoctors] = useState<Array<object>>([]);
+
+  useEffect(() => {
+    getDoctors();
+  }, []);
+
+  const getDoctors = async () => {
+    setIsLoading(true);
+    const url = 'http://localhost:5000/api/users/' + '64ec71860b9e3c40588277d3';
+    await axios
+      .get(url)
+      .then((response) => {
+        if (response.data) {
+          setDoctors(response.data.users);
+        }
+      })
+      .catch((error) => console.log('error: ', error))
+      .finally(() => setIsLoading(false));
+  };
+
   return (
     <Tab.Container id="left-tabs-example" defaultActiveKey="1">
       <Row className={styles.row}>
@@ -43,7 +65,7 @@ const TabLayout = () => {
                   <RequestAccordion />
                 </Tab.Pane>
                 <Tab.Pane eventKey="2">
-                  <DoctorsSection />
+                  <DoctorsSection doctors={doctors} />
                 </Tab.Pane>
               </Tab.Content>
             </Card.Body>

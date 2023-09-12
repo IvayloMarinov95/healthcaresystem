@@ -1,11 +1,22 @@
 import React, { useState } from 'react';
 import styles from '../../HealthFund.module.scss';
 import Search from '../../../Search/Search';
-import { Button, Tooltip, OverlayTrigger } from 'react-bootstrap';
+import {
+  Button,
+  Card,
+  ListGroup,
+  Tooltip,
+  OverlayTrigger,
+} from 'react-bootstrap';
 import { FaPlus } from 'react-icons/fa';
 import AddDoctorForm from './AddDoctorForm/AddDoctorForm';
+import stylesDocSection from './DoctorsSection.module.scss';
 
-const DoctorsSection: React.FC = () => {
+interface Props {
+  doctors: Array<object>;
+}
+
+const DoctorsSection: React.FC<Props> = ({ doctors }) => {
   const [input, setInput] = useState<string>('');
   const [showAddForm, setShowAddForm] = useState<boolean>(false);
 
@@ -35,6 +46,29 @@ const DoctorsSection: React.FC = () => {
             <FaPlus />
           </Button>
         </OverlayTrigger>
+      </div>
+      <div>
+        {doctors?.length > 0 &&
+          doctors?.map((doctor) => (
+            // @ts-ignore
+            <Card className={stylesDocSection.card} key={doctor.email}>
+              <Card.Body>
+                {/* @ts-ignore */}
+                <Card.Title>{doctor.name}</Card.Title>
+                <ListGroup className="list-group-flush">
+                  <ListGroup.Item></ListGroup.Item>
+                  <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
+                  <ListGroup.Item>Vestibulum at eros</ListGroup.Item>
+                  <ListGroup.Item>
+                    <div>
+                      <Button variant="primary">Card Link</Button>
+                      <Button variant="danger">Another Link</Button>
+                    </div>
+                  </ListGroup.Item>
+                </ListGroup>
+              </Card.Body>
+            </Card>
+          ))}
       </div>
       <AddDoctorForm modalState={showAddForm} showForm={showForm} />
     </>

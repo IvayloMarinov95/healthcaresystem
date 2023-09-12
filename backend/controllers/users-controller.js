@@ -27,7 +27,7 @@ const getUsers = async (req, res, next) => {
 const getUsersByRole = async (req, res, next) => {
   let users;
   try {
-    users = await User.find({ role: req.params.role });
+    users = await User.find({ role: req.params.role }).populate('personalInformation');
   } catch (err) {
     const error = new HttpError(
       "Fetching users failed, please try again later.",
@@ -72,6 +72,14 @@ const signup = async (req, res, next) => {
     const error = new HttpError('Could not create user, please try again later.', 500);
     return next(error);
   }
+  const createdPersonalInformation = new PersonalInformation({
+    id: uuid(),
+    age: '',
+    gender: '',
+    phone: '',
+    occupation: '',
+    department: '',
+  });
 
   const createdUser = new User({
     id: uuid(),
@@ -79,19 +87,12 @@ const signup = async (req, res, next) => {
     email,
     password: hashedPassword,
     role,
-  });
-
-  const createdPersonalInformation = new PersonalInformation({
-    age: '',
-    gender: '',
-    phone: '',
-    occupation: '',
-    department: '',
-    user: createdUser.id,
+    personalInformation: createdPersonalInformation.id
   });
 
 
   try {
+    createdPersonalInformation.user = createdUser._id;
     await createdPersonalInformation.save();
   } catch (err) {
     const error = new HttpError("Creating personal information failed, please try again", 500);
