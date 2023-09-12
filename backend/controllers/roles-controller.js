@@ -36,7 +36,7 @@ const createRole = async (req, res, next) => {
   try {
     await createdRole.save();
   } catch (err) {
-    const error = new HttpError("Creaating role failed, please try again", 500);
+    const error = new HttpError("Creating role failed, please try again", 500);
     return next(error);
   }
 

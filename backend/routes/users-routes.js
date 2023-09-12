@@ -20,6 +20,8 @@ router.post(
 
 router.post("/login", usersController.login);
 
+router.patch('/updatePersonalInformation/:uid', usersController.updatePersonalInformation);
+
 router.delete("/deleteUser/:uid", usersController.deleteUser);
 
 module.exports = router;

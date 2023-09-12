@@ -7,6 +7,7 @@ const jwt = require('jsonwebtoken');
 const HttpError = require("../models/http-error");
 const User = require("../models/users");
 const Role = require("../models/roles");
+const PersonalInformation = require('../models/personal-informations');
 
 const getUsers = async (req, res, next) => {
   let users;
@@ -79,6 +80,23 @@ const signup = async (req, res, next) => {
     password: hashedPassword,
     role,
   });
+
+  const createdPersonalInformation = new PersonalInformation({
+    age: '',
+    gender: '',
+    phone: '',
+    occupation: '',
+    department: '',
+    user: createdUser.id,
+  });
+
+
+  try {
+    await createdPersonalInformation.save();
+  } catch (err) {
+    const error = new HttpError("Creating personal information failed, please try again", 500);
+    return next(error);
+  }
 
   let userRole;
 
@@ -170,6 +188,35 @@ const login = async (req, res, next) => {
   res.json({ userId: existingUser.id, email: existingUser.email, token: token });
 };
 
+const updatePersonalInformation = async (req, res, next) => {
+  const userId = req.params.uid;
+  const { age, gender, phone, occupation, department, user } = req.body;
+
+  let updatedPersonalInfo;
+  try {
+    updatedPersonalInfo = await PersonalInformation.findOne({ user: userId });
+  } catch (err) {
+    const error = new HttpError("Could not find personal information by the provided id, please try again later.", 500);
+    return next(error);
+  }
+
+  updatedPersonalInfo.age = age;
+  updatedPersonalInfo.gender = gender;
+  updatedPersonalInfo.phone = phone;
+  updatedPersonalInfo.occupation = occupation;
+  updatedPersonalInfo.department = department;
+
+  try {
+    await updatedPersonalInfo.save();
+  } catch (err) {
+    const error = new HttpError("Could not update personal information, please try again later.", 500);
+    return next(error);
+  }
+
+
+  res.status(200).json({ personalInfo: updatedPersonalInfo.toObject({ getter: true }) });
+};
+
 const deleteUser = async (req, res, next) => {
   const userId = req.params.uid;
 
@@ -193,6 +240,7 @@ const deleteUser = async (req, res, next) => {
     const sess = await mongoose.startSession();
     sess.startTransaction();
     await user.remove({ session: sess });
+    await PersonalInformation.deleteOne({ user: userId });
     user.role.users.pull(user);
     await user.role.save({ session: sess });
     await sess.commitTransaction();
@@ -211,4 +259,5 @@ exports.getUsers = getUsers;
 exports.getUsersByRole = getUsersByRole;
 exports.signup = signup;
 exports.login = login;
+exports.updatePersonalInformation = updatePersonalInformation;
 exports.deleteUser = deleteUser;
