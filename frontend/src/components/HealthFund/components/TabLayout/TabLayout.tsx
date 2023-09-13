@@ -65,7 +65,7 @@ const TabLayout = () => {
                   <RequestAccordion />
                 </Tab.Pane>
                 <Tab.Pane eventKey="2">
-                  <DoctorsSection doctors={doctors} />
+                  <DoctorsSection getDoctors={getDoctors} doctors={doctors} />
                 </Tab.Pane>
               </Tab.Content>
             </Card.Body>

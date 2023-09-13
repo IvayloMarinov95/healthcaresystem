@@ -8,9 +8,14 @@ import axios from 'axios';
 interface Props {
   modalState: boolean;
   showForm: () => void;
+  getDoctors: () => void;
 }
 
-const AddDoctorForm: React.FC<Props> = ({ modalState, showForm }) => {
+const AddDoctorForm: React.FC<Props> = ({
+  modalState,
+  showForm,
+  getDoctors,
+}) => {
   const [name, setName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -43,7 +48,6 @@ const AddDoctorForm: React.FC<Props> = ({ modalState, showForm }) => {
       name,
       email,
       password,
-      //@ts-ignore
       role: roles.filter((item) => item.role === 'doctor')[0]?._id,
     };
 
@@ -52,7 +56,8 @@ const AddDoctorForm: React.FC<Props> = ({ modalState, showForm }) => {
       .then((response) => {
         if (response?.data) {
           console.log('Success!');
-          showForm();
+          cancel();
+          getDoctors();
         }
       })
       .catch((error) => console.log('error: ', error))

@@ -195,7 +195,7 @@ const updatePersonalInformation = async (req, res, next) => {
 
   let updatedPersonalInfo;
   try {
-    updatedPersonalInfo = await PersonalInformation.findOne({ user: userId });
+    updatedPersonalInfo = await PersonalInformation.findById(userId);
   } catch (err) {
     const error = new HttpError("Could not find personal information by the provided id, please try again later.", 500);
     return next(error);

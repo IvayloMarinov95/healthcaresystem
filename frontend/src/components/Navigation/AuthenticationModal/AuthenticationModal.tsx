@@ -83,7 +83,6 @@ const AuthenticationModal: React.FC<Props> = ({
       name: username,
       email,
       password,
-      //@ts-ignore
       role: roles.filter((item) => item.role === 'patient')[0]?._id,
     };
 
