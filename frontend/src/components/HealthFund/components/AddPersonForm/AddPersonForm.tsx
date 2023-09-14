@@ -1,19 +1,23 @@
 import React, { useState } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
-import { useAppDispatch, useAppSelector } from '../../../../../app/hooks';
-import { setIsLoading } from '../../../../../features/spinner/isLoading-slice';
-import { RootState } from '../../../../../app/store';
+import { useAppDispatch, useAppSelector } from '../../../../app/hooks';
+import { setIsLoading } from '../../../../features/spinner/isLoading-slice';
+import { RootState } from '../../../../app/store';
 import axios from 'axios';
 
 interface Props {
+  role: string;
   modalState: boolean;
   showForm: () => void;
-  getDoctors: () => void;
+  getPatients?: () => void;
+  getDoctors?: () => void;
 }
 
 const AddDoctorForm: React.FC<Props> = ({
+  role,
   modalState,
   showForm,
+  getPatients,
   getDoctors,
 }) => {
   const [name, setName] = useState<string>('');
@@ -41,14 +45,18 @@ const AddDoctorForm: React.FC<Props> = ({
     showForm();
   };
 
-  const addDoctor = async () => {
+  const addPerson = async () => {
     dispatch(setIsLoading(true));
+    const personRoleId =
+      role === 'patient'
+        ? roles.filter((item) => item.role === 'patient')[0]?._id
+        : roles.filter((item) => item.role === 'doctor')[0]?._id;
     const url = 'http://localhost:5000/api/users/signup';
     const signUpData = {
       name,
       email,
       password,
-      role: roles.filter((item) => item.role === 'doctor')[0]?._id,
+      role: personRoleId,
     };
 
     await axios
@@ -57,7 +65,11 @@ const AddDoctorForm: React.FC<Props> = ({
         if (response?.data) {
           console.log('Success!');
           cancel();
-          getDoctors();
+          if (role === 'doctor') {
+            getDoctors?.();
+          } else {
+            getPatients?.();
+          }
         }
       })
       .catch((error) => console.log('error: ', error))
@@ -74,7 +86,9 @@ const AddDoctorForm: React.FC<Props> = ({
       backdrop="static"
     >
       <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">Add Doctor</Modal.Title>
+        <Modal.Title id="contained-modal-title-vcenter">
+          {role === 'doctor' ? 'Add Doctor' : 'Add Patient'}
+        </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form.Group controlId="username">
@@ -106,7 +120,7 @@ const AddDoctorForm: React.FC<Props> = ({
         </Form.Group>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="primary" onClick={addDoctor}>
+        <Button variant="primary" onClick={addPerson}>
           Add
         </Button>
         <Button variant="danger" onClick={cancel}>

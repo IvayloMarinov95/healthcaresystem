@@ -1,26 +1,31 @@
 import React, { useState } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
-import { useAppDispatch, useAppSelector } from '../../../../app/hooks';
+import { useAppDispatch } from '../../../../app/hooks';
 import { setIsLoading } from '../../../../features/spinner/isLoading-slice';
 import axios from 'axios';
 
 interface Props {
   userId: string;
+  role: string;
   modalState: boolean;
   showForm: () => void;
-  getDoctors: () => void;
+  getDoctors?: () => void;
+  getPatients?: () => void;
 }
 
 const PersonalInformation: React.FC<Props> = ({
   userId,
+  role,
   modalState,
   showForm,
   getDoctors,
+  getPatients,
 }) => {
   const [age, setAge] = useState<string>('');
   const [phone, setPhone] = useState<string>('');
   const [occupation, setOccupation] = useState<string>('');
   const [department, setDepartment] = useState<string>('');
+  const [gender, setGender] = useState<string>('');
   const dispatch = useAppDispatch();
 
   const handleAgeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -38,10 +43,18 @@ const PersonalInformation: React.FC<Props> = ({
   const handleDepartmentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setDepartment(e.target.value);
   };
+  const handleMaleClicked = () => {
+    setGender('Male');
+  };
+
+  const handleFemaleClicked = () => {
+    setGender('Female');
+  };
 
   const cancel = () => {
     setAge('');
     setPhone('');
+    setGender('');
     setOccupation('');
     setDepartment('');
     showForm();
@@ -54,6 +67,7 @@ const PersonalInformation: React.FC<Props> = ({
     const editData = {
       age,
       phone,
+      gender,
       occupation,
       department,
     };
@@ -64,7 +78,11 @@ const PersonalInformation: React.FC<Props> = ({
         if (response?.data) {
           console.log('Success!');
           cancel();
-          getDoctors();
+          if (role === 'doctor') {
+            getDoctors?.();
+          } else {
+            getPatients?.();
+          }
         }
       })
       .catch((error) => console.log('error: ', error))
@@ -102,6 +120,22 @@ const PersonalInformation: React.FC<Props> = ({
             onChange={handleAgeChange}
           />
         </Form.Group>
+        <Form.Group controlId="gender">
+          <Form.Check
+            type="checkbox"
+            label="Male"
+            inline
+            value={gender}
+            onChange={handleMaleClicked}
+          ></Form.Check>
+          <Form.Check
+            type="checkbox"
+            label="Female"
+            inline
+            value={gender}
+            onChange={handleFemaleClicked}
+          ></Form.Check>
+        </Form.Group>
         <Form.Group controlId="occupation">
           <Form.Label>Occupation</Form.Label>
           <Form.Control
@@ -111,15 +145,17 @@ const PersonalInformation: React.FC<Props> = ({
             onChange={handleOccupationChange}
           />
         </Form.Group>
-        <Form.Group controlId="department">
-          <Form.Label>Department</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter department"
-            value={department}
-            onChange={handleDepartmentChange}
-          />
-        </Form.Group>
+        {role === 'doctor' && (
+          <Form.Group controlId="department">
+            <Form.Label>Department</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Enter department"
+              value={department}
+              onChange={handleDepartmentChange}
+            />
+          </Form.Group>
+        )}
       </Modal.Body>
       <Modal.Footer>
         <Button variant="primary" onClick={editInformation}>

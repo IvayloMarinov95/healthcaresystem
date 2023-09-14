@@ -15,18 +15,18 @@ import {
   FaMobileAlt,
   FaPlus,
 } from 'react-icons/fa';
-import AddDoctorForm from '../AddPersonForm/AddPersonForm';
-import stylesDocSection from './DoctorsSection.module.scss';
+import AddPatientForm from '../AddPersonForm/AddPersonForm';
+import stylesDocSection from '../DoctorsSection/DoctorsSection.module.scss';
 import { setIsLoading } from '../../../../features/spinner/isLoading-slice';
 import axios from 'axios';
 import PersonalInformation from '../PersonalInformation/PersonalInformation';
 
 interface Props {
-  doctors: Array<object>;
-  getDoctors: () => void;
+  patients: Array<object>;
+  getPatients: () => void;
 }
 
-const DoctorsSection: React.FC<Props> = ({ doctors, getDoctors }) => {
+const PatientSection: React.FC<Props> = ({ patients, getPatients }) => {
   const [filteredList, setFilteredList] = useState<Array<object>>([]);
   const [input, setInput] = useState<string>('');
   const [userId, setUserId] = useState<string>('');
@@ -34,18 +34,18 @@ const DoctorsSection: React.FC<Props> = ({ doctors, getDoctors }) => {
   const [showAddForm, setShowAddForm] = useState<boolean>(false);
 
   useEffect(() => {
-    if (doctors) {
-      setFilteredList(doctors);
+    if (patients) {
+      setFilteredList(patients);
     }
-  }, [doctors]);
+  }, [patients]);
 
   useEffect(() => {
     if (input) {
       // @ts-ignore
-      const filter = doctors?.filter((item) => item.name.includes(input));
+      const filter = patients?.filter((item) => item.name.includes(input));
       setFilteredList(filter);
     } else {
-      setFilteredList(doctors);
+      setFilteredList(patients);
     }
   }, [input]);
 
@@ -68,7 +68,7 @@ const DoctorsSection: React.FC<Props> = ({ doctors, getDoctors }) => {
     const url = 'http://localhost:5000/api/users/deleteUser/' + id;
     await axios
       .delete(url)
-      .then(() => getDoctors())
+      .then(() => getPatients())
       .catch((error) => console.log('error: ', error))
       .finally(() => setIsLoading(false));
   };
@@ -136,10 +136,6 @@ const DoctorsSection: React.FC<Props> = ({ doctors, getDoctors }) => {
                     Occupation: {doctor?.personalInformation?.occupation || ''}
                   </ListGroup.Item>
                   <ListGroup.Item>
-                    {/* @ts-ignore */}
-                    Department: {doctor?.personalInformation?.department || ''}
-                  </ListGroup.Item>
-                  <ListGroup.Item>
                     <div className={stylesDocSection.btns}>
                       <Button
                         variant="primary"
@@ -162,21 +158,21 @@ const DoctorsSection: React.FC<Props> = ({ doctors, getDoctors }) => {
             </Card>
           ))}
       </div>
-      <AddDoctorForm
-        role="doctor"
+      <AddPatientForm
+        role="patient"
         modalState={showAddForm}
         showForm={showForm}
-        getDoctors={getDoctors}
+        getPatients={getPatients}
       />
       <PersonalInformation
         userId={userId}
-        role="doctor"
+        role="patient"
         modalState={showEditForm}
         showForm={showEdit}
-        getDoctors={getDoctors}
+        getPatients={getPatients}
       />
     </>
   );
 };
 
-export default DoctorsSection;
+export default PatientSection;

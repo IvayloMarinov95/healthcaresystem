@@ -4,14 +4,17 @@ import RequestAccordion from '../RequestAccordion/RequestAccordion';
 import styles from '../../HealthFund.module.scss';
 import classNames from 'classnames';
 import DoctorsSection from '../DoctorsSection/DoctorsSection';
+import PatientSection from '../PatientSection/PatientSection';
 import axios from 'axios';
 import { setIsLoading } from '../../../../features/spinner/isLoading-slice';
 
 const TabLayout = () => {
   const [doctors, setDoctors] = useState<Array<object>>([]);
+  const [patients, setPatients] = useState<Array<object>>([]);
 
   useEffect(() => {
     getDoctors();
+    getPatients();
   }, []);
 
   const getDoctors = async () => {
@@ -22,6 +25,20 @@ const TabLayout = () => {
       .then((response) => {
         if (response.data) {
           setDoctors(response.data.users);
+        }
+      })
+      .catch((error) => console.log('error: ', error))
+      .finally(() => setIsLoading(false));
+  };
+
+  const getPatients = async () => {
+    setIsLoading(true);
+    const url = 'http://localhost:5000/api/users/' + '64f5f6963741f138f0d144e6';
+    await axios
+      .get(url)
+      .then((response) => {
+        if (response.data) {
+          setPatients(response.data.users);
         }
       })
       .catch((error) => console.log('error: ', error))
@@ -40,17 +57,17 @@ const TabLayout = () => {
               >
                 <Nav.Item>
                   <Nav.Link eventKey="1" className={styles.navTab}>
-                    Заявления
+                    Applications
                   </Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
                   <Nav.Link eventKey="2" className={styles.navTab}>
-                    Доктори
+                    Doctors
                   </Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
                   <Nav.Link eventKey="3" className={styles.navTab}>
-                    Пациенти
+                    Patients
                   </Nav.Link>
                 </Nav.Item>
               </Nav>
@@ -66,6 +83,12 @@ const TabLayout = () => {
                 </Tab.Pane>
                 <Tab.Pane eventKey="2">
                   <DoctorsSection getDoctors={getDoctors} doctors={doctors} />
+                </Tab.Pane>
+                <Tab.Pane eventKey="3">
+                  <PatientSection
+                    getPatients={getPatients}
+                    patients={patients}
+                  />
                 </Tab.Pane>
               </Tab.Content>
             </Card.Body>
