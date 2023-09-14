@@ -64,6 +64,7 @@ const AuthenticationModal: React.FC<Props> = ({
             'userData',
             JSON.stringify({
               userId: response.data.userId,
+              role: response.data.role,
               token: response.data.token,
               expiration: tokenExpirationDate.toISOString(),
             })

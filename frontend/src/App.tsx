@@ -21,6 +21,10 @@ const App = () => {
   const location = useLocation();
   const dispatch = useAppDispatch();
   const isLoading = useAppSelector((state: RootState) => state.isLoading.value);
+  const user = useAppSelector((state: RootState) => state.user.value);
+  const roles = useAppSelector((state: RootState) => state.roles.value);
+  // @ts-ignore
+  const userRole = roles.filter((item) => item._id === user.role)[0]?.role;
 
   useEffect(() => {
     window.scrollTo({
@@ -81,7 +85,10 @@ const App = () => {
           <Route path="/about" component={About} />
           <Route path="/departments" component={Departments} />
           <Route path="/doctors" component={Doctors} />
-          <Route path="/patients" component={Patients} />
+          {/* @ts-ignore */}
+          {user && userRole === 'doctor' && (
+            <Route path="/patients" component={Patients} />
+          )}
           <Route path="/healthfund" component={HealthFund} />
         </Switch>
         {location.pathname !== '/healthfund' && <Footer />}

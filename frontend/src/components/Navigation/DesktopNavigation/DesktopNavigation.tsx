@@ -25,6 +25,9 @@ const DesktopNavigation: React.FC<Props> = ({ logout }) => {
   const [password, setPassword] = useState<string>('');
   const location = useLocation();
   const user = useAppSelector((state: RootState) => state.user.value);
+  const roles = useAppSelector((state: RootState) => state.roles.value);
+  // @ts-ignore
+  const userRole = roles.filter((item) => item._id === user.role)[0]?.role;
   const userIsLoggedIn = user && Object.keys(user).length > 1 ? true : false;
 
   useEffect(() => {
@@ -132,16 +135,19 @@ const DesktopNavigation: React.FC<Props> = ({ logout }) => {
           >
             Doctors
           </Link>
-          <Link
-            to="/patients"
-            className={
-              location.pathname === '/patients'
-                ? classNames(styles.navTab, styles.active)
-                : styles.navTab
-            }
-          >
-            Patients
-          </Link>
+          {/* @ts-ignore */}
+          {user && userRole === 'doctor' && (
+            <Link
+              to="/patients"
+              className={
+                location.pathname === '/patients'
+                  ? classNames(styles.navTab, styles.active)
+                  : styles.navTab
+              }
+            >
+              Patients
+            </Link>
+          )}
           <Link
             to="/about"
             className={

@@ -21,6 +21,9 @@ const MobileNavigation: React.FC<Props> = ({ logout }) => {
   const [password, setPassword] = useState<string>('');
   const ref = useRef<HTMLDivElement>(null);
   const user = useAppSelector((state: RootState) => state.user.value);
+  const roles = useAppSelector((state: RootState) => state.roles.value);
+  // @ts-ignore
+  const userRole = roles.filter((item) => item._id === user.role)[0]?.role;
   const userIsLoggedIn = user && Object.keys(user).length > 1 ? true : false;
 
   useEffect(() => {
@@ -96,9 +99,11 @@ const MobileNavigation: React.FC<Props> = ({ logout }) => {
           <Link to="/doctors" className={styles.mobileTabs}>
             Doctors
           </Link>
-          <Link to="/patients" className={styles.mobileTabs}>
-            Patients
-          </Link>
+          {user && userRole === 'doctor' && (
+            <Link to="/patients" className={styles.mobileTabs}>
+              Patients
+            </Link>
+          )}
           <Link to="/about" className={styles.mobileTabs}>
             About
           </Link>
