@@ -47,7 +47,7 @@ const PatientSection: React.FC<Props> = ({ patients, getPatients }) => {
     } else {
       setFilteredList(patients);
     }
-  }, [input]);
+  }, [input, patients]);
 
   const renderTooltip = (props: object) => (
     <Tooltip id="button-tooltip" {...props}>

@@ -54,7 +54,7 @@ const App = () => {
     ) {
       dispatch(setUser(storedData));
     }
-  });
+  }, []);
 
   useEffect(() => {
     let expirationTimeout;
@@ -69,7 +69,7 @@ const App = () => {
     } else {
       clearTimeout(expirationTimeout);
     }
-  });
+  }, []);
 
   return (
     <>
