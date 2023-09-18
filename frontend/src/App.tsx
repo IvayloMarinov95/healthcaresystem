@@ -16,6 +16,7 @@ import axios from 'axios';
 import { setRoles } from './features/roles/roles-slice';
 import { setUser } from './features/user/user-slice';
 import { RootState } from './app/store';
+import ToastMessage from './components/ToastMessage/ToastMessage';
 
 const App = () => {
   const location = useLocation();
@@ -78,6 +79,7 @@ const App = () => {
           <Spinner className="spinner" animation="border" variant="primary" />
         </div>
       )}
+      <ToastMessage />
       <div className={location.pathname === '/healthfund' ? 'body' : ''}>
         {location.pathname !== '/healthfund' && <Navigation />}
         <Switch>

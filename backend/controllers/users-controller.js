@@ -189,6 +189,61 @@ const login = async (req, res, next) => {
   res.json({ userId: existingUser.id, email: existingUser.email, role: existingUser.role, token: token });
 };
 
+const adminLogin = async (req, res, next) => {
+  const { email, password } = req.body;
+
+  let existingUser;
+  let adminRole;
+
+  try {
+    existingUser = await User.findOne({ email: email });
+  } catch (err) {
+    const error = new HttpError('Logging in failed, please try again later.', 401);
+    return next(error);
+  }
+
+  try {
+    adminRole = await Role.findById(existingUser.role);
+  } catch (err) {
+    const error = new HttpError('Logging in failed, please try again later.', 401);
+    return next(error);
+  }
+
+  if (!existingUser || !adminRole) {
+    const error = new HttpError(
+      "Invalid credentials, could not log you in.",
+      401
+    );
+    return next(error);
+  }
+
+  let isValidPassword = false;
+  try {
+    isValidPassword = await bcrypt.compare(password, existingUser.password);
+  } catch (err) {
+    const error = new HttpError('Could bot log you in, please your credetials and try again', 500);
+    return next(error);
+  }
+
+  if (!isValidPassword) {
+    const error = new HttpError(
+      "Invalid credentials, could not log you in.",
+      401
+    );
+    return next(error);
+  }
+
+  let token;
+  try {
+    token = await jwt.sign({ userId: existingUser.id, email: existingUser.email }, 'private_key', { expiresIn: '1h' });
+  } catch (err) {
+    const error = new HttpError("Logging in failed, please try again later.", 500);
+    return next(error);
+  }
+
+  res.json({ userId: existingUser.id, email: existingUser.email, role: existingUser.role, token: token });
+};
+
 const updatePersonalInformation = async (req, res, next) => {
   const userId = req.params.uid;
   const { age, gender, phone, occupation, department, user } = req.body;
@@ -260,5 +315,6 @@ exports.getUsers = getUsers;
 exports.getUsersByRole = getUsersByRole;
 exports.signup = signup;
 exports.login = login;
+exports.adminLogin = adminLogin;
 exports.updatePersonalInformation = updatePersonalInformation;
 exports.deleteUser = deleteUser;
