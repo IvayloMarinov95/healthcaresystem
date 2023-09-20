@@ -15,7 +15,7 @@ const HealthFund: React.FC = () => {
       localStorage.removeItem('userData');
       dispatch(setUser({}));
     }
-  }, []);
+  }, [dispatch]);
 
   const closeModal = () => {
     setOpenModal(false);

@@ -20,6 +20,8 @@ import stylesDocSection from '../DoctorsSection/DoctorsSection.module.scss';
 import { setIsLoading } from '../../../../features/spinner/isLoading-slice';
 import axios from 'axios';
 import PersonalInformation from '../PersonalInformation/PersonalInformation';
+import { useAppDispatch } from '../../../../app/hooks';
+import { setToast } from '../../../../features/toast/toast-slice';
 
 interface Props {
   patients: Array<object>;
@@ -32,6 +34,7 @@ const PatientSection: React.FC<Props> = ({ patients, getPatients }) => {
   const [userId, setUserId] = useState<string>('');
   const [showEditForm, setShowEditForm] = useState<boolean>(false);
   const [showAddForm, setShowAddForm] = useState<boolean>(false);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (patients) {
@@ -68,8 +71,20 @@ const PatientSection: React.FC<Props> = ({ patients, getPatients }) => {
     const url = 'http://localhost:5000/api/users/deleteUser/' + id;
     await axios
       .delete(url)
-      .then(() => getPatients())
-      .catch((error) => console.log('error: ', error))
+      .then(() => {
+        dispatch(
+          // @ts-ignore
+          setToast({ color: 'success', message: 'Deleted successfully.' })
+        );
+        getPatients();
+      })
+      .catch((error) => {
+        dispatch(
+          // @ts-ignore
+          setToast({ color: 'danger', message: error.response.data.message })
+        );
+        console.log('error: ', error);
+      })
       .finally(() => setIsLoading(false));
   };
 

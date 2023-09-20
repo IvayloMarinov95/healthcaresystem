@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
 import { useAppDispatch, useAppSelector } from '../../../../app/hooks';
 import { setIsLoading } from '../../../../features/spinner/isLoading-slice';
+import { setToast } from '../../../../features/toast/toast-slice';
 import { RootState } from '../../../../app/store';
 import axios from 'axios';
 
@@ -63,6 +64,14 @@ const AddDoctorForm: React.FC<Props> = ({
       .post(url, signUpData)
       .then((response) => {
         if (response?.data) {
+          const msg =
+            role === 'patient'
+              ? 'Patient sucessfuly added.'
+              : 'Doctor successfuly added.';
+          dispatch(
+            // @ts-ignore
+            setToast({ color: 'success', message: msg })
+          );
           console.log('Success!');
           cancel();
           if (role === 'doctor') {
@@ -72,7 +81,13 @@ const AddDoctorForm: React.FC<Props> = ({
           }
         }
       })
-      .catch((error) => console.log('error: ', error))
+      .catch((error) => {
+        dispatch(
+          // @ts-ignore
+          setToast({ color: 'danger', message: error.response.data.message })
+        );
+        console.log('error: ', error);
+      })
       .finally(() => dispatch(setIsLoading(false)));
   };
 

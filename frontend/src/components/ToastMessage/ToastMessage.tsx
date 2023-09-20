@@ -29,7 +29,7 @@ const ToastMessage = () => {
 
     // @ts-ignore
     return () => clearTimeout(hideAlert);
-  }, [toast]);
+  }, [toast, dispatch]);
 
   return (
     <div className={styles.toast}>

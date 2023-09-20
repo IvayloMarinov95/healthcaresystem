@@ -17,6 +17,7 @@ import { setRoles } from './features/roles/roles-slice';
 import { setUser } from './features/user/user-slice';
 import { RootState } from './app/store';
 import ToastMessage from './components/ToastMessage/ToastMessage';
+import { setToast } from './features/toast/toast-slice';
 
 const App = () => {
   const location = useLocation();
@@ -43,8 +44,14 @@ const App = () => {
           dispatch(setRoles(response.data.roles));
         }
       })
-      .catch((error) => console.log('error: ', error));
-  }, []);
+      .catch((error) => {
+        dispatch(
+          // @ts-ignore
+          setToast({ color: 'danger', message: error.response.data.message })
+        );
+        console.log('error: ', error);
+      });
+  }, [dispatch]);
 
   useEffect(() => {
     const storedData = JSON.parse(localStorage.getItem('userData')!);
@@ -55,7 +62,7 @@ const App = () => {
     ) {
       dispatch(setUser(storedData));
     }
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     let expirationTimeout;
@@ -70,7 +77,7 @@ const App = () => {
     } else {
       clearTimeout(expirationTimeout);
     }
-  }, []);
+  }, [dispatch]);
 
   return (
     <>

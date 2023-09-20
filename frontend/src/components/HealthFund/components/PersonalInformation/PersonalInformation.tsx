@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
 import { useAppDispatch } from '../../../../app/hooks';
 import { setIsLoading } from '../../../../features/spinner/isLoading-slice';
+import { setToast } from '../../../../features/toast/toast-slice';
 import axios from 'axios';
 
 interface Props {
@@ -76,6 +77,10 @@ const PersonalInformation: React.FC<Props> = ({
       .patch(url, editData)
       .then((response) => {
         if (response?.data) {
+          dispatch(
+            // @ts-ignore
+            setToast({ color: 'success', message: 'Successfully edited.' })
+          );
           console.log('Success!');
           cancel();
           if (role === 'doctor') {
@@ -85,7 +90,13 @@ const PersonalInformation: React.FC<Props> = ({
           }
         }
       })
-      .catch((error) => console.log('error: ', error))
+      .catch((error) => {
+        dispatch(
+          // @ts-ignore
+          setToast({ color: 'danger', message: error.response.data.message })
+        );
+        console.log('error: ', error);
+      })
       .finally(() => dispatch(setIsLoading(false)));
   };
 

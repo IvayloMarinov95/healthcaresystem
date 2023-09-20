@@ -2,6 +2,8 @@
   display: flex;
   justify-content: center;
   text-align: center;
-  position: relative;
+  position: absolute;
+  top: 10px;
+  left: 48%;
   z-index: 999999999;
 }

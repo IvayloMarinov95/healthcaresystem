@@ -7,6 +7,7 @@ import SignUp from '../SignUp/SignUp';
 import axios from 'axios';
 import { setUser } from '../../../features/user/user-slice';
 import { setIsLoading } from '../../../features/spinner/isLoading-slice';
+import { setToast } from '../../../features/toast/toast-slice';
 
 interface Props {
   openModal: boolean;
@@ -57,6 +58,10 @@ const AuthenticationModal: React.FC<Props> = ({
       .post(url, loginData)
       .then((response) => {
         if (response?.data) {
+          dispatch(
+            // @ts-ignore
+            setToast({ color: 'success', message: 'Successful log in!' })
+          );
           const tokenExpirationDate = new Date(
             new Date().getTime() + 1000 * 60 * 60
           );
@@ -73,7 +78,13 @@ const AuthenticationModal: React.FC<Props> = ({
         }
         handleHide();
       })
-      .catch((error) => console.log('error: ', error))
+      .catch((error) => {
+        dispatch(
+          // @ts-ignore
+          setToast({ color: 'danger', message: error.response.data.message })
+        );
+        console.log('error: ', error);
+      })
       .finally(() => dispatch(setIsLoading(false)));
   };
 
@@ -94,6 +105,10 @@ const AuthenticationModal: React.FC<Props> = ({
           const tokenExpirationDate = new Date(
             new Date().getTime() + 1000 * 60 * 60
           );
+          dispatch(
+            // @ts-ignore
+            setToast({ color: 'success', message: 'Successful sign up!' })
+          );
           dispatch(setUser(response.data));
           localStorage.setItem(
             'userData',
@@ -106,7 +121,13 @@ const AuthenticationModal: React.FC<Props> = ({
           handleHide();
         }
       })
-      .catch((error) => console.log('error: ', error))
+      .catch((error) => {
+        dispatch(
+          // @ts-ignore
+          setToast({ color: 'danger', message: error.response.data.message })
+        );
+        console.log('error: ', error);
+      })
       .finally(() => dispatch(setIsLoading(false)));
   };
 

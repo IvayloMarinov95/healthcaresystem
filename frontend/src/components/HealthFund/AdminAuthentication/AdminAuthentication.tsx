@@ -34,7 +34,6 @@ const AdminAuthentication: React.FC<Props> = ({ closeModal, openModal }) => {
     await axios
       .post(url, loginData)
       .then((response) => {
-        console.log(response);
         if (response?.data) {
           const tokenExpirationDate = new Date(
             new Date().getTime() + 1000 * 60 * 60
