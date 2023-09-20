@@ -256,11 +256,21 @@ const updatePersonalInformation = async (req, res, next) => {
     return next(error);
   }
 
-  updatedPersonalInfo.age = age;
-  updatedPersonalInfo.gender = gender;
-  updatedPersonalInfo.phone = phone;
-  updatedPersonalInfo.occupation = occupation;
-  updatedPersonalInfo.department = department;
+  if (age) {
+    updatedPersonalInfo.age = age;
+  }
+  if (gender) {
+    updatedPersonalInfo.gender = gender;
+  }
+  if (phone) {
+    updatedPersonalInfo.phone = phone;
+  }
+  if (occupation) {
+    updatedPersonalInfo.occupation = occupation;
+  }
+  if (department) {
+    updatedPersonalInfo.department = department;
+  }
 
   try {
     await updatedPersonalInfo.save();

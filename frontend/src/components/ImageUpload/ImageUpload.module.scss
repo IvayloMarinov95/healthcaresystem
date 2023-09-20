@@ -1,0 +1,45 @@
+.btn {
+  display: flex;
+  align-items: center;
+  border-radius: 50%;
+}
+
+.btnDiv {
+  display: flex;
+  justify-content: center;
+  height: 40px;
+}
+
+.minusBtn {
+  display: flex;
+  justify-content: center;
+  height: 40px;
+  position: relative;
+  opacity: 0.3;
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.imgContainer {
+  height: 180px;
+  width: 172px;
+  border: 1px solid #8d949e;
+  background: #8d949e;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+.img {
+  height: 180px;
+  width: 172px;
+  object-fit: cover;
+  position: absolute;
+}

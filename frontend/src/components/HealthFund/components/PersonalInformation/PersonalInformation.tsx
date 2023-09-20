@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
+import ImageUpload from '../../../ImageUpload/ImageUpload';
 import { useAppDispatch } from '../../../../app/hooks';
 import { setIsLoading } from '../../../../features/spinner/isLoading-slice';
 import { setToast } from '../../../../features/toast/toast-slice';
@@ -22,6 +23,7 @@ const PersonalInformation: React.FC<Props> = ({
   getDoctors,
   getPatients,
 }) => {
+  const [photo, setPhoto] = useState<File | undefined>();
   const [age, setAge] = useState<string>('');
   const [phone, setPhone] = useState<string>('');
   const [occupation, setOccupation] = useState<string>('');
@@ -61,7 +63,12 @@ const PersonalInformation: React.FC<Props> = ({
     showForm();
   };
 
+  const handlePhotoChange = (file: File | undefined) => {
+    setPhoto(file);
+  };
+
   const editInformation = async () => {
+    console.log(photo);
     dispatch(setIsLoading(true));
     const url =
       'http://localhost:5000/api/users/updatePersonalInformation/' + userId;
@@ -113,6 +120,10 @@ const PersonalInformation: React.FC<Props> = ({
         <Modal.Title id="contained-modal-title-vcenter">Add Doctor</Modal.Title>
       </Modal.Header>
       <Modal.Body>
+        <Form.Group controlId="photo">
+          <Form.Label>Photo</Form.Label>
+          <ImageUpload onInput={handlePhotoChange} />
+        </Form.Group>
         <Form.Group controlId="username">
           <Form.Label>Phone</Form.Label>
           <Form.Control
