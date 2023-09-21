@@ -2,14 +2,15 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { FaMinus, FaPlus } from 'react-icons/fa';
 import styles from './ImageUpload.module.scss';
+import { current } from '@reduxjs/toolkit';
 
 interface Props {
   id?: string;
-  onInput: (file: any) => void;
+  onInput: (file: Blob | null) => void;
 }
 
 const ImageUpload: React.FC<Props> = ({ id, onInput }) => {
-  const [file, setFile] = useState<File | null>();
+  const [file, setFile] = useState<Blob | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>('');
   const filePickerRef = useRef<HTMLInputElement>(null);
 
@@ -25,8 +26,8 @@ const ImageUpload: React.FC<Props> = ({ id, onInput }) => {
     fileReader.readAsDataURL(file);
   }, [file]);
 
-  const pickedHandler = (event: any) => {
-    let pickedFile;
+  const pickedHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    let pickedFile: Blob | null = null;
     if (event.target?.files?.length === 1) {
       pickedFile = event.target.files[0];
       setFile(pickedFile);
@@ -35,6 +36,9 @@ const ImageUpload: React.FC<Props> = ({ id, onInput }) => {
   };
 
   const removeImage = () => {
+    if (filePickerRef?.current) {
+      filePickerRef.current.value = '';
+    }
     setFile(null);
     setPreviewUrl(null);
     onInput(null);

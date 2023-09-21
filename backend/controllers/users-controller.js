@@ -79,6 +79,7 @@ const signup = async (req, res, next) => {
     phone: '',
     occupation: '',
     department: '',
+    photo: ''
   });
 
   const createdUser = new User({
@@ -245,6 +246,11 @@ const adminLogin = async (req, res, next) => {
 };
 
 const updatePersonalInformation = async (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    throw new HttpError("Invalid inputs passed, please check your data.", 422);
+  }
+
   const userId = req.params.uid;
   const { age, gender, phone, occupation, department, user } = req.body;
 
@@ -270,6 +276,9 @@ const updatePersonalInformation = async (req, res, next) => {
   }
   if (department) {
     updatedPersonalInfo.department = department;
+  }
+  if (req.file) {
+    updatedPersonalInfo.photo = req.file.path;
   }
 
   try {

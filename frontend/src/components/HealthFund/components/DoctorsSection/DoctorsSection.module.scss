@@ -26,3 +26,15 @@
     margin-right: 10px;
   }
 }
+
+.img {
+  height: 150px;
+  width: 142px;
+  object-fit: cover;
+}
+
+.title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

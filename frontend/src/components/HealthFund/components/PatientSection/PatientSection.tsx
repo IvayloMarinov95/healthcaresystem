@@ -113,56 +113,68 @@ const PatientSection: React.FC<Props> = ({ patients, getPatients }) => {
       </div>
       <div className={stylesDocSection.cardContainer}>
         {filteredList?.length > 0 &&
-          filteredList?.map((doctor) => (
+          filteredList?.map((patient) => (
             // @ts-ignore
-            <Card className={stylesDocSection.card} key={doctor.email}>
+            <Card className={stylesDocSection.card} key={patient.email}>
               <Card.Body>
-                {/* @ts-ignore */}
-                <Card.Title>{doctor.name}</Card.Title>
+                <div className={stylesDocSection.title}>
+                  {/* @ts-ignore */}
+                  <Card.Title>{patient.name}</Card.Title>
+                  <img
+                    src={`http://localhost:5000/${
+                      // @ts-ignore
+                      patient?.personalInformation?.photo || ''
+                    }`}
+                    alt=""
+                    className={stylesDocSection.img}
+                  />
+                </div>
                 <ListGroup className="list-group-flush">
                   <ListGroup.Item>
                     <FaEnvelope className={stylesDocSection.icons} />
                     {/* @ts-ignore */}
-                    {doctor?.email || ''}
+                    {patient?.email || ''}
                   </ListGroup.Item>
                   <ListGroup.Item>
                     <FaMobileAlt className={stylesDocSection.icons} />
                     {/* @ts-ignore */}
-                    {doctor?.personalInformation?.phone || ''}
+                    {patient?.personalInformation?.phone || ''}
                   </ListGroup.Item>
                   <ListGroup.Item>
                     Gender: {/* @ts-ignore */}
-                    {doctor?.personalInformation?.gender || ''}
+                    {patient?.personalInformation?.gender || ''}
                     {/* @ts-ignore */}
-                    {doctor?.personalInformation?.gender === 'Male' && (
+                    {patient?.personalInformation?.gender === 'Male' && (
                       <FaMale className={stylesDocSection.icons} />
                     )}
                     {/* @ts-ignore */}
-                    {doctor?.personalInformation?.gender === 'Female' && (
+                    {patient?.personalInformation?.gender === 'Female' && (
                       <FaFemale className={stylesDocSection.icons} />
                     )}
                   </ListGroup.Item>
                   <ListGroup.Item>
                     {/* @ts-ignore */}
-                    Age: {doctor?.personalInformation?.age || ''}
+                    Age: {patient?.personalInformation?.age || ''}
                   </ListGroup.Item>
                   <ListGroup.Item>
                     {/* @ts-ignore */}
-                    Occupation: {doctor?.personalInformation?.occupation || ''}
+                    Occupation: {patient?.personalInformation?.occupation || ''}
                   </ListGroup.Item>
                   <ListGroup.Item>
                     <div className={stylesDocSection.btns}>
                       <Button
                         variant="primary"
-                        // @ts-ignore
-                        onClick={() => editInfo(doctor.personalInformation._id)}
+                        onClick={() =>
+                          // @ts-ignore
+                          editInfo(patient.personalInformation._id)
+                        }
                       >
                         Edit
                       </Button>
                       <Button
                         variant="danger"
                         // @ts-ignore
-                        onClick={() => deleteUser(doctor._id)}
+                        onClick={() => deleteUser(patient._id)}
                       >
                         Delete
                       </Button>

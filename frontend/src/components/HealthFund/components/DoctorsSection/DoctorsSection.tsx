@@ -117,8 +117,18 @@ const DoctorsSection: React.FC<Props> = ({ doctors, getDoctors }) => {
             // @ts-ignore
             <Card className={stylesDocSection.card} key={doctor.email}>
               <Card.Body>
-                {/* @ts-ignore */}
-                <Card.Title>{doctor.name}</Card.Title>
+                <div className={stylesDocSection.title}>
+                  {/* @ts-ignore */}
+                  <Card.Title>{doctor.name}</Card.Title>
+                  <img
+                    src={`http://localhost:5000/${
+                      // @ts-ignore
+                      doctor?.personalInformation?.photo || ''
+                    }`}
+                    alt=""
+                    className={stylesDocSection.img}
+                  />
+                </div>
                 <ListGroup className="list-group-flush">
                   <ListGroup.Item>
                     <FaEnvelope className={stylesDocSection.icons} />

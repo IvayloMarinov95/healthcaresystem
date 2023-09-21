@@ -8,7 +8,8 @@ const personalInformationSchema = new Schema({
     gender: { type: String },
     phone: { type: String },
     occupation: { type: String },
-    department: { type: String }
+    department: { type: String },
+    photo: { type: String }
 });
 
 module.exports = mongoose.model("PersonalInformation", personalInformationSchema);

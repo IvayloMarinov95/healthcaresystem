@@ -15,6 +15,8 @@ const app = express();
 
 app.use(json());
 
+app.use("/uploads/images", express.static(path.join("uploads", "images")));
+
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
@@ -35,7 +37,6 @@ app.use((req, res, next) => {
 });
 
 
-app.use("/uploads/images", express.static(path.join("uploads", "images")));
 app.use(
   "/uploads/documents",
   express.static(path.join("uploads", "documents"))

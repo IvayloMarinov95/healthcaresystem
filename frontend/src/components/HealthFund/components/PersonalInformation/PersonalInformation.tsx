@@ -23,7 +23,7 @@ const PersonalInformation: React.FC<Props> = ({
   getDoctors,
   getPatients,
 }) => {
-  const [photo, setPhoto] = useState<File | undefined>();
+  const [photo, setPhoto] = useState<Blob | null>();
   const [age, setAge] = useState<string>('');
   const [phone, setPhone] = useState<string>('');
   const [occupation, setOccupation] = useState<string>('');
@@ -63,25 +63,34 @@ const PersonalInformation: React.FC<Props> = ({
     showForm();
   };
 
-  const handlePhotoChange = (file: File | undefined) => {
+  const handlePhotoChange = (file: Blob | null) => {
     setPhoto(file);
   };
 
   const editInformation = async () => {
-    console.log(photo);
+    const formData = new FormData();
     dispatch(setIsLoading(true));
     const url =
       'http://localhost:5000/api/users/updatePersonalInformation/' + userId;
-    const editData = {
-      age,
-      phone,
-      gender,
-      occupation,
-      department,
-    };
+    // const editData = {
+    //   age,
+    //   phone,
+    //   gender,
+    //   occupation,
+    //   department,
+    // };
+
+    formData.append('age', age);
+    formData.append('phone', phone);
+    formData.append('gender', gender);
+    formData.append('occupation', occupation);
+    formData.append('department', department);
+    formData.append('photo', photo!);
 
     await axios
-      .patch(url, editData)
+      .patch(url, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      })
       .then((response) => {
         if (response?.data) {
           dispatch(
@@ -99,8 +108,11 @@ const PersonalInformation: React.FC<Props> = ({
       })
       .catch((error) => {
         dispatch(
-          // @ts-ignore
-          setToast({ color: 'danger', message: error.response.data.message })
+          setToast({
+            // @ts-ignore
+            color: 'danger',
+            message: error?.response?.data?.message || '',
+          })
         );
         console.log('error: ', error);
       })
