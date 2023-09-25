@@ -6,9 +6,11 @@ import { useAppDispatch } from '../../app/hooks';
 import { setUser } from '../../features/user/user-slice';
 import { setIsLoading } from '../../features/spinner/isLoading-slice';
 import { setToast } from '../../features/toast/toast-slice';
+import { useHistory } from 'react-router-dom';
 
 const Navigation: React.FC = () => {
   const dispatch = useAppDispatch();
+  const history = useHistory();
   const [resized, setResize] = useState<boolean>(false);
   const [mobile, setMobile] = useState<boolean>(false);
 
@@ -44,6 +46,7 @@ const Navigation: React.FC = () => {
     localStorage.removeItem('userData');
     dispatch(setUser({}));
     dispatch(setIsLoading(false));
+    history.push('/');
   };
 
   return mobile ? (

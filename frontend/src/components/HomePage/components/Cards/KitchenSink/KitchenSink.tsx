@@ -1,7 +1,7 @@
-import { Card, ListGroup, ListGroupItem } from "react-bootstrap";
+import { Card, ListGroup, ListGroupItem } from 'react-bootstrap';
 
-import React from "react";
-import styles from "./KitchenSink.module.scss";
+import React from 'react';
+import styles from './KitchenSink.module.scss';
 
 interface Props {
   image: string;
@@ -21,7 +21,7 @@ const KitchenSink: React.FC<Props> = ({
   handleClick,
 }) => (
   <Card className={styles.card} onClick={handleClick}>
-    <Card.Img variant="top" src={image} />
+    {image && <Card.Img variant="top" src={`http://localhost:5000/${image}`} />}
     <Card.Body className={styles.body}>
       <Card.Title className={styles.title}>{title}</Card.Title>
       <Card.Text className={styles.text}>{text}</Card.Text>

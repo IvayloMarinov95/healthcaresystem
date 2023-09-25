@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { FaMinus, FaPlus } from 'react-icons/fa';
 import styles from './ImageUpload.module.scss';
-import { current } from '@reduxjs/toolkit';
 
 interface Props {
   id?: string;

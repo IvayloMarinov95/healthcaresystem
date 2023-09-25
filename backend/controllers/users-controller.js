@@ -39,6 +39,21 @@ const getUsersByRole = async (req, res, next) => {
   res.json({ users: users.map((user) => user.toObject({ getter: true })) });
 };
 
+getFirstFourUsers = async (req, res, next) => {
+  let users;
+  try {
+    users = await User.find({ role: req.params.role }).populate('personalInformation').limit(4);
+  } catch (err) {
+    const error = new HttpError(
+      "Fetching users failed, please try again later.",
+      500
+    );
+    return next(error);
+  }
+
+  res.json({ users: users.map((user) => user.toObject({ getter: true })) });
+};
+
 const signup = async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -332,6 +347,7 @@ const deleteUser = async (req, res, next) => {
 
 exports.getUsers = getUsers;
 exports.getUsersByRole = getUsersByRole;
+exports.getFirstFourUsers = getFirstFourUsers;
 exports.signup = signup;
 exports.login = login;
 exports.adminLogin = adminLogin;

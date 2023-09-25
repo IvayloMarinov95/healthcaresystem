@@ -1,71 +1,86 @@
-import React from "react";
+import React, { useEffect, useState } from 'react';
 
-import Chief from "./Chief/Chief";
-import DoctorContacts from "../HomePage/components/OurProfessionals/Contacts/DoctorContacts";
-import KitchenSink from "../HomePage/components/Cards/KitchenSink/KitchenSink";
-import Title from "../Title/Title";
-import amy from "../../assets/amy.jpg";
-import julia from "../../assets/julia.jpg";
-import max from "../../assets/max.jpg";
-import michael from "../../assets/michael.jpg";
-import styles from "./Doctors.module.scss";
+import Chief from './Chief/Chief';
+import DoctorContacts from '../HomePage/components/OurProfessionals/Contacts/DoctorContacts';
+import KitchenSink from '../HomePage/components/Cards/KitchenSink/KitchenSink';
+import Title from '../Title/Title';
+import styles from './Doctors.module.scss';
+import { setIsLoading } from '../../features/spinner/isLoading-slice';
+import axios from 'axios';
+import Search from '../Search/Search';
 
 const Doctors: React.FC = () => {
+  const [doctors, setDoctors] = useState<Array<object>>([]);
+  const [filteredList, setFilteredList] = useState<Array<object>>([]);
+  const [input, setInput] = useState<string>('');
+
+  const getDoctors = async () => {
+    setIsLoading(true);
+    const url = 'http://localhost:5000/api/users/' + '64ec71860b9e3c40588277d3';
+
+    await axios
+      .get(url)
+      .then((response) => {
+        if (response?.data) {
+          setDoctors(response.data.users);
+        }
+      })
+      .catch((error) => console.log('error: ', error))
+      .finally(() => setIsLoading(false));
+  };
+
+  useEffect(() => {
+    getDoctors();
+  }, []);
+
+  useEffect(() => {
+    if (input) {
+      // @ts-ignore
+      const filter = doctors?.filter((item) => item.name.includes(input));
+      setFilteredList(filter);
+    } else {
+      setFilteredList(doctors);
+    }
+  }, [input, doctors]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInput(e.target.value);
+  };
+
   return (
     <div className={styles.container}>
-      <Title tinyHeader='Professionals' header='Chief of medicine' />
+      <Title tinyHeader="Professionals" header="Chief of medicine" />
       <Chief />
       <div className={styles.doctors}>
-        <Title tinyHeader='Professionals' header='Doctors' />
+        <Title tinyHeader="Professionals" header="Doctors" />
+        <div className={styles.search}>
+          <Search input={input} handleChange={handleChange} />
+        </div>
         <div className={styles.cards}>
-          <KitchenSink
-            image={julia}
-            title='Dr. Julia Jameson'
-            text='Pediatrist'
-            item1='The branch of medicine concerned with the development, care, and diseases of babies and children.'
-            item2={
-              <DoctorContacts
-                phone='+1-212-555-7575'
-                email='example@example.com'
+          {filteredList?.map((doctor) => (
+            // @ts-ignore
+            <div key={doctor.email}>
+              <KitchenSink
+                // @ts-ignore
+                key={doctor.email}
+                // @ts-ignore
+                image={doctor?.personalInformation?.photo}
+                // @ts-ignore
+                title={'Dr. ' + doctor?.name}
+                // @ts-ignore
+                text={doctor.personalInformation?.occupation}
+                item1="The branch of medicine concerned with the development, care, and diseases of babies and children."
+                item2={
+                  <DoctorContacts
+                    // @ts-ignore
+                    phone={doctor?.personalInformation?.phone}
+                    // @ts-ignore
+                    email={doctor?.email}
+                  />
+                }
               />
-            }
-          />
-          <KitchenSink
-            image={max}
-            title='Dr. Max Turner'
-            text='Cardiologist'
-            item1='Cardiology deals with the disorders of the heart as well as some parts of the circulatory system'
-            item2={
-              <DoctorContacts
-                phone='+1-212-555-7575'
-                email='example@example.com'
-              />
-            }
-          />
-          <KitchenSink
-            image={amy}
-            title='Dr. Amy Adams'
-            text='Rehabilitation Therapy'
-            item1='Rehabilitation treatment services intended to restore your body to their highest degree of performance. '
-            item2={
-              <DoctorContacts
-                phone='+1-212-555-7575'
-                email='example@example.com'
-              />
-            }
-          />
-          <KitchenSink
-            image={michael}
-            title='Dr. Michael Linden'
-            text='Pediatrist'
-            item1='The branch of medicine concerned with the development, care, and diseases of babies and children.'
-            item2={
-              <DoctorContacts
-                phone='+1-212-555-7575'
-                email='example@example.com'
-              />
-            }
-          />
+            </div>
+          ))}
         </div>
       </div>
     </div>

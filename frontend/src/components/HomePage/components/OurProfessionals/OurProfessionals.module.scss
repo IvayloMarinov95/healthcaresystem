@@ -1,9 +1,9 @@
-@import "../../../variables.scss";
+@import '../../../variables.scss';
 
 .container {
   padding: 0 18% 0 18%;
   margin: 70px 0 100px 0;
-  font-family: "Open Sans", Arial, Helvetica, "Nimbus Sans L", sans-serif;
+  font-family: 'Open Sans', Arial, Helvetica, 'Nimbus Sans L', sans-serif;
 }
 
 .patients {
@@ -17,6 +17,17 @@
 
   &:hover {
     cursor: pointer;
+  }
+}
+
+.moreBtn {
+  display: flex;
+  justify-content: end;
+}
+
+@media (max-width: 796px) {
+  .moreBtn {
+    justify-content: center;
   }
 }
 
