@@ -7,7 +7,8 @@ const router = Router();
 const fileUpload = require('../middleware/file-upload');
 
 router.get("/", usersController.getUsers);
-router.get("/:role", usersController.getUsersByRole);
+router.get("/:uid", usersController.getUserById);
+router.get("/userByRole/:role", usersController.getUsersByRole);
 router.get("/doctors/:role", usersController.getFirstFourUsers);
 
 router.post(

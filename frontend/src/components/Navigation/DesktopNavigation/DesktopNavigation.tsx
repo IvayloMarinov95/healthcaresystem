@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import { Button, ButtonGroup } from 'react-bootstrap';
+import { Button, ButtonGroup, Dropdown } from 'react-bootstrap';
 import Carousel from '../Carousel/Slider';
 import { Link } from 'react-router-dom';
 import medicalClinic from '../../../assets/medicalClinicLogo.png';
 import styles from '../Navigation.module.scss';
 import classNames from 'classnames';
 import AuthenticationModal from '../AuthenticationModal/AuthenticationModal';
+import { FaUserCircle } from 'react-icons/fa';
 import { RootState } from '../../../app/store';
 import { useAppSelector } from '../../../app/hooks';
+import { useHistory } from 'react-router-dom';
 
 interface Props {
   logout: (e: React.MouseEvent<HTMLElement>) => void;
@@ -29,6 +31,7 @@ const DesktopNavigation: React.FC<Props> = ({ logout }) => {
   // @ts-ignore
   const userRole = roles.filter((item) => item._id === user.role)[0]?.role;
   const userIsLoggedIn = user && Object.keys(user).length > 1 ? true : false;
+  const history = useHistory();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -92,6 +95,10 @@ const DesktopNavigation: React.FC<Props> = ({ logout }) => {
 
   const handleHide = () => {
     setOpenModal(false);
+  };
+
+  const openMyProfile = () => {
+    history.push('/myProfile');
   };
 
   return (
@@ -169,9 +176,18 @@ const DesktopNavigation: React.FC<Props> = ({ logout }) => {
             </ButtonGroup>
           )}
           {userIsLoggedIn && (
-            <Button variant="dark" onClick={logout}>
-              Logout
-            </Button>
+            <Dropdown className={styles.dropdown}>
+              <Dropdown.Toggle variant="dark" id="dropdown-basic">
+                <FaUserCircle />
+              </Dropdown.Toggle>
+
+              <Dropdown.Menu>
+                <Dropdown.Item onClick={openMyProfile}>
+                  My profile
+                </Dropdown.Item>
+                <Dropdown.Item onClick={logout}>Logout</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
           )}
         </div>
       </div>

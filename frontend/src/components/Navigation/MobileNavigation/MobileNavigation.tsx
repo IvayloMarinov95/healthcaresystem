@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import medicalClinic from '../../../assets/medicalClinicLogo.png';
 import styles from '../Navigation.module.scss';
 import Hamburger from 'hamburger-react';
@@ -25,6 +25,8 @@ const MobileNavigation: React.FC<Props> = ({ logout }) => {
   // @ts-ignore
   const userRole = roles.filter((item) => item._id === user.role)[0]?.role;
   const userIsLoggedIn = user && Object.keys(user).length > 1 ? true : false;
+  const history = useHistory();
+  const location = useLocation();
 
   useEffect(() => {
     document.addEventListener('click', handleClickOutside, true);
@@ -40,6 +42,10 @@ const MobileNavigation: React.FC<Props> = ({ logout }) => {
       setUsername('');
     };
   }, [openModal]);
+
+  useEffect(() => {
+    setOpen(false);
+  }, [location]);
 
   const handleClickOutside = (event: MouseEvent) => {
     if (ref.current && !ref.current.contains(event.target as Node)) {
@@ -73,6 +79,10 @@ const MobileNavigation: React.FC<Props> = ({ logout }) => {
 
   const handleHide = () => {
     setOpenModal(false);
+  };
+
+  const handleMyProfileClick = () => {
+    history.push('/myProfile');
   };
 
   return (
@@ -126,13 +136,22 @@ const MobileNavigation: React.FC<Props> = ({ logout }) => {
             </>
           )}
           {userIsLoggedIn && (
-            <Button
-              variant="dark"
-              className={styles.mobileBtn}
-              onClick={logout}
-            >
-              Logout
-            </Button>
+            <div>
+              <Button
+                variant="dark"
+                className={styles.mobileBtn}
+                onClick={handleMyProfileClick}
+              >
+                My Profile
+              </Button>
+              <Button
+                variant="dark"
+                className={styles.mobileBtn}
+                onClick={logout}
+              >
+                Logout
+              </Button>
+            </div>
           )}
         </div>
       )}

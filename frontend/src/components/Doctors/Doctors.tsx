@@ -16,7 +16,9 @@ const Doctors: React.FC = () => {
 
   const getDoctors = async () => {
     setIsLoading(true);
-    const url = 'http://localhost:5000/api/users/' + '64ec71860b9e3c40588277d3';
+    const url =
+      'http://localhost:5000/api/users/userByRole/' +
+      '64ec71860b9e3c40588277d3';
 
     await axios
       .get(url)

@@ -19,7 +19,9 @@ const TabLayout = () => {
 
   const getDoctors = async () => {
     setIsLoading(true);
-    const url = 'http://localhost:5000/api/users/' + '64ec71860b9e3c40588277d3';
+    const url =
+      'http://localhost:5000/api/users/userByRole/' +
+      '64ec71860b9e3c40588277d3';
     await axios
       .get(url)
       .then((response) => {
@@ -33,7 +35,9 @@ const TabLayout = () => {
 
   const getPatients = async () => {
     setIsLoading(true);
-    const url = 'http://localhost:5000/api/users/' + '64f5f6963741f138f0d144e6';
+    const url =
+      'http://localhost:5000/api/users/userByRole/' +
+      '64f5f6963741f138f0d144e6';
     await axios
       .get(url)
       .then((response) => {

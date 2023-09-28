@@ -24,6 +24,22 @@ const getUsers = async (req, res, next) => {
   res.json({ users: users.map((user) => user.toObject({ getter: true })) });
 };
 
+const getUserById = async (req, res, next) => {
+  const userId = req.params.uid;
+  let user;
+  try {
+    user = await User.findById(userId).populate('personalInformation');
+  } catch {
+    const error = new HttpError(
+      "Fetching user data failed, please try again later.",
+      500
+    );
+    return next(error);
+  }
+
+  res.json(user.toObject({ getter: true }));
+};
+
 const getUsersByRole = async (req, res, next) => {
   let users;
   try {
@@ -202,7 +218,7 @@ const login = async (req, res, next) => {
     return next(error);
   }
 
-  res.json({ userId: existingUser.id, email: existingUser.email, role: existingUser.role, token: token });
+  res.json({ userId: existingUser.id, email: existingUser.email, role: existingUser.role, personalInfoId: existingUser.personalInformation._id, token: token });
 };
 
 const adminLogin = async (req, res, next) => {
@@ -346,6 +362,7 @@ const deleteUser = async (req, res, next) => {
 };
 
 exports.getUsers = getUsers;
+exports.getUserById = getUserById;
 exports.getUsersByRole = getUsersByRole;
 exports.getFirstFourUsers = getFirstFourUsers;
 exports.signup = signup;

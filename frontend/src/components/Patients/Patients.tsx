@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import KitchenSink from '../HomePage/components/Cards/KitchenSink/KitchenSink';
 import Search from '../Search/Search';
-import amy from '../../assets/amy.jpg';
-import julia from '../../assets/julia.jpg';
-import max from '../../assets/max.jpg';
-import michael from '../../assets/michael.jpg';
 import styles from './Patients.module.scss';
 import { setIsLoading } from '../../features/spinner/isLoading-slice';
 import axios from 'axios';
@@ -19,7 +15,9 @@ const Patients: React.FC = () => {
 
   const getPatients = async () => {
     setIsLoading(true);
-    const url = 'http://localhost:5000/api/users/' + '64f5f6963741f138f0d144e6';
+    const url =
+      'http://localhost:5000/api/users/userByRole/' +
+      '64f5f6963741f138f0d144e6';
 
     await axios
       .get(url)

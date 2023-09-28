@@ -17,6 +17,7 @@ import { setRoles } from './features/roles/roles-slice';
 import { setUser } from './features/user/user-slice';
 import { RootState } from './app/store';
 import ToastMessage from './components/ToastMessage/ToastMessage';
+import MyProfile from './components/MyProfile/MyProfile';
 
 const App = () => {
   const location = useLocation();
@@ -92,6 +93,7 @@ const App = () => {
             <Route path="/patients" component={Patients} />
           )}
           <Route path="/healthfund" component={HealthFund} />
+          <Route path="/myProfile" component={MyProfile} />
         </Switch>
         {location.pathname !== '/healthfund' && <Footer />}
       </div>

@@ -1,0 +1,64 @@
+@import '../variables.scss';
+
+.form {
+  width: 40%;
+  margin: 60px auto;
+  border: 1px solid;
+  border-radius: 10px;
+  padding: 40px;
+
+  @media (max-width: 1000px) {
+    width: 60%;
+  }
+  @media (max-width: 780px) {
+    width: 90%;
+  }
+}
+
+.title {
+  font-size: 26px;
+  font-weight: bold;
+  color: $blue;
+  text-align: center;
+  margin-top: 30px;
+}
+
+.img {
+  height: 180px;
+  width: 172px;
+  object-fit: cover;
+  position: absolute;
+}
+
+.imgContainer {
+  height: 180px;
+  width: 172px;
+  border: 1px solid #8d949e;
+  background: #8d949e;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  border-radius: 50%;
+}
+
+.minusBtn {
+  display: flex;
+  justify-content: center;
+  height: 40px;
+  position: relative;
+  opacity: 0.3;
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.saveBtn {
+  text-align: center;
+}

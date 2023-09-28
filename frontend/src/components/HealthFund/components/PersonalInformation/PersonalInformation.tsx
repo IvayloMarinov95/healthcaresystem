@@ -160,6 +160,7 @@ const PersonalInformation: React.FC<Props> = ({
             label="Male"
             inline
             value={gender}
+            checked={gender === 'Male' ? true : false}
             onChange={handleMaleClicked}
           ></Form.Check>
           <Form.Check
@@ -167,6 +168,7 @@ const PersonalInformation: React.FC<Props> = ({
             label="Female"
             inline
             value={gender}
+            checked={gender === 'Female' ? true : false}
             onChange={handleFemaleClicked}
           ></Form.Check>
         </Form.Group>
