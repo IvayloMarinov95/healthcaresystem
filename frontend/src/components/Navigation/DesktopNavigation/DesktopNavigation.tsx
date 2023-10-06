@@ -35,7 +35,7 @@ const DesktopNavigation: React.FC<Props> = ({ logout }) => {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.pageYOffset > 100) {
+      if (window.scrollY > 100) {
         setScrolled(true);
       } else {
         setScrolled(false);
@@ -155,6 +155,18 @@ const DesktopNavigation: React.FC<Props> = ({ logout }) => {
               Patients
             </Link>
           )}
+          {/* {user && userRole === 'doctor' && ( */}
+          <Link
+            to="/prescriptions"
+            className={
+              location.pathname === '/prescriptions'
+                ? classNames(styles.navTab, styles.active)
+                : styles.navTab
+            }
+          >
+            Prescriptions
+          </Link>
+          {/* )} */}
           <Link
             to="/about"
             className={

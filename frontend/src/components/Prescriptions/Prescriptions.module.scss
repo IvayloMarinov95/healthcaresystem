@@ -1,0 +1,45 @@
+@import '../variables.scss';
+
+.prescriptions {
+  margin-bottom: 50px;
+}
+
+.container {
+  margin: 0 auto;
+  width: 50%;
+  border: 1px solid;
+  border-radius: 8px;
+  padding: 20px 5px;
+}
+
+.select {
+  margin: 0 auto;
+  width: 50%;
+}
+
+.end {
+  margin: 0 auto;
+  width: 90%;
+}
+
+.textarea {
+  resize: none;
+  height: 150px !important;
+}
+
+.title {
+  font-size: 26px;
+  font-weight: bold;
+  color: $blue;
+  text-align: center;
+  margin: 30px 0 40px 0;
+}
+
+.footer {
+  margin-top: 50px;
+}
+
+.patient {
+  margin: 0 auto;
+  width: 90%;
+}

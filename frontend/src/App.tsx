@@ -2,6 +2,7 @@ import './App.scss';
 import { Route, Switch, useLocation } from 'react-router-dom';
 import { Spinner } from 'react-bootstrap';
 
+import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from './app/hooks';
 import About from './components/About/About';
 import Departments from './components/Departments/Departments';
@@ -10,14 +11,14 @@ import Footer from './components/Footer/Footer';
 import HealthFund from './components/HealthFund/HealthFund';
 import HomePage from './components/HomePage/components/HomePage';
 import Navigation from './components/Navigation/Navigation';
-import React, { useEffect } from 'react';
 import Patients from './components/Patients/Patients';
+import MyProfile from './components/MyProfile/MyProfile';
+import Prescriptions from './components/Prescriptions/Prescriptions';
+import ToastMessage from './components/ToastMessage/ToastMessage';
 import axios from 'axios';
 import { setRoles } from './features/roles/roles-slice';
 import { setUser } from './features/user/user-slice';
 import { RootState } from './app/store';
-import ToastMessage from './components/ToastMessage/ToastMessage';
-import MyProfile from './components/MyProfile/MyProfile';
 
 const App = () => {
   const location = useLocation();
@@ -88,6 +89,7 @@ const App = () => {
           <Route path="/about" component={About} />
           <Route path="/departments" component={Departments} />
           <Route path="/doctors" component={Doctors} />
+          <Route path="/prescriptions" component={Prescriptions} />
           {/* @ts-ignore */}
           {user && userRole === 'doctor' && (
             <Route path="/patients" component={Patients} />
