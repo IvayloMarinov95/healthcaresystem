@@ -1,12 +1,30 @@
 import React, { useEffect, useState } from 'react';
-import { Dropdown, DropdownButton, Form } from 'react-bootstrap';
+import { Button, Form, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import Medicine from './Medicine/Medicine';
 import styles from './Prescriptions.module.scss';
 import { setIsLoading } from '../../features/spinner/isLoading-slice';
 import axios from 'axios';
+import { FaPlus } from 'react-icons/fa';
+
+interface MedicineType {
+  medicineName: string;
+  quantity: string;
+  consumptionFrequency: string;
+  prescriptionDose: string;
+  period: string;
+}
 
 const Prescriptions: React.FC = () => {
   const [patients, setPatients] = useState<Array<object>>([]);
+  const [medicineList, setMedicineList] = useState<Array<MedicineType>>([
+    {
+      medicineName: '',
+      quantity: '',
+      consumptionFrequency: '',
+      prescriptionDose: '',
+      period: '',
+    },
+  ]);
 
   useEffect(() => {
     getPatients();
@@ -28,6 +46,39 @@ const Prescriptions: React.FC = () => {
       .catch((error) => console.log('error: ', error))
       .finally(() => setIsLoading(false));
   };
+
+  const renderTooltip = (props: object) => (
+    <Tooltip id="button-tooltip" {...props}>
+      Add another medicine
+    </Tooltip>
+  );
+
+  const handleChange = (index: number, fieldName: string, value: string) => {
+    const newMedicineList = [...medicineList];
+    if (newMedicineList[index].hasOwnProperty(fieldName)) {
+      // @ts-ignore
+      newMedicineList[index][fieldName] = value;
+    }
+    setMedicineList(newMedicineList);
+  };
+
+  const handleRemoveElement = (index: number) => {
+    const newMedicineList = medicineList.filter((_, i) => i !== index);
+    setMedicineList(newMedicineList);
+  };
+
+  const addMedicineSection = () => {
+    const newMedicineList = [...medicineList];
+    newMedicineList.push({
+      medicineName: '',
+      quantity: '',
+      consumptionFrequency: '',
+      prescriptionDose: '',
+      period: '',
+    });
+    setMedicineList(newMedicineList);
+  };
+
   return (
     <div className={styles.prescriptions}>
       <div className={styles.title}>
@@ -45,14 +96,34 @@ const Prescriptions: React.FC = () => {
               // onChange={handleQuantityChange}
             />
             <datalist id="patients">
-              {patients?.map((patient) => (
+              {patients?.map((patient, index) => (
                 // @ts-ignore
-                <option value={patient.name} />
+                <option key={index} value={patient.name} />
               ))}
             </datalist>
           </Form.Group>
         </div>
-        <Medicine key="1" />
+        {medicineList &&
+          medicineList?.map((item, index) => (
+            <Medicine
+              key={index}
+              index={index}
+              medicine={item}
+              handleChange={handleChange}
+              handleRemoveElement={handleRemoveElement}
+            />
+          ))}
+        <div className={styles.addSectionDiv}>
+          <OverlayTrigger placement="right" overlay={renderTooltip}>
+            <Button
+              variant="primary"
+              className={styles.addBtn}
+              onClick={addMedicineSection}
+            >
+              <FaPlus />
+            </Button>
+          </OverlayTrigger>
+        </div>
         <div className={styles.footer}>
           <Form.Group controlId="disease" className={styles.end}>
             <Form.Label>Disease</Form.Label>
