@@ -19,6 +19,7 @@ import axios from 'axios';
 import { setRoles } from './features/roles/roles-slice';
 import { setUser } from './features/user/user-slice';
 import { RootState } from './app/store';
+import Referrals from './components/Referrals/Referrals';
 
 const App = () => {
   const location = useLocation();
@@ -90,6 +91,7 @@ const App = () => {
           <Route path="/departments" component={Departments} />
           <Route path="/doctors" component={Doctors} />
           <Route path="/prescriptions" component={Prescriptions} />
+          <Route path="/referrals" component={Referrals} />
           {/* @ts-ignore */}
           {user && userRole === 'doctor' && (
             <Route path="/patients" component={Patients} />

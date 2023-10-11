@@ -167,6 +167,18 @@ const DesktopNavigation: React.FC<Props> = ({ logout }) => {
             Prescriptions
           </Link>
           {/* )} */}
+          {/* {user && userRole === 'doctor' && ( */}
+          <Link
+            to="/referrals"
+            className={
+              location.pathname === '/referrals'
+                ? classNames(styles.navTab, styles.active)
+                : styles.navTab
+            }
+          >
+            Referrals
+          </Link>
+          {/* )} */}
           <Link
             to="/about"
             className={
