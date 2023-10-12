@@ -1,0 +1,138 @@
+.healthDistrict {
+  display: flex;
+  gap: 0;
+  width: 50px;
+  height: 30px;
+}
+
+.personalId {
+  display: flex;
+  gap: 0;
+  width: 300px;
+  height: 30px;
+}
+
+.idContainer {
+  width: 100%;
+}
+
+.identificationNumber {
+  width: 600px;
+  display: flex;
+  height: 30px;
+  gap: 0;
+}
+
+.days {
+  width: 50px;
+  gap: 0;
+  display: flex;
+  height: 30px;
+}
+
+.year {
+  width: 100px;
+  gap: 0;
+  display: flex;
+  height: 30px;
+}
+
+.dateOfBirth {
+  display: flex;
+  align-items: baseline;
+}
+
+.dateOfBirthContainer {
+  width: 40%;
+  margin: 20px 0;
+}
+
+.personName {
+  width: 60%;
+  margin: 20px 0;
+}
+
+.dot {
+  font-size: 30px;
+  font-weight: bolder;
+}
+
+.characters {
+  line-height: 24px;
+}
+
+.patientContainer {
+  width: 70%;
+  margin: 20px 0 0 20px;
+  border: 1px solid;
+  padding: 20px;
+}
+
+.patientSection {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-top: 20px;
+}
+
+.idNumberSection {
+  display: flex;
+  align-items: baseline;
+  margin-top: 20px;
+}
+
+.patientInputs {
+  display: flex;
+  justify-content: space-between;
+  width: 60%;
+}
+
+.titleLabel {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.inputLabel {
+  font-size: 12px;
+}
+
+hr {
+  border: none;
+  border-top: 1px dotted #f00;
+  color: #fff;
+  background-color: #fff;
+  height: 1px;
+  width: 50%;
+}
+
+.person {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.streetAndNumber {
+  display: flex;
+  justify-content: space-between;
+}
+
+.street {
+  width: 78%;
+}
+
+.streetNumber {
+  width: 20%;
+}
+
+.residence {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.residentialComplex {
+  width: 50%;
+}
+.otherResidenceFields {
+  width: 12%;
+}

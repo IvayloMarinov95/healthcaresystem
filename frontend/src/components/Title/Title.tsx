@@ -1,15 +1,15 @@
-import React from "react";
-import styles from "./Title.module.scss";
+import React from 'react';
+import styles from './Title.module.scss';
 
 interface Props {
-  tinyHeader: string;
-  header: string;
+  tinyHeader?: string;
+  header?: string;
 }
 
 const Title: React.FC<Props> = ({ tinyHeader, header }) => (
   <>
-    <div className={styles.tinyHeader}>{tinyHeader}</div>
-    <div className={styles.header}>{header}</div>
+    {tinyHeader && <div className={styles.tinyHeader}>{tinyHeader}</div>}
+    {header && <div className={styles.header}>{header}</div>}
   </>
 );
 

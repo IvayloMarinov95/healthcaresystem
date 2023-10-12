@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import SquareInputs from './components/SquareInputs/SquareInputs';
 import styles from './Referrals.module.scss';
+import PatientInfo from './components/PatientInfo/PatientInfo';
+import ReferringDoctor from './components/ReferringDoctor/ReferringDoctor';
 
 const Referrals: React.FC = () => {
   const [personalId, setPersonalId] = useState<string>('');
@@ -12,6 +13,23 @@ const Referrals: React.FC = () => {
   const [year, setYear] = useState<string>('');
   const [dateOfBirth, setDateOfBirth] = useState<string>('');
   const [countryCode, setCountryCode] = useState<string>('');
+  const [person, setPerson] = useState<string>('');
+  const [city, setCity] = useState<string>('');
+  const [street, setStreet] = useState<string>('');
+  const [streetNumber, setStreetNumber] = useState<string>('');
+  const [residentialComplex, setResidentialComplex] = useState<string>('');
+  const [entrance, setEntrance] = useState<string>('');
+  const [block, setBlock] = useState<string>('');
+  const [floor, setFloor] = useState<string>('');
+  const [apartment, setApartment] = useState<string>('');
+  const [medicalPlaceRegNumber, setMedicalPlaceRegNumber] =
+    useState<string>('');
+  const [doctorIdNumber, setDoctorIdNumber] = useState<string>('');
+  const [replacementDoctorIdNumber, setReplacementDoctorIdNumber] =
+    useState('');
+  const [doctorType, setDoctorType] = useState<string>('');
+  const [doctorName, setDoctorName] = useState<string>('');
+  const [specialtyCode, setSpecialtyCode] = useState<string>('');
 
   useEffect(() => {
     if (day && month && year) {
@@ -51,6 +69,71 @@ const Referrals: React.FC = () => {
     setCountryCode(fieldValue.toUpperCase());
   };
 
+  const handlePersonChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPerson(e.target.value);
+  };
+
+  const handleCityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCity(e.target.value);
+  };
+
+  const handleStreetChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setStreet(e.target.value);
+  };
+
+  const handleStreetNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setStreetNumber(e.target.value);
+  };
+
+  const handleResidentialComplexChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setResidentialComplex(e.target.value);
+  };
+  const handleBlockChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setBlock(e.target.value);
+  };
+
+  const handleEntranceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEntrance(e.target.value);
+  };
+
+  const handleFloorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFloor(e.target.value);
+  };
+
+  const handleApartmentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setApartment(e.target.value);
+  };
+
+  const handleMedicalPlaceRegNumberChange = (fieldValue: string) => {
+    setMedicalPlaceRegNumber(fieldValue);
+  };
+
+  const handleDoctorIdNumberChange = (fieldValue: string) => {
+    setDoctorIdNumber(fieldValue);
+  };
+
+  const handleReplacementDoctorIdNumberChange = (fieldValue: string) => {
+    setReplacementDoctorIdNumber(fieldValue);
+  };
+
+  const handleEmployedClicked = () => {
+    setDoctorType('Employed');
+  };
+
+  const handleReplacingClicked = () => {
+    setDoctorType('Replacing');
+  };
+
+  const handleDoctorNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setDoctorName(e.target.value);
+  };
+
+  const handleSpecialtyCodeChange = (fieldValue: string) => {
+    setSpecialtyCode(fieldValue);
+  };
+
   return (
     <>
       <div className={styles.title}>
@@ -58,109 +141,62 @@ const Referrals: React.FC = () => {
       </div>
       <div className={styles.container}>
         <div className={styles.firstRow}>
-          <div className={styles.patientContainer}>
-            <div className={styles.patientSection}>
-              <div className={styles.titleLabel}>PATIENT</div>
-              <div className={styles.patientInputs}>
-                <div>
-                  <SquareInputs
-                    numberOfInputs={10}
-                    fieldValue={personalId}
-                    containerClass={styles.personalId}
-                    characterClass={styles.characters}
-                    handleChange={handlePersonalIdChange}
-                  />
-                  <label className={styles.inputLabel}>
-                    Personal ID of the patient
-                  </label>
-                </div>
-                <div>
-                  <SquareInputs
-                    numberOfInputs={2}
-                    fieldValue={rhif}
-                    containerClass={styles.healthDistrict}
-                    characterClass={styles.characters}
-                    handleChange={handleRHIFChange}
-                  />
-                  <label className={styles.inputLabel}>RHIF</label>
-                </div>
-                <div>
-                  <SquareInputs
-                    numberOfInputs={2}
-                    fieldValue={healthDistrict}
-                    containerClass={styles.healthDistrict}
-                    characterClass={styles.characters}
-                    handleChange={handleHealthDistrictChange}
-                  />
-                  <label className={styles.inputLabel}>health district</label>
-                </div>
-              </div>
-            </div>
-            <div className={styles.idNumberSection}>
-              <div className={styles.idContainer}>
-                <SquareInputs
-                  numberOfInputs={20}
-                  fieldValue={idNumber}
-                  containerClass={styles.identificationNumber}
-                  characterClass={styles.characters}
-                  handleChange={handleIdNumberChange}
-                />
-                <label className={styles.inputLabel}>
-                  Identification Number
-                </label>
-              </div>
-              <div>
-                <SquareInputs
-                  numberOfInputs={2}
-                  fieldValue={countryCode}
-                  containerClass={styles.days}
-                  characterClass={styles.characters}
-                  handleChange={handleCountryCodeChange}
-                />
-                <label className={styles.inputLabel}>Country Code</label>
-              </div>
-            </div>
-            <div className={styles.dateOfBirthContainer}>
-              <div className={styles.dateOfBirth}>
-                <div>
-                  <SquareInputs
-                    numberOfInputs={2}
-                    fieldValue={day}
-                    containerClass={styles.days}
-                    characterClass={styles.characters}
-                    handleChange={handleDayChange}
-                  />
-                </div>
-                <div className={styles.dot}>.</div>
-                <div>
-                  <SquareInputs
-                    numberOfInputs={2}
-                    fieldValue={month}
-                    containerClass={styles.days}
-                    characterClass={styles.characters}
-                    handleChange={handleMonthChange}
-                  />
-                </div>
-                <div className={styles.dot}>.</div>
-                <div>
-                  <SquareInputs
-                    numberOfInputs={4}
-                    fieldValue={year}
-                    containerClass={styles.year}
-                    characterClass={styles.characters}
-                    handleChange={handleYearChange}
-                  />
-                </div>
-              </div>
-              <label className={styles.inputLabel}>Date of Birth</label>
-            </div>
-            {/* <div>
-              <div>{person}</div>
-              <hr />
-            </div> */}
-          </div>
+          <PatientInfo
+            personalId={personalId}
+            handlePersonalIdChange={handlePersonalIdChange}
+            rhif={rhif}
+            handleRHIFChange={handleRHIFChange}
+            healthDistrict={healthDistrict}
+            handleHealthDistrictChange={handleHealthDistrictChange}
+            idNumber={idNumber}
+            handleIdNumberChange={handleIdNumberChange}
+            countryCode={countryCode}
+            handleCountryCodeChange={handleCountryCodeChange}
+            day={day}
+            handleDayChange={handleDayChange}
+            month={month}
+            handleMonthChange={handleMonthChange}
+            year={year}
+            handleYearChange={handleYearChange}
+            person={person}
+            handlePersonChange={handlePersonChange}
+            city={city}
+            handleCityChange={handleCityChange}
+            street={street}
+            handleStreetChange={handleStreetChange}
+            streetNumber={streetNumber}
+            handleStreetNumberChange={handleStreetNumberChange}
+            residentialComplex={residentialComplex}
+            handleResidentialComplexChange={handleResidentialComplexChange}
+            block={block}
+            handleBlockChange={handleBlockChange}
+            entrance={entrance}
+            handleEntranceChange={handleEntranceChange}
+            floor={floor}
+            handleFloorChange={handleFloorChange}
+            apartment={apartment}
+            handleApartmentChange={handleApartmentChange}
+          />
           <div className={styles.sendingDoctorSection}>
-            <div className={styles.titleLabel}>REFERRING DOCTOR</div>
+            <ReferringDoctor
+              medicalPlaceRegNumber={medicalPlaceRegNumber}
+              handleMedicalPlaceRegNumberChange={
+                handleMedicalPlaceRegNumberChange
+              }
+              doctorIdNumber={doctorIdNumber}
+              handleDoctorIdNumberChange={handleDoctorIdNumberChange}
+              replacementDoctorIdNumber={replacementDoctorIdNumber}
+              handleReplacementDoctorIdNumberChange={
+                handleReplacementDoctorIdNumberChange
+              }
+              doctorType={doctorType}
+              handleEmployedClicked={handleEmployedClicked}
+              handleReplacingClicked={handleReplacingClicked}
+              doctorName={doctorName}
+              handleDoctorNameChange={handleDoctorNameChange}
+              specialtyCode={specialtyCode}
+              handleSpecialtyCodeChange={handleSpecialtyCodeChange}
+            />
           </div>
         </div>
       </div>

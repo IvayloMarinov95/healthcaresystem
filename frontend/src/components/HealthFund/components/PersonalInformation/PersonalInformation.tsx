@@ -136,7 +136,7 @@ const PersonalInformation: React.FC<Props> = ({
           <Form.Label>Photo</Form.Label>
           <ImageUpload onInput={handlePhotoChange} />
         </Form.Group>
-        <Form.Group controlId="username">
+        <Form.Group controlId="phone">
           <Form.Label>Phone</Form.Label>
           <Form.Control
             type="text"

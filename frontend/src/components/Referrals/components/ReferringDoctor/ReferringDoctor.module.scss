@@ -1,0 +1,46 @@
+.titleLabel {
+  font-weight: bold;
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.regNumbers {
+  display: flex;
+  gap: 0;
+  width: 300px;
+  height: 30px;
+  margin-top: 40px;
+}
+
+.regNumbersContainer {
+  float: right;
+  margin-bottom: 20px;
+}
+
+.checkboxSection {
+  float: right;
+}
+
+.characters {
+  line-height: 24px;
+}
+
+.specialtyCode {
+  display: flex;
+  gap: 0;
+  width: 50px;
+  height: 30px;
+}
+
+.specialtyCodeSection {
+  margin-top: 40px;
+  float: left;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.nameAndLastName {
+  width: 60%;
+}
