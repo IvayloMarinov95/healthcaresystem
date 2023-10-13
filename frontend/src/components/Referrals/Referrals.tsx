@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import styles from './Referrals.module.scss';
 import PatientInfo from './components/PatientInfo/PatientInfo';
 import ReferringDoctor from './components/ReferringDoctor/ReferringDoctor';
+import SquareInputs from './components/SquareInputs/SquareInputs';
+import Diagnoses from './components/Diagnoses/Diagnoses';
+import Doctor from './components/Doctor/Doctor';
 
 const Referrals: React.FC = () => {
   const [personalId, setPersonalId] = useState<string>('');
@@ -30,6 +33,16 @@ const Referrals: React.FC = () => {
   const [doctorType, setDoctorType] = useState<string>('');
   const [doctorName, setDoctorName] = useState<string>('');
   const [specialtyCode, setSpecialtyCode] = useState<string>('');
+  const [referralNumber, setReferralNumber] = useState<string>('');
+  const [primaryDiagnosis, setPrimaryDiagnosis] = useState<string>('');
+  const [accompanyingIllness1, setAccompanyingIllness1] = useState<string>('');
+  const [accompanyingIllness2, setAccompanyingIllness2] = useState<string>('');
+  const [medicalPlaceRegisterNumber, setMedicalPlaceRegisterNumber] =
+    useState<string>('');
+  const [doctorSectionName, setDoctorSectionName] = useState<string>('');
+  const [doctorSpecialtyCode, setDoctorSpecialtyCode] = useState<string>('');
+  const [doctorSectionPersonalId, setDoctorSectionPersonalId] =
+    useState<string>('');
 
   useEffect(() => {
     if (day && month && year) {
@@ -134,6 +147,40 @@ const Referrals: React.FC = () => {
     setSpecialtyCode(fieldValue);
   };
 
+  const handleReferralNumberChange = (fieldValue: string) => {
+    setReferralNumber(fieldValue);
+  };
+
+  const handlePrimaryDiagnosisChange = (fieldValue: string) => {
+    setPrimaryDiagnosis(fieldValue);
+  };
+
+  const handleAccompanyingIllnes1Change = (fieldValue: string) => {
+    setAccompanyingIllness1(fieldValue);
+  };
+
+  const handleAccompanyingIllnes2Change = (fieldValue: string) => {
+    setAccompanyingIllness2(fieldValue);
+  };
+
+  const handleMedicalPlaceRegisterNumberChange = (fieldValue: string) => {
+    setMedicalPlaceRegisterNumber(fieldValue);
+  };
+
+  const handleDoctorSpecialtyCodeChange = (fieldValue: string) => {
+    setDoctorSpecialtyCode(fieldValue);
+  };
+
+  const handleDoctorSectionNameChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setDoctorSectionName(e.target.value);
+  };
+
+  const handleDoctorSectionPersonalIdChange = (fieldValue: string) => {
+    setDoctorSectionPersonalId(fieldValue);
+  };
+
   return (
     <>
       <div className={styles.title}>
@@ -198,6 +245,50 @@ const Referrals: React.FC = () => {
               handleSpecialtyCodeChange={handleSpecialtyCodeChange}
             />
           </div>
+        </div>
+        <div className={styles.secondRow}>
+          <div className={styles.secondRowContainer}>
+            <div className={styles.refNumberContainer}>
+              <div className={styles.titleLabel}>MEDICAL REFERRAL NUMBER</div>
+              <div>
+                <SquareInputs
+                  numberOfInputs={6}
+                  fieldValue={referralNumber}
+                  containerClass={styles.referralNumber}
+                  characterClass={styles.characters}
+                  handleChange={handleReferralNumberChange}
+                />
+              </div>
+            </div>
+            <div>
+              <Diagnoses
+                primaryDiagnosis={primaryDiagnosis}
+                handlePrimaryDiagnosisChange={handlePrimaryDiagnosisChange}
+                accompanyingIllness1={accompanyingIllness1}
+                handleAccompanyingIllnes1Change={
+                  handleAccompanyingIllnes1Change
+                }
+                accompanyingIllness2={accompanyingIllness2}
+                handleAccompanyingIllnes2Change={
+                  handleAccompanyingIllnes2Change
+                }
+              />
+            </div>
+          </div>
+          <Doctor
+            medicalPlaceRegNumber={medicalPlaceRegisterNumber}
+            handleMedicalPlaceRegisterNumberChange={
+              handleMedicalPlaceRegisterNumberChange
+            }
+            doctorSpecialtyCode={doctorSpecialtyCode}
+            handleDoctorSpecialtyCodeChange={handleDoctorSpecialtyCodeChange}
+            doctorName={doctorSectionName}
+            handleDoctorNameChange={handleDoctorSectionNameChange}
+            doctorSectionPersonalId={doctorSectionPersonalId}
+            handleDoctorSectionPersonalIdChange={
+              handleDoctorSectionPersonalIdChange
+            }
+          />
         </div>
       </div>
     </>

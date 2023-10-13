@@ -1,0 +1,33 @@
+.diagnosisSquares {
+  display: flex;
+  gap: 0;
+  width: 250px;
+  height: 30px;
+  margin-left: 5px;
+}
+
+.icd {
+  display: flex;
+  align-items: flex-start;
+}
+
+.characters {
+  line-height: 24px;
+}
+
+.diagnosisContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 40px;
+  border: 1px solid;
+  padding: 20px;
+}
+
+.inputLabel {
+  float: right;
+}
+
+.diagnosisText {
+  font-weight: bold;
+}

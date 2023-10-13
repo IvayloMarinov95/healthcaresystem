@@ -1,0 +1,35 @@
+.longSquares {
+  display: flex;
+  gap: 0;
+  width: 300px;
+  height: 30px;
+}
+
+.characters {
+  line-height: 24px;
+}
+
+.doctorText {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.container {
+  border: 1px solid;
+  width: 40%;
+  margin-bottom: 40px;
+  padding: 20px;
+}
+
+.doctor {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.specialtyCode {
+  display: flex;
+  gap: 0;
+  width: 50px;
+  height: 30px;
+}

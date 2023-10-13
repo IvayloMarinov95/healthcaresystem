@@ -7,7 +7,7 @@
 
 .firstRow {
   display: flex;
-  margin: 20px;
+  margin: 20px 20px 0 20px;
 }
 
 .title {
@@ -20,7 +20,39 @@
 
 .sendingDoctorSection {
   width: 30%;
-  margin-top: 20px;
   border: 1px solid;
   padding: 20px;
+}
+
+.titleLabel {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.secondRowContainer {
+  margin: 40px 0 40px 20px;
+  width: 60%;
+}
+
+.referralNumber {
+  display: flex;
+  gap: 0;
+  width: 200px;
+  height: 30px;
+}
+
+.characters {
+  line-height: 24px;
+}
+
+.refNumberContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+}
+
+.secondRow {
+  display: flex;
+  margin: 0 20px;
 }
