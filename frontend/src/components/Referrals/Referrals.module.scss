@@ -30,7 +30,7 @@
 }
 
 .secondRowContainer {
-  margin: 40px 0 40px 20px;
+  margin-top: 40px;
   width: 60%;
 }
 
@@ -55,4 +55,28 @@
 .secondRow {
   display: flex;
   margin: 0 20px;
+}
+
+.thirdRow {
+  display: flex;
+  margin: 0 20px;
+  border: 1px solid;
+  padding: 20px 50px;
+}
+
+@media (max-width: 1280px) {
+  .firstRow,
+  .secondRow,
+  .thirdRow {
+    display: block;
+  }
+
+  .sendingDoctorSection {
+    width: 100%;
+    float: none;
+  }
+
+  .secondRowContainer {
+    width: 100%;
+  }
 }

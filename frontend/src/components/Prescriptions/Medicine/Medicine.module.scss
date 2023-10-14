@@ -42,3 +42,19 @@
   margin-bottom: -40px;
   height: 40px;
 }
+
+@media (max-width: 1280px) {
+  .sections {
+    display: block;
+    width: 90%;
+    margin: 0 auto;
+  }
+
+  .leftSide {
+    width: 100%;
+  }
+
+  .rightSide {
+    width: 100%;
+  }
+}

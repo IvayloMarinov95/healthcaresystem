@@ -135,3 +135,59 @@ hr {
 .otherResidenceFields {
   width: 12%;
 }
+
+@media (max-width: 1280px) {
+  .patientContainer {
+    width: 100%;
+  }
+}
+
+@media (max-width: 900px) {
+  .patientInputs {
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  .patientSection {
+    display: block;
+  }
+
+  .idNumberSection {
+    display: block;
+  }
+
+  .idContainer {
+    margin-bottom: 20px;
+  }
+
+  .person {
+    display: block;
+    width: 100%;
+  }
+
+  .streetAndNumber {
+    display: block;
+    width: 90%;
+  }
+
+  .streetNumber {
+    width: 50%;
+  }
+
+  .residence {
+    display: block;
+    width: 100%;
+  }
+
+  .residentialComplex {
+    width: 70%;
+  }
+
+  .personName {
+    width: 70%;
+  }
+
+  .otherResidenceFields {
+    width: 50%;
+  }
+}

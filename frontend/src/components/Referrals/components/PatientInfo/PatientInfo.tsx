@@ -213,7 +213,7 @@ const PatientInfo: React.FC<Props> = ({
         </div>
         <div className={styles.streetNumber}>
           <Form.Group controlId="streetNumber">
-            <Form.Label>No</Form.Label>
+            <Form.Label>No.</Form.Label>
             <Form.Control
               type="text"
               placeholder="Enter number of street"

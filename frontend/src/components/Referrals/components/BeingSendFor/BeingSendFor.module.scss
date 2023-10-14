@@ -1,0 +1,37 @@
+.typeContainer {
+  display: flex;
+  width: 70%;
+}
+
+.reason {
+  width: 30%;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.typeText {
+  font-size: 16px;
+  font-weight: bold;
+  margin-right: 5%;
+}
+
+@media (max-width: 1280px) {
+  .typeContainer {
+    margin-top: 20px;
+    width: 100%;
+  }
+
+  .typeText {
+    margin-right: 20%;
+  }
+}
+
+@media (max-width: 780px) {
+  .typeContainer {
+    display: block;
+  }
+
+  .typeText {
+    margin-bottom: 20px;
+  }
+}

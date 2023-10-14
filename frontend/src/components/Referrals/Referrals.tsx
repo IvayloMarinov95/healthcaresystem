@@ -5,6 +5,7 @@ import ReferringDoctor from './components/ReferringDoctor/ReferringDoctor';
 import SquareInputs from './components/SquareInputs/SquareInputs';
 import Diagnoses from './components/Diagnoses/Diagnoses';
 import Doctor from './components/Doctor/Doctor';
+import BeingSendFor from './components/BeingSendFor/BeingSendFor';
 
 const Referrals: React.FC = () => {
   const [personalId, setPersonalId] = useState<string>('');
@@ -43,6 +44,7 @@ const Referrals: React.FC = () => {
   const [doctorSpecialtyCode, setDoctorSpecialtyCode] = useState<string>('');
   const [doctorSectionPersonalId, setDoctorSectionPersonalId] =
     useState<string>('');
+  const [type, setType] = useState<string>('');
 
   useEffect(() => {
     if (day && month && year) {
@@ -181,6 +183,10 @@ const Referrals: React.FC = () => {
     setDoctorSectionPersonalId(fieldValue);
   };
 
+  const handleTypeChange = (selectedType: string) => {
+    setType(selectedType);
+  };
+
   return (
     <>
       <div className={styles.title}>
@@ -289,6 +295,9 @@ const Referrals: React.FC = () => {
               handleDoctorSectionPersonalIdChange
             }
           />
+        </div>
+        <div className={styles.thirdRow}>
+          <BeingSendFor type={type} handleTypeSelect={handleTypeChange} />
         </div>
       </div>
     </>

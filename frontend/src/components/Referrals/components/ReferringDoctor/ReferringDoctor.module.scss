@@ -44,3 +44,19 @@
 .nameAndLastName {
   width: 60%;
 }
+
+@media (max-width: 1280px) {
+  .regNumbersContainer,
+  .checkboxSection {
+    float: none;
+  }
+
+  .specialtyCodeSection {
+    display: block;
+    float: none;
+  }
+
+  .nameAndLastName {
+    margin-top: 20px;
+  }
+}

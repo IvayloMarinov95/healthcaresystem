@@ -129,7 +129,7 @@ const Prescriptions: React.FC = () => {
             <Form.Label>Disease</Form.Label>
             <Form.Control
               type="text"
-              placeholder="Enter quantity"
+              placeholder="Enter disease"
               // value={quantity}
               // onChange={handleQuantityChange}
             />
