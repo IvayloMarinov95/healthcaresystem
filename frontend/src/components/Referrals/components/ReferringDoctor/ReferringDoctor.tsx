@@ -84,7 +84,7 @@ const ReferringDoctor: React.FC<Props> = ({
         ></Form.Check>
         <Form.Check
           type="checkbox"
-          label="Female"
+          label="Replacing"
           inline
           value={doctorType}
           checked={doctorType === 'Replacing' ? true : false}

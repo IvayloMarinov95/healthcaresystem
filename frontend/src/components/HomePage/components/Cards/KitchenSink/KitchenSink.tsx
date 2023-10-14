@@ -1,4 +1,5 @@
 import { Card, ListGroup, ListGroupItem } from 'react-bootstrap';
+import blank from '../../../../../assets/blankPicture.jpg';
 
 import React from 'react';
 import styles from './KitchenSink.module.scss';
@@ -21,7 +22,11 @@ const KitchenSink: React.FC<Props> = ({
   handleClick,
 }) => (
   <Card className={styles.card} onClick={handleClick}>
-    {image && <Card.Img variant="top" src={`http://localhost:5000/${image}`} />}
+    {image ? (
+      <Card.Img variant="top" src={`http://localhost:5000/${image}`} />
+    ) : (
+      <Card.Img variant="top" src={blank} className={styles.img} />
+    )}
     <Card.Body className={styles.body}>
       <Card.Title className={styles.title}>{title}</Card.Title>
       <Card.Text className={styles.text}>{text}</Card.Text>

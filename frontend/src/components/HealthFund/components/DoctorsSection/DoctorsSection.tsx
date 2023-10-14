@@ -44,8 +44,10 @@ const DoctorsSection: React.FC<Props> = ({ doctors, getDoctors }) => {
 
   useEffect(() => {
     if (input) {
-      // @ts-ignore
-      const filter = doctors?.filter((item) => item.name.includes(input));
+      const filter = doctors?.filter((item) =>
+        // @ts-ignore
+        item.name.toLowerCase().includes(input.toLowerCase())
+      );
       setFilteredList(filter);
     } else {
       setFilteredList(doctors);
