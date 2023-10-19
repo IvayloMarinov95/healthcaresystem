@@ -8,7 +8,9 @@ const userSchema = new Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true, minLength: 6 },
   role: { type: String, required: true, ref: "Role" },
-  personalInformation: { type: mongoose.Types.ObjectId, ref: "PersonalInformation" }
+  personalInformation: { type: mongoose.Types.ObjectId, ref: "PersonalInformation" },
+  prescriptions: [{ type: mongoose.Types.ObjectId, ref: 'Prescription' }],
+  referrals: [{ type: mongoose.Types.ObjectId, ref: 'Referral' }],
 });
 
 userSchema.plugin(uniqueValidator);

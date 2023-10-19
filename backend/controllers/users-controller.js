@@ -119,7 +119,9 @@ const signup = async (req, res, next) => {
     email,
     password: hashedPassword,
     role,
-    personalInformation: createdPersonalInformation.id
+    personalInformation: createdPersonalInformation.id,
+    prescriptions: [],
+    referrals: []
   });
 
 
