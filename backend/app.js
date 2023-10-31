@@ -8,7 +8,8 @@ const mongoose = require("mongoose");
 
 const usersRoutes = require("./routes/users-routes");
 const rolesRoutes = require("./routes/roles-routes");
-const prescriptionsRoutes = require("./routes/prescription-routes");
+const prescriptionsRoutes = require("./routes/prescriptions-routes");
+const referralsRoutes = require("./routes/referrals-routes");
 
 const HttpError = require("./models/http-error");
 
@@ -32,6 +33,7 @@ app.use((req, res, next) => {
 app.use("/api/users", usersRoutes);
 app.use("/api/roles", rolesRoutes);
 app.use("/api/prescriptions", prescriptionsRoutes);
+app.use("/api/referrals", referralsRoutes);
 
 app.use((req, res, next) => {
   const error = new HttpError("Could not find this route.", 404);

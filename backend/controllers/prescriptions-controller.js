@@ -7,7 +7,7 @@ const User = require('../models/users');
 const getPrescriptions = async (req, res, next) => {
     let prescriptions;
     try {
-        prescriptions = await Prescriptions.find();
+        prescriptions = await Prescription.find();
     } catch (err) {
         const error = new HttpError(
             "Fetching prescriptions failed, please try again later.",
@@ -19,7 +19,7 @@ const getPrescriptions = async (req, res, next) => {
 };
 
 const createPrescription = async (req, res, next) => {
-    const { patientName, disease, additionalInformation, user, medicineList } = req.body;
+    const { patientName, disease, additionalInformation, status, user, medicineList } = req.body;
 
     let existingUser;
     try {
@@ -37,6 +37,7 @@ const createPrescription = async (req, res, next) => {
         disease,
         additionalInformation,
         user,
+        status,
         medicineList
     });
 
@@ -58,6 +59,43 @@ const createPrescription = async (req, res, next) => {
     res.status(201).json({ prescription: createdPrescription });
 };
 
+const deletePrescription = async (req, res, next) => {
+    const prescriptionId = req.params.pid;
+
+    let prescription;
+    try {
+        prescription = await Prescription.findById(prescriptionId).populate("user");
+    } catch (err) {
+        const error = new HttpError(
+            "Something went wrong, could not delete prescription.",
+            500
+        );
+        return next(error);
+    }
+
+    if (!prescription) {
+        const error = new HttpError("Could not find prescription for this id.", 404);
+        return next(error);
+    }
+
+    try {
+        const sess = await mongoose.startSession();
+        sess.startTransaction();
+        await prescription.remove({ session: sess });
+        prescription.user.prescriptions.pull(prescription);
+        await prescription.user.save({ session: sess });
+        await sess.commitTransaction();
+    } catch (err) {
+        const error = new HttpError(
+            "Something went wrong, could not delete prescription.",
+            500
+        );
+        return next(error);
+    }
+
+    res.status(200).json({ message: "Prescription is deleted." });
+};
 
 exports.getPrescriptions = getPrescriptions;
 exports.createPrescription = createPrescription;
+exports.deletePrescription = deletePrescription;

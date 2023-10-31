@@ -354,7 +354,7 @@ const deleteUser = async (req, res, next) => {
     await sess.commitTransaction();
   } catch (err) {
     const error = new HttpError(
-      "Something wnet wrong, could not delete user.",
+      "Something went wrong, could not delete user.",
       500
     );
     return next(error);

@@ -14,6 +14,7 @@ const prescriptionSchema = new Schema({
     patientName: { type: String, required: true },
     disease: { type: String, required: true },
     additionalInformation: { type: String },
+    status: { type: String },
     user: { type: String, required: true, ref: "User" },
     medicineList: [medicineListSchema]
 });
