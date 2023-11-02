@@ -6,8 +6,14 @@ import SquareInputs from './components/SquareInputs/SquareInputs';
 import Diagnoses from './components/Diagnoses/Diagnoses';
 import Doctor from './components/Doctor/Doctor';
 import BeingSendFor from './components/BeingSendFor/BeingSendFor';
+import { setIsLoading } from '../../features/spinner/isLoading-slice';
+import axios from 'axios';
+import { Button } from 'react-bootstrap';
+import { status } from '../../lib/constants';
 
 const Referrals: React.FC = () => {
+  const [patients, setPatients] = useState<Array<object>>([]);
+  const [selectedPatient, setSelectedPatient] = useState<object>({});
   const [personalId, setPersonalId] = useState<string>('');
   const [rhif, setRhif] = useState<string>('');
   const [healthDistrict, setHealthDistrict] = useState<string>('');
@@ -45,6 +51,27 @@ const Referrals: React.FC = () => {
   const [doctorSectionPersonalId, setDoctorSectionPersonalId] =
     useState<string>('');
   const [type, setType] = useState<string>('');
+
+  useEffect(() => {
+    getPatients();
+  }, []);
+
+  const getPatients = async () => {
+    setIsLoading(true);
+    const url =
+      'http://localhost:5000/api/users/userByRole/' +
+      '64f5f6963741f138f0d144e6';
+
+    await axios
+      .get(url)
+      .then((response) => {
+        if (response?.data) {
+          setPatients(response.data.users);
+        }
+      })
+      .catch((error) => console.log('error: ', error))
+      .finally(() => setIsLoading(false));
+  };
 
   useEffect(() => {
     if (day && month && year) {
@@ -187,6 +214,52 @@ const Referrals: React.FC = () => {
     setType(selectedType);
   };
 
+  const handleSelectPatient = (option: { label: string; value: object }) => {
+    setSelectedPatient(option.value);
+  };
+
+  const assignReferral = () => {
+    setIsLoading(true);
+    const referralData = {
+      // @ts-ignore
+      user: selectedPatient?._id || null,
+      patientPersonalId: personalId,
+      rhif,
+      healthDistrict,
+      idNumber,
+      countryCode,
+      dateOfBirth,
+      // @ts-ignore
+      patientFullName: selectedPatient?.name || null,
+      city,
+      street,
+      streetNumber,
+      residentialComplex,
+      block,
+      entrance,
+      floor,
+      apartment,
+      medicalPlaceReferringRegNumber: medicalPlaceRegNumber,
+      referringDoctorPersonalId: doctorIdNumber,
+      referringReplacementDoctorPersonalId: replacementDoctorIdNumber,
+      referringDoctorType: doctorType,
+      referringSpecialtyCode: specialtyCode,
+      referringDoctorFullName: doctorName,
+      referralNumber,
+      primaryDiagnosis,
+      accompanyingIllness1,
+      accompanyingIllness2,
+      medicalPlaceRegNumber: medicalPlaceRegisterNumber,
+      specialtyCode: doctorSpecialtyCode,
+      doctorPersonalId: doctorSectionPersonalId,
+      doctorFullName: doctorSectionName,
+      reason: type,
+      status: status.PENDING,
+    };
+
+    console.log(referralData);
+  };
+
   return (
     <>
       <div className={styles.title}>
@@ -195,6 +268,8 @@ const Referrals: React.FC = () => {
       <div className={styles.container}>
         <div className={styles.firstRow}>
           <PatientInfo
+            patients={patients}
+            handleSelectPatient={handleSelectPatient}
             personalId={personalId}
             handlePersonalIdChange={handlePersonalIdChange}
             rhif={rhif}
@@ -211,8 +286,6 @@ const Referrals: React.FC = () => {
             handleMonthChange={handleMonthChange}
             year={year}
             handleYearChange={handleYearChange}
-            person={person}
-            handlePersonChange={handlePersonChange}
             city={city}
             handleCityChange={handleCityChange}
             street={street}
@@ -300,6 +373,13 @@ const Referrals: React.FC = () => {
           <BeingSendFor type={type} handleTypeSelect={handleTypeChange} />
         </div>
       </div>
+      <Button
+        variant="primary"
+        onClick={assignReferral}
+        className={styles.assignBtn}
+      >
+        Assign Referral
+      </Button>
     </>
   );
 };

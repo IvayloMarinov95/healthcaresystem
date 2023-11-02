@@ -3,8 +3,11 @@ import SquareInputs from '../SquareInputs/SquareInputs';
 import { Form } from 'react-bootstrap';
 import Title from '../../../Title/Title';
 import styles from './PatientInfo.module.scss';
+import Select from 'react-select';
 
 type Props = {
+  patients: Array<object>;
+  handleSelectPatient: (option: { label: string; value: object }) => void;
   personalId: string;
   handlePersonalIdChange: (fieldValue: string) => void;
   rhif: string;
@@ -21,8 +24,6 @@ type Props = {
   handleMonthChange: (fieldValue: string) => void;
   year: string;
   handleYearChange: (fieldValue: string) => void;
-  person: string;
-  handlePersonChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   city: string;
   handleCityChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   street: string;
@@ -44,6 +45,8 @@ type Props = {
 };
 
 const PatientInfo: React.FC<Props> = ({
+  patients,
+  handleSelectPatient,
   personalId,
   handlePersonalIdChange,
   rhif,
@@ -60,8 +63,6 @@ const PatientInfo: React.FC<Props> = ({
   handleMonthChange,
   year,
   handleYearChange,
-  person,
-  handlePersonChange,
   city,
   handleCityChange,
   street,
@@ -176,11 +177,16 @@ const PatientInfo: React.FC<Props> = ({
       </div>
       <div className={styles.personName}>
         <Form.Group controlId="patientFullName">
-          <Form.Control
-            type="text"
-            placeholder="Enter patient's full name"
-            value={person}
-            onChange={handlePersonChange}
+          {/* @ts-ignore */}
+          <Select
+            options={patients.map((patient) => ({
+              // @ts-ignore
+              label: patient.name,
+              // @ts-ignore
+              value: patient,
+            }))}
+            // @ts-ignore
+            onChange={(option) => handleSelectPatient(option)}
           />
           <Form.Label>Full name of patient</Form.Label>
         </Form.Group>
