@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styles from './Referrals.module.scss';
 import PatientInfo from './components/PatientInfo/PatientInfo';
 import ReferringDoctor from './components/ReferringDoctor/ReferringDoctor';
@@ -10,8 +10,12 @@ import { setIsLoading } from '../../features/spinner/isLoading-slice';
 import axios from 'axios';
 import { Button } from 'react-bootstrap';
 import { status } from '../../lib/constants';
+import { useAppDispatch } from '../../app/hooks';
+import { setToast } from '../../features/toast/toast-slice';
 
 const Referrals: React.FC = () => {
+  const ref = useRef<null | HTMLDivElement>(null);
+  const dispatch = useAppDispatch();
   const [patients, setPatients] = useState<Array<object>>([]);
   const [selectedPatient, setSelectedPatient] = useState<object>({});
   const [personalId, setPersonalId] = useState<string>('');
@@ -23,7 +27,6 @@ const Referrals: React.FC = () => {
   const [year, setYear] = useState<string>('');
   const [dateOfBirth, setDateOfBirth] = useState<string>('');
   const [countryCode, setCountryCode] = useState<string>('');
-  const [person, setPerson] = useState<string>('');
   const [city, setCity] = useState<string>('');
   const [street, setStreet] = useState<string>('');
   const [streetNumber, setStreetNumber] = useState<string>('');
@@ -109,10 +112,6 @@ const Referrals: React.FC = () => {
 
   const handleCountryCodeChange = (fieldValue: string) => {
     setCountryCode(fieldValue.toUpperCase());
-  };
-
-  const handlePersonChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPerson(e.target.value);
   };
 
   const handleCityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -218,8 +217,45 @@ const Referrals: React.FC = () => {
     setSelectedPatient(option.value);
   };
 
-  const assignReferral = () => {
+  const clearData = () => {
+    setSelectedPatient({});
+    setPersonalId('');
+    setRhif('');
+    setHealthDistrict('');
+    setIdNumber('');
+    setCountryCode('');
+    setDateOfBirth('');
+    setDay('');
+    setMonth('');
+    setYear('');
+    setCity('');
+    setStreet('');
+    setStreetNumber('');
+    setResidentialComplex('');
+    setBlock('');
+    setEntrance('');
+    setFloor('');
+    setApartment('');
+    setMedicalPlaceRegNumber('');
+    setDoctorIdNumber('');
+    setReplacementDoctorIdNumber('');
+    setDoctorType('');
+    setSpecialtyCode('');
+    setDoctorName('');
+    setReferralNumber('');
+    setPrimaryDiagnosis('');
+    setAccompanyingIllness1('');
+    setAccompanyingIllness2('');
+    setMedicalPlaceRegisterNumber('');
+    setDoctorSpecialtyCode('');
+    setDoctorSectionName('');
+    setDoctorSectionPersonalId('');
+    setType('');
+  };
+
+  const assignReferral = async () => {
     setIsLoading(true);
+    const url = 'http://localhost:5000/api/referrals/createReferral';
     const referralData = {
       // @ts-ignore
       user: selectedPatient?._id || null,
@@ -257,12 +293,36 @@ const Referrals: React.FC = () => {
       status: status.PENDING,
     };
 
-    console.log(referralData);
+    await axios
+      .post(url, referralData)
+      .then((response) => {
+        if (response?.data) {
+          dispatch(
+            setToast({
+              // @ts-ignore
+              color: 'success',
+              message: 'Referral assigned successful!',
+            })
+          );
+          clearData();
+        }
+      })
+      .catch((error) => {
+        dispatch(
+          // @ts-ignore
+          setToast({ color: 'danger', message: error.response.data.message })
+        );
+        console.log('error: ', error);
+      })
+      .finally(() => {
+        setIsLoading(false);
+        ref?.current?.scrollIntoView({ behavior: 'smooth' });
+      });
   };
 
   return (
     <>
-      <div className={styles.title}>
+      <div className={styles.title} ref={ref}>
         <h3>Referral</h3>
       </div>
       <div className={styles.container}>
