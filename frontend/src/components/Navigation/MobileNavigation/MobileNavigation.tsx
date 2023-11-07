@@ -114,6 +114,16 @@ const MobileNavigation: React.FC<Props> = ({ logout }) => {
               Patients
             </Link>
           )}
+          {user && userRole === 'doctor' && (
+            <Link to="/prescriptions" className={styles.mobileTabs}>
+              Presctiptions
+            </Link>
+          )}
+          {user && userRole === 'doctor' && (
+            <Link to="/referrals" className={styles.mobileTabs}>
+              Referrals
+            </Link>
+          )}
           <Link to="/about" className={styles.mobileTabs}>
             About
           </Link>

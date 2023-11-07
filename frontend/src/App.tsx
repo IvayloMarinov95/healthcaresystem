@@ -90,8 +90,12 @@ const App = () => {
           <Route path="/about" component={About} />
           <Route path="/departments" component={Departments} />
           <Route path="/doctors" component={Doctors} />
-          <Route path="/prescriptions" component={Prescriptions} />
-          <Route path="/referrals" component={Referrals} />
+          {user && userRole === 'doctor' && (
+            <Route path="/prescriptions" component={Prescriptions} />
+          )}
+          {user && userRole === 'doctor' && (
+            <Route path="/referrals" component={Referrals} />
+          )}
           {/* @ts-ignore */}
           {user && userRole === 'doctor' && (
             <Route path="/patients" component={Patients} />

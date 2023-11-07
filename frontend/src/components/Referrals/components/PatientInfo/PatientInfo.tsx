@@ -96,25 +96,27 @@ const PatientInfo: React.FC<Props> = ({
             Personal ID of the patient
           </label>
         </div>
-        <div>
-          <SquareInputs
-            numberOfInputs={2}
-            fieldValue={rhif}
-            containerClass={styles.healthDistrict}
-            characterClass={styles.characters}
-            handleChange={handleRHIFChange}
-          />
-          <label className={styles.inputLabel}>RHIF</label>
-        </div>
-        <div>
-          <SquareInputs
-            numberOfInputs={2}
-            fieldValue={healthDistrict}
-            containerClass={styles.healthDistrict}
-            characterClass={styles.characters}
-            handleChange={handleHealthDistrictChange}
-          />
-          <label className={styles.inputLabel}>health district</label>
+        <div className={styles.rhifContainer}>
+          <div>
+            <SquareInputs
+              numberOfInputs={2}
+              fieldValue={rhif}
+              containerClass={styles.healthDistrict}
+              characterClass={styles.characters}
+              handleChange={handleRHIFChange}
+            />
+            <label className={styles.inputLabel}>RHIF</label>
+          </div>
+          <div>
+            <SquareInputs
+              numberOfInputs={2}
+              fieldValue={healthDistrict}
+              containerClass={styles.healthDistrict}
+              characterClass={styles.characters}
+              handleChange={handleHealthDistrictChange}
+            />
+            <label className={styles.inputLabel}>health district</label>
+          </div>
         </div>
       </div>
     </div>

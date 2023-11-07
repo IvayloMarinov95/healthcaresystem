@@ -3,6 +3,11 @@
   gap: 0;
   width: 50px;
   height: 30px;
+  margin-right: 20px;
+}
+
+.rhifContainer {
+  display: flex;
 }
 
 .personalId {
@@ -143,7 +148,16 @@ hr {
 }
 
 @media (max-width: 900px) {
+  .personalId {
+    width: 220px;
+  }
+
+  .rhifContainer {
+    margin-top: 20px;
+  }
+
   .patientInputs {
+    display: block;
     width: 100%;
     margin-top: 20px;
   }
@@ -154,6 +168,10 @@ hr {
 
   .idNumberSection {
     display: block;
+  }
+
+  .identificationNumber {
+    width: 240px;
   }
 
   .idContainer {

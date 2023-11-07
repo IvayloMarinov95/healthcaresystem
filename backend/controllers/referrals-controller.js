@@ -8,7 +8,7 @@ const User = require("../models/users");
 const getReferrals = async (req, res, next) => {
     let referrals;
     try {
-        referrals = await Referral.find();
+        referrals = await Referral.find().sort({ _id: -1 });
     } catch (err) {
         const error = new HttpError(
             "Fetching referrals failed, please try again later.",

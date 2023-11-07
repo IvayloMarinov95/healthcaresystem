@@ -1,3 +1,24 @@
+@import '../variables.scss';
+
+.data {
+  color: $blue;
+}
+
+.dataDiv {
+  width: 45%;
+}
+
+.referralsDataContainer {
+  width: 70%;
+  text-align: left;
+}
+
+.referralsDataSections {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
 .cardBody {
   padding: 0 !important;
 }
@@ -39,7 +60,6 @@ a {
   align-items: center;
   background: #1786fc;
   color: #fff;
-  font-weight: bold;
 
   > div {
     margin-right: 10px;
@@ -85,4 +105,19 @@ a {
   display: flex;
   justify-content: center;
   height: 40px;
+}
+
+@media (max-width: 900px) {
+  .collapse {
+    display: block;
+  }
+
+  .referralsDataContainer {
+    width: 100%;
+  }
+
+  .referralBtns {
+    margin-top: 20px;
+    text-align: center;
+  }
 }

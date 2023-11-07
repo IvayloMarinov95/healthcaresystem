@@ -38,3 +38,13 @@
     width: 100%;
   }
 }
+
+@media (max-width: 900px) {
+  .doctor {
+    display: block;
+  }
+
+  .longSquares {
+    width: 220px;
+  }
+}

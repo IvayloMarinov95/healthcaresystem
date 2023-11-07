@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Col, Nav, Row, Tab, Card } from 'react-bootstrap';
-import RequestAccordion from '../RequestAccordion/RequestAccordion';
+import PrescriptionsApplications from '../PrescriptionsApplications/PrescriptionsApplications';
+import ReferralsApplications from '../ReferralsApplications/ReferralsApplications';
 import styles from '../../HealthFund.module.scss';
 import classNames from 'classnames';
 import DoctorsSection from '../DoctorsSection/DoctorsSection';
@@ -61,16 +62,21 @@ const TabLayout = () => {
               >
                 <Nav.Item>
                   <Nav.Link eventKey="1" className={styles.navTab}>
-                    Applications
+                    Referral Applications
                   </Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
                   <Nav.Link eventKey="2" className={styles.navTab}>
-                    Doctors
+                    Prescription Applications
                   </Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
                   <Nav.Link eventKey="3" className={styles.navTab}>
+                    Doctors
+                  </Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link eventKey="4" className={styles.navTab}>
                     Patients
                   </Nav.Link>
                 </Nav.Item>
@@ -83,12 +89,15 @@ const TabLayout = () => {
             <Card.Body className={styles.cardBody}>
               <Tab.Content>
                 <Tab.Pane eventKey="1">
-                  <RequestAccordion />
+                  <ReferralsApplications />
                 </Tab.Pane>
                 <Tab.Pane eventKey="2">
-                  <DoctorsSection getDoctors={getDoctors} doctors={doctors} />
+                  <PrescriptionsApplications />
                 </Tab.Pane>
                 <Tab.Pane eventKey="3">
+                  <DoctorsSection getDoctors={getDoctors} doctors={doctors} />
+                </Tab.Pane>
+                <Tab.Pane eventKey="4">
                   <PatientSection
                     getPatients={getPatients}
                     patients={patients}

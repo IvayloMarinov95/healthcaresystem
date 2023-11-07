@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import VerificationInput from 'react-verification-input';
 
 interface Props {
