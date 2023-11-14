@@ -7,7 +7,7 @@ const User = require('../models/users');
 const getPrescriptions = async (req, res, next) => {
     let prescriptions;
     try {
-        prescriptions = await Prescription.find();
+        prescriptions = await Prescription.find().sort({ _id: -1 });
     } catch (err) {
         const error = new HttpError(
             "Fetching prescriptions failed, please try again later.",

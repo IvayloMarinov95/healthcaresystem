@@ -91,7 +91,7 @@ a {
 
 .collapse {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: space-between;
 }
 
@@ -105,6 +105,16 @@ a {
   display: flex;
   justify-content: center;
   height: 40px;
+}
+
+.medicineRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  background: lightgrey;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 20px;
 }
 
 @media (max-width: 900px) {
