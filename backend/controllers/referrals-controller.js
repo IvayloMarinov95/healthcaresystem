@@ -124,6 +124,30 @@ const createReferral = async (req, res, next) => {
     res.status(201).json({ referral: createdReferral });
 };
 
+const updateReferralStatus = async (req, res, next) => {
+    const referralId = req.params.rid;
+    const { status } = req.body;
+
+    let updatedReferral;
+    try {
+        updatedReferral = await Referral.findById(referralId);
+    } catch (err) {
+        const error = new HttpError("Could not find referral by the provided id, please try again later.", 500);
+        return next(error);
+    }
+
+    updatedReferral.status = status;
+    try {
+        await updatedReferral.save();
+    } catch (err) {
+        const error = new HttpError("Could not update referral, please try again later.", 500);
+        return next(error);
+    }
+
+    res.status(200).json({ referral: updatedReferral.toObject({ getter: true }) });
+
+};
+
 const deleteReferral = async (req, res, next) => {
     const referralId = req.params.rid;
 
@@ -162,4 +186,5 @@ const deleteReferral = async (req, res, next) => {
 
 exports.getReferrals = getReferrals;
 exports.createReferral = createReferral;
+exports.updateReferralStatus = updateReferralStatus;
 exports.deleteReferral = deleteReferral;

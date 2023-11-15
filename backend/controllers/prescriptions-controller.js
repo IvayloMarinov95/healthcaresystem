@@ -59,6 +59,29 @@ const createPrescription = async (req, res, next) => {
     res.status(201).json({ prescription: createdPrescription });
 };
 
+const updatePrescriptionStatus = async (req, res, next) => {
+    const prescriptionId = req.params.pid;
+    const { status } = req.body;
+
+    let updatedPrescription;
+    try {
+        updatedPrescription = await Prescription.findById(prescriptionId);
+    } catch (err) {
+        const error = new HttpError("Could not find prescription by the provided id, please try again later.", 500);
+        return next(error);
+    }
+
+    updatedPrescription.status = status;
+    try {
+        await updatedPrescription.save();
+    } catch (err) {
+        const error = new HttpError("Could not update prescription, please try again later.", 500);
+        return next(error);
+    }
+
+    res.status(200).json({ prescription: updatedPrescription.toObject({ getters: true }) });
+};
+
 const deletePrescription = async (req, res, next) => {
     const prescriptionId = req.params.pid;
 
@@ -98,4 +121,5 @@ const deletePrescription = async (req, res, next) => {
 
 exports.getPrescriptions = getPrescriptions;
 exports.createPrescription = createPrescription;
+exports.updatePrescriptionStatus = updatePrescriptionStatus;
 exports.deletePrescription = deletePrescription;

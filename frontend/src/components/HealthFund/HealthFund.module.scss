@@ -117,6 +117,18 @@ a {
   margin-bottom: 20px;
 }
 
+.accepted {
+  fill: green;
+  height: 40px;
+  width: 40px;
+}
+
+.declined {
+  fill: red;
+  height: 40px;
+  width: 40px;
+}
+
 @media (max-width: 900px) {
   .collapse {
     display: block;

@@ -28,6 +28,8 @@ router.post('/createReferral',
         check("reason").not().isEmpty(),
     ],
     referralsController.createReferral);
+
+router.patch('/:rid', referralsController.updateReferralStatus);
 router.delete('/:rid', referralsController.deleteReferral);
 
 module.exports = router;

@@ -5,7 +5,8 @@ import styles from '../../HealthFund.module.scss';
 import Search from '../../../Search/Search';
 import { setIsLoading } from '../../../../features/spinner/isLoading-slice';
 import axios from 'axios';
-import { reasons } from '../../../../lib/constants';
+import { reasons, status } from '../../../../lib/constants';
+import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
 
 const ReferralsApplication = () => {
   const [toggle, setToggle] = useState<boolean>(false);
@@ -48,6 +49,18 @@ const ReferralsApplication = () => {
 
   const handleClick = () => {
     setToggle(!toggle);
+  };
+
+  const handleStatusChange = async (status: string, id: string) => {
+    setIsLoading(true);
+    const url = 'http://localhost:5000/api/referrals/' + id;
+    await axios
+      .patch(url, { status })
+      .then(() => {
+        getReferrals();
+      })
+      .catch((error) => console.log(error))
+      .finally(() => setIsLoading(false));
   };
 
   return (
@@ -114,14 +127,47 @@ const ReferralsApplication = () => {
                       </div>
                     </div>
                   </div>
-                  <div className={styles.referralBtns}>
-                    <Button variant="primary">
-                      <FaCheck />
-                    </Button>{' '}
-                    <Button variant="danger">
-                      <FaTimes />
-                    </Button>
-                  </div>
+                  {/* @ts-ignore */}
+                  {referral.status === status.PENDING && (
+                    <div className={styles.referralBtns}>
+                      <Button
+                        variant="primary"
+                        onClick={() =>
+                          handleStatusChange(
+                            status.ACCEPTED,
+                            // @ts-ignore
+                            referral._id
+                          )
+                        }
+                      >
+                        <FaCheck />
+                      </Button>{' '}
+                      <Button
+                        variant="danger"
+                        onClick={() =>
+                          handleStatusChange(
+                            status.DECLINED,
+                            // @ts-ignore
+                            referral._id
+                          )
+                        }
+                      >
+                        <FaTimes />
+                      </Button>
+                    </div>
+                  )}
+                  {/* @ts-ignore */}
+                  {referral.status === status.ACCEPTED && (
+                    <div>
+                      <FaCheckCircle className={styles.accepted} /> Accepted
+                    </div>
+                  )}
+                  {/* @ts-ignore */}
+                  {referral.status === status.DECLINED && (
+                    <div>
+                      <FaTimesCircle className={styles.declined} /> Declined
+                    </div>
+                  )}
                 </Card.Body>
               </Accordion.Collapse>
             </Card>
