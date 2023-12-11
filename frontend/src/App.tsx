@@ -15,11 +15,13 @@ import Patients from './components/Patients/Patients';
 import MyProfile from './components/MyProfile/MyProfile';
 import Prescriptions from './components/Prescriptions/Prescriptions';
 import ToastMessage from './components/ToastMessage/ToastMessage';
+import Referrals from './components/Referrals/Referrals';
+import MyPrescriptions from './components/MyPrescriptions/MyPrescriptions';
+import MyReferrals from './components/MyReferrals/MyReferrals';
 import axios from 'axios';
 import { setRoles } from './features/roles/roles-slice';
 import { setUser } from './features/user/user-slice';
 import { RootState } from './app/store';
-import Referrals from './components/Referrals/Referrals';
 
 const App = () => {
   const location = useLocation();
@@ -90,6 +92,8 @@ const App = () => {
           <Route path="/about" component={About} />
           <Route path="/departments" component={Departments} />
           <Route path="/doctors" component={Doctors} />
+          <Route path="/myPrescriptions" component={MyPrescriptions} />
+          <Route path="/myReferrals" component={MyReferrals} />
           {user && userRole === 'doctor' && (
             <Route path="/prescriptions" component={Prescriptions} />
           )}

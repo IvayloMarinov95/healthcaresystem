@@ -101,6 +101,14 @@ const DesktopNavigation: React.FC<Props> = ({ logout }) => {
     history.push('/myProfile');
   };
 
+  const openMyPrescriptions = () => {
+    history.push('/myPrescriptions');
+  };
+
+  const openMyReferrals = () => {
+    history.push('/myReferrals');
+  };
+
   return (
     <>
       <div
@@ -142,6 +150,24 @@ const DesktopNavigation: React.FC<Props> = ({ logout }) => {
           >
             Doctors
           </Link>
+          <Dropdown className={styles.dropdown}>
+            <Dropdown.Toggle
+              variant="secondary"
+              id="dropdown-basic"
+              className={styles.dossier}
+            >
+              My Dossier
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu>
+              <Dropdown.Item onClick={openMyPrescriptions}>
+                My prescriptions
+              </Dropdown.Item>
+              <Dropdown.Item onClick={openMyReferrals}>
+                My Referrals
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
           {/* @ts-ignore */}
           {user && userRole === 'doctor' && (
             <Link

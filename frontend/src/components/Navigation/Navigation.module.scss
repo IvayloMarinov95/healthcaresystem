@@ -13,6 +13,18 @@
   display: inline;
 }
 
+.dossier {
+  background-color: transparent;
+  border-color: transparent;
+  opacity: 0.6;
+
+  &:hover:not(.active) {
+    opacity: 1;
+    color: white;
+    text-decoration: none;
+  }
+}
+
 .medicalClinic {
   width: 200px;
   height: 30px;

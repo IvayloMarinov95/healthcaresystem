@@ -18,6 +18,21 @@ const getPrescriptions = async (req, res, next) => {
     res.json({ prescriptions: prescriptions.map((prescription) => prescription.toObject({ getter: true })) });
 };
 
+const getPrescriptionsByUserId = async (req, res, next) => {
+    const userId = req.params.uid;
+    let prescriptions;
+    try {
+        prescriptions = await Prescription.find({ user: userId }).sort({ _id: -1 });
+    } catch (err) {
+        const error = new HttpError(
+            "Fetching prescriptions failed, please try again later.",
+            500
+        );
+        return next(error);
+    }
+    res.json({ prescriptions: prescriptions.map((prescription) => prescription.toObject({ getter: true })) });
+};
+
 const createPrescription = async (req, res, next) => {
     const { patientName, disease, additionalInformation, status, user, medicineList } = req.body;
 
@@ -120,6 +135,7 @@ const deletePrescription = async (req, res, next) => {
 };
 
 exports.getPrescriptions = getPrescriptions;
+exports.getPrescriptionsByUserId = getPrescriptionsByUserId;
 exports.createPrescription = createPrescription;
 exports.updatePrescriptionStatus = updatePrescriptionStatus;
 exports.deletePrescription = deletePrescription;

@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { Accordion, Button, Card } from 'react-bootstrap';
-import { FaAngleDown, FaAngleRight, FaCheck, FaTimes } from 'react-icons/fa';
+import {
+  FaAngleDown,
+  FaAngleRight,
+  FaCheck,
+  FaTimes,
+  FaCheckCircle,
+  FaTimesCircle,
+} from 'react-icons/fa';
 import styles from '../../HealthFund.module.scss';
 import Search from '../../../Search/Search';
 import { setIsLoading } from '../../../../features/spinner/isLoading-slice';
 import axios from 'axios';
 import { reasons, status } from '../../../../lib/constants';
-import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
 
 const PrescriptionsApplications = () => {
   const [toggle, setToggle] = useState<boolean>(false);

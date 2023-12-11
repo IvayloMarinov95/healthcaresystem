@@ -1,0 +1,97 @@
+@import '../variables.scss';
+
+.container {
+  margin: 40px 0;
+  padding: 0 18%;
+}
+
+.data {
+  color: $blue;
+}
+
+.dataDiv {
+  width: 45%;
+}
+
+.collapse {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.search {
+  margin: 40px 0 20px 0;
+}
+
+.accordions {
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  background: #1786fc;
+  color: #fff;
+
+  > div {
+    margin-right: 10px;
+  }
+}
+
+.referralsDataContainer {
+  width: 70%;
+  text-align: left;
+}
+
+.referralsDataSections {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.title {
+  font-size: 26px;
+  font-weight: bold;
+  color: $blue;
+  text-align: center;
+  margin-top: 30px;
+}
+
+.medicineRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  background: lightgrey;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.accepted {
+  fill: green;
+  height: 40px;
+  width: 40px;
+}
+
+.declined {
+  fill: red;
+  height: 40px;
+  width: 40px;
+}
+
+@media (max-width: 900px) {
+  .collapse {
+    display: block;
+  }
+
+  .referralsDataContainer {
+    width: 100%;
+  }
+
+  .referralBtns {
+    margin-top: 20px;
+    text-align: center;
+  }
+}
