@@ -5,48 +5,25 @@ import { Accordion, Card } from 'react-bootstrap';
 import {
   FaAngleDown,
   FaAngleRight,
-  FaCheck,
-  FaTimes,
   FaCheckCircle,
   FaTimesCircle,
 } from 'react-icons/fa';
 import { reasons, status } from '../../lib/constants';
 import { setIsLoading } from '../../features/spinner/isLoading-slice';
 import axios from 'axios';
+import { useAppSelector } from '../../app/hooks';
+import { RootState } from '../../app/store';
 
 const MyPrescriptions: React.FC = () => {
   const [toggle, setToggle] = useState<boolean>(false);
   const [input, setInput] = useState<string>('');
   const [prescriptions, setPrescriptions] = useState<Array<object>>([]);
   const [filteredList, setFilteredList] = useState<Array<object>>([]);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInput(e.target.value);
-  };
-
-  const handleClick = () => {
-    setToggle(!toggle);
-  };
-
-  const getPrescriptions = async () => {
-    setIsLoading(true);
-    const url =
-      'http://localhost:5000/api/prescriptions/' + '653133537905b540089774f7';
-
-    await axios
-      .get(url)
-      .then((response) => {
-        if (response?.data) {
-          setPrescriptions(response.data.prescriptions);
-        }
-      })
-      .catch((error) => console.log('error: ', error))
-      .finally(() => setIsLoading(false));
-  };
+  const user = useAppSelector((state: RootState) => state.user.value);
 
   useEffect(() => {
     getPrescriptions();
-  });
+  }, []);
 
   useEffect(() => {
     if (input) {
@@ -59,6 +36,30 @@ const MyPrescriptions: React.FC = () => {
       setFilteredList(prescriptions);
     }
   }, [input, prescriptions]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInput(e.target.value);
+  };
+
+  const handleClick = () => {
+    setToggle(!toggle);
+  };
+
+  const getPrescriptions = async () => {
+    setIsLoading(true);
+    // @ts-ignore
+    const url = 'http://localhost:5000/api/prescriptions/' + user.userId;
+
+    await axios
+      .get(url)
+      .then((response) => {
+        if (response?.data) {
+          setPrescriptions(response.data.prescriptions);
+        }
+      })
+      .catch((error) => console.log('error: ', error))
+      .finally(() => setIsLoading(false));
+  };
 
   return (
     <div className={styles.container}>
@@ -151,17 +152,17 @@ const MyPrescriptions: React.FC = () => {
                     </div>
                     {/* @ts-ignore */}
                     {prescription.status === status.PENDING && (
-                      <div>Pending</div>
+                      <div className={styles.referralBtns}>Pending</div>
                     )}
                     {/* @ts-ignore */}
                     {prescription.status === status.ACCEPTED && (
-                      <div>
+                      <div className={styles.referralBtns}>
                         <FaCheckCircle className={styles.accepted} /> Accepted
                       </div>
                     )}
                     {/* @ts-ignore */}
                     {prescription.status === status.DECLINED && (
-                      <div>
+                      <div className={styles.referralBtns}>
                         <FaTimesCircle className={styles.declined} /> Declined
                       </div>
                     )}

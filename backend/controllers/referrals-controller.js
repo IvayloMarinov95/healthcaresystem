@@ -19,6 +19,21 @@ const getReferrals = async (req, res, next) => {
     res.json({ referrals: referrals.map((referral) => referral.toObject({ getter: true })) });
 };
 
+const getReferralsByUserId = async (req, res, next) => {
+    const userId = req.params.uid;
+    let referrals;
+    try {
+        referrals = await Referral.find({ user: userId }).sort({ _id: -1 });
+    } catch (err) {
+        const error = new HttpError(
+            "Fetching referrals failed, please try again later.",
+            500
+        );
+        return next(error);
+    }
+    res.json({ referrals: referrals.map((referral) => referral.toObject({ getter: true })) });
+};
+
 const createReferral = async (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -137,6 +152,7 @@ const updateReferralStatus = async (req, res, next) => {
     }
 
     updatedReferral.status = status;
+
     try {
         await updatedReferral.save();
     } catch (err) {
@@ -185,6 +201,7 @@ const deleteReferral = async (req, res, next) => {
 };
 
 exports.getReferrals = getReferrals;
+exports.getReferralsByUserId = getReferralsByUserId;
 exports.createReferral = createReferral;
 exports.updateReferralStatus = updateReferralStatus;
 exports.deleteReferral = deleteReferral;

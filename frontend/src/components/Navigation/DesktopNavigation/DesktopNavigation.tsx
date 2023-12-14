@@ -150,24 +150,26 @@ const DesktopNavigation: React.FC<Props> = ({ logout }) => {
           >
             Doctors
           </Link>
-          <Dropdown className={styles.dropdown}>
-            <Dropdown.Toggle
-              variant="secondary"
-              id="dropdown-basic"
-              className={styles.dossier}
-            >
-              My Dossier
-            </Dropdown.Toggle>
+          {user && userRole === 'patient' && (
+            <Dropdown className={styles.dropdown}>
+              <Dropdown.Toggle
+                variant="secondary"
+                id="dropdown-basic"
+                className={styles.dossier}
+              >
+                My Dossier
+              </Dropdown.Toggle>
 
-            <Dropdown.Menu>
-              <Dropdown.Item onClick={openMyPrescriptions}>
-                My prescriptions
-              </Dropdown.Item>
-              <Dropdown.Item onClick={openMyReferrals}>
-                My Referrals
-              </Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
+              <Dropdown.Menu>
+                <Dropdown.Item onClick={openMyPrescriptions}>
+                  My Prescriptions
+                </Dropdown.Item>
+                <Dropdown.Item onClick={openMyReferrals}>
+                  My Referrals
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          )}
           {/* @ts-ignore */}
           {user && userRole === 'doctor' && (
             <Link

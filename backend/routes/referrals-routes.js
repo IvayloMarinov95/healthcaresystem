@@ -6,6 +6,7 @@ const referralsController = require('../controllers/referrals-controller');
 const router = Router();
 
 router.get('/', referralsController.getReferrals);
+router.get('/:uid', referralsController.getReferralsByUserId);
 router.post('/createReferral',
     [
         check("patientPersonalId").not().isEmpty(),
