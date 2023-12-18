@@ -19,7 +19,6 @@ const MyReferrals: React.FC = () => {
   const [toggle, setToggle] = useState<boolean>(false);
   const [referrals, setReferrals] = useState<Array<object>>([]);
   const [filteredList, setFilteredList] = useState<Array<object>>([]);
-  const [userId, setUserId] = useState<string>('');
   const user = useAppSelector((state: RootState) => state.user.value);
 
   useEffect(() => {
