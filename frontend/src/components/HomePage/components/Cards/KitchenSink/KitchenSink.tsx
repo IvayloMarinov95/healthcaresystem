@@ -23,7 +23,11 @@ const KitchenSink: React.FC<Props> = ({
 }) => (
   <Card className={styles.card} onClick={handleClick}>
     {image ? (
-      <Card.Img variant="top" src={`http://localhost:5000/${image}`} />
+      <Card.Img
+        variant="top"
+        src={`http://localhost:5000/${image}`}
+        className={styles.img}
+      />
     ) : (
       <Card.Img variant="top" src={blank} className={styles.img} />
     )}
