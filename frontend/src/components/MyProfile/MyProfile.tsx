@@ -19,6 +19,7 @@ const MyProfile: React.FC = () => {
   const [photo, setPhoto] = useState<Blob | null>();
   const [gender, setGender] = useState<string>('');
   const [databasePath, setDatabasePath] = useState<string>('');
+  const [personalInfoId, setPersonalInfoId] = useState<string>('');
   const roles = useAppSelector((state: RootState) => state.roles.value);
   const user = useAppSelector((state: RootState) => state.user.value);
   const doctorRole = roles?.filter((item) => item.role === 'doctor')[0];
@@ -47,6 +48,7 @@ const MyProfile: React.FC = () => {
             SetDepartment(response.data.personalInformation?.department);
             setGender(response.data.personalInformation?.gender);
             setDatabasePath(response.data.personalInformation?.photo);
+            setPersonalInfoId(response.data.personalInformation?._id);
           }
         })
         .catch((error) => console.log('error: ', error))
@@ -88,7 +90,7 @@ const MyProfile: React.FC = () => {
     const url =
       'http://localhost:5000/api/users/updatePersonalInformation/' +
       //   @ts-ignore
-      user.personalInfoId;
+      personalInfoId;
 
     formData.append('age', age);
     formData.append('phone', phone);
