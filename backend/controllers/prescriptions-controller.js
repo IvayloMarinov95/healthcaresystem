@@ -20,6 +20,75 @@ const getPrescriptions = async (req, res, next) => {
     res.json({ prescriptions: prescriptions.map((prescription) => prescription.toObject({ getter: true })) });
 };
 
+const mostFrequent = (items, k) => {
+    let lookup = {};
+    let output = [];
+    let itemCounter = 0;
+
+    for (let i = 0;i < items.length;i++) {
+        // Have we seen this item before or not?
+        if (!lookup[items[i]]) {
+            // No? Ok, create an object in our lookup
+            // and set reference to it in our output array
+            lookup[items[i]] = { "count": 0, "id": items[i] };
+            output.push(lookup[items[i]]);
+            itemCounter++;
+        }
+        // Add one to the "count" attribute in our lookup
+        // which adds one to the count attribute in our "output" array
+        lookup[items[i]].count++;
+    }
+
+    //
+    // Sort descending, Slice the top {{k}} results, and return it to the user
+    // so they can handle it
+    //
+    return output.sort((a, b) => { return a.count > b.count ? -1 : 1 }).slice(0, k)
+}
+
+const getFiveMostFrequentMedications = async (req, res, next) => {
+    let prescriptions;
+    try {
+        prescriptions = await Prescription.find().populate();
+    } catch (err) {
+        const error = new HttpError(
+            "Fetching prescriptions failed, please try again later.",
+            500
+        );
+        return next(error);
+    }
+
+    const medicinesArray = [];
+    prescriptions.forEach(prescription => medicinesArray.push(prescription.medicineList));
+
+    const medicinesLists = medicinesArray.flat(1);
+
+    let medicationsList = [];
+    medicinesLists.forEach(list => medicationsList.push(list.medicineName));
+
+    const topFive = mostFrequent(medicationsList, 5);
+    res.json(topFive);
+}
+
+const getFiveMostFrequentDiseases = async (req, res, next) => {
+    let prescriptions;
+    try {
+        prescriptions = await Prescription.find().populate();
+    } catch (err) {
+        const error = new HttpError(
+            "Fetching prescriptions failed, please try again later.",
+            500
+        );
+        return next(error);
+    }
+
+    const diseases = [];
+    prescriptions.forEach(prescription => diseases.push(prescription.disease));
+
+    const topFive = mostFrequent(diseases, 5);
+    res.json(topFive);
+}
+
 const getMedicineList = async (req, res, next) => {
     let medications;
     try {
@@ -166,6 +235,8 @@ const deletePrescription = async (req, res, next) => {
 
 exports.getPrescriptions = getPrescriptions;
 exports.getMedicineList = getMedicineList;
+exports.getFiveMostFrequentMedications = getFiveMostFrequentMedications;
+exports.getFiveMostFrequentDiseases = getFiveMostFrequentDiseases;
 exports.getDiseases = getDiseases;
 exports.getPrescriptionsByUserId = getPrescriptionsByUserId;
 exports.createPrescription = createPrescription;

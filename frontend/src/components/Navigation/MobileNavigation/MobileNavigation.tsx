@@ -103,6 +103,9 @@ const MobileNavigation: React.FC<Props> = ({ logout }) => {
           <Link to="/" className={styles.mobileTabs}>
             Home
           </Link>
+          <Link to="/statistics" className={styles.mobileTabs}>
+            Statistics
+          </Link>
           <Link to="/departments" className={styles.mobileTabs}>
             Departments
           </Link>

@@ -22,6 +22,7 @@ import axios from 'axios';
 import { setRoles } from './features/roles/roles-slice';
 import { setUser } from './features/user/user-slice';
 import { RootState } from './app/store';
+import Statistics from './components/Statistics/Statistics';
 
 const App = () => {
   const location = useLocation();
@@ -39,6 +40,15 @@ const App = () => {
       behavior: 'smooth',
     });
   }, [location.pathname]);
+
+  useEffect(() => {
+    axios
+      .get(
+        'http://localhost:5000/api/prescriptions/getFiveMostFrequentDiseases'
+      )
+      .then((response) => console.log(response.data))
+      .catch((error) => console.log('error: ', error));
+  }, []);
 
   useEffect(() => {
     axios
@@ -90,6 +100,7 @@ const App = () => {
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route path="/about" component={About} />
+          <Route path="/statistics" component={Statistics} />
           <Route path="/departments" component={Departments} />
           <Route path="/doctors" component={Doctors} />
           <Route path="/myPrescriptions" component={MyPrescriptions} />

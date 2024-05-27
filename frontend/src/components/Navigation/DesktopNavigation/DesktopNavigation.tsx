@@ -131,6 +131,16 @@ const DesktopNavigation: React.FC<Props> = ({ logout }) => {
             Home
           </Link>
           <Link
+            to="/statistics"
+            className={
+              location.pathname === '/statistics'
+                ? classNames(styles.navTab, styles.active)
+                : styles.navTab
+            }
+          >
+            Statistics
+          </Link>
+          <Link
             to="/departments"
             className={
               location.pathname === '/departments'
