@@ -69,7 +69,7 @@ const PatientSection: React.FC<Props> = ({ patients, getPatients }) => {
   };
 
   const deleteUser = async (id: string) => {
-    setIsLoading(true);
+    dispatch(setIsLoading(true));
     const url = 'http://localhost:5000/api/users/deleteUser/' + id;
     await axios
       .delete(url)
@@ -87,7 +87,7 @@ const PatientSection: React.FC<Props> = ({ patients, getPatients }) => {
         );
         console.log('error: ', error);
       })
-      .finally(() => setIsLoading(false));
+      .finally(() => dispatch(setIsLoading(false)));
   };
 
   const showEdit = () => {

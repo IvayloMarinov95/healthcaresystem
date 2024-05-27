@@ -25,7 +25,7 @@ const AdminAuthentication: React.FC<Props> = ({ closeModal, openModal }) => {
   };
 
   const handleClick = async () => {
-    setIsLoading(true);
+    dispatch(setIsLoading(true));
     const url = 'http://localhost:5000/api/users/adminLogin';
     const loginData = {
       email,
@@ -62,7 +62,7 @@ const AdminAuthentication: React.FC<Props> = ({ closeModal, openModal }) => {
         );
         console.log('error: ', error);
       })
-      .finally(() => setIsLoading(false));
+      .finally(() => dispatch(setIsLoading(false)));
   };
 
   return (

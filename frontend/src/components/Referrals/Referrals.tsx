@@ -60,7 +60,7 @@ const Referrals: React.FC = () => {
   }, []);
 
   const getPatients = async () => {
-    setIsLoading(true);
+    dispatch(setIsLoading(true));
     const url =
       'http://localhost:5000/api/users/userByRole/' +
       '64f5f6963741f138f0d144e6';
@@ -73,7 +73,7 @@ const Referrals: React.FC = () => {
         }
       })
       .catch((error) => console.log('error: ', error))
-      .finally(() => setIsLoading(false));
+      .finally(() => dispatch(setIsLoading(false)));
   };
 
   useEffect(() => {
@@ -254,7 +254,7 @@ const Referrals: React.FC = () => {
   };
 
   const assignReferral = async () => {
-    setIsLoading(true);
+    dispatch(setIsLoading(true));
     const url = 'http://localhost:5000/api/referrals/createReferral';
     const referralData = {
       // @ts-ignore
@@ -315,7 +315,7 @@ const Referrals: React.FC = () => {
         console.log('error: ', error);
       })
       .finally(() => {
-        setIsLoading(false);
+        dispatch(setIsLoading(false));
         ref?.current?.scrollIntoView({ behavior: 'smooth' });
       });
   };

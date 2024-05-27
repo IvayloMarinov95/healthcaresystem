@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, Form, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import styles from './Medicine.module.scss';
 import { FaMinus } from 'react-icons/fa';
+import Select from 'react-select';
 
 interface Medicine {
   medicineName: string;
@@ -14,6 +15,7 @@ interface Medicine {
 type Props = {
   index: number;
   medicine: Medicine;
+  medicineList: Array<object>;
   handleChange: (index: number, fieldName: string, value: string) => void;
   handleRemoveElement: (index: number) => void;
 };
@@ -21,11 +23,17 @@ type Props = {
 const Medicine: React.FC<Props> = ({
   index,
   medicine,
+  medicineList,
   handleChange,
   handleRemoveElement,
 }) => {
   const handleMedicineNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     handleChange(index, 'medicineName', e.target.value);
+  };
+
+  const handleSelectMedicine = (option: { label: string; value: object }) => {
+    // @ts-ignore
+    handleChange(index, 'medicineName', option?.value?._id);
   };
 
   const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -74,15 +82,21 @@ const Medicine: React.FC<Props> = ({
         </div>
       )}
       <div className={styles.medicineContainer}>
-        <Form.Group controlId="medicineName" className={styles.medicineName}>
-          <Form.Label>Medicine Name</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter medicine name"
-            value={medicine.medicineName}
-            onChange={handleMedicineNameChange}
-          />
-        </Form.Group>
+        <div className={styles.patient}>
+          <Form.Group controlId="patient">
+            <Form.Label>Medicine name</Form.Label>
+            <Select
+              options={medicineList.map((medicine) => ({
+                // @ts-ignore
+                label: medicine.name,
+                // @ts-ignore
+                value: medicine,
+              }))}
+              // @ts-ignore
+              onChange={(option) => handleSelectMedicine(option)}
+            />
+          </Form.Group>
+        </div>
         <div className={styles.sections}>
           <Form.Group controlId="quantity" className={styles.leftSide}>
             <Form.Label>Quantity</Form.Label>

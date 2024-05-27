@@ -5,6 +5,8 @@ const prescriptionsController = require('../controllers/prescriptions-controller
 const router = Router();
 
 router.get('/', prescriptionsController.getPrescriptions);
+router.get('/getMedicineList', prescriptionsController.getMedicineList);
+router.get('/getDiseases', prescriptionsController.getDiseases);
 router.get('/:uid', prescriptionsController.getPrescriptionsByUserId);
 router.post('/createPrescription', prescriptionsController.createPrescription);
 router.patch('/:pid', prescriptionsController.updatePrescriptionStatus);

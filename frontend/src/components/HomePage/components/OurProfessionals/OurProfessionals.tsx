@@ -7,10 +7,12 @@ import { setIsLoading } from '../../../../features/spinner/isLoading-slice';
 import axios from 'axios';
 import { Button } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
+import { useAppDispatch } from '../../../../app/hooks';
 
 const OurProfessionals: React.FC = () => {
   const [doctors, setDoctors] = useState<Array<object>>([]);
   const history = useHistory();
+  const dispatch = useAppDispatch();
   const descriptions = [
     'The branch of medicine concerned with the development, care, and diseases of babies and children.',
     'Cardiology deals with the disorders of the heart as well as some parts of the circulatory system',
@@ -19,7 +21,7 @@ const OurProfessionals: React.FC = () => {
   ];
 
   const getDoctors = async () => {
-    setIsLoading(true);
+    dispatch(setIsLoading(true));
     const url =
       'http://localhost:5000/api/users/doctors/' + '64ec71860b9e3c40588277d3';
 
@@ -31,7 +33,7 @@ const OurProfessionals: React.FC = () => {
         }
       })
       .catch((error) => console.log('error: ', error))
-      .finally(() => setIsLoading(false));
+      .finally(() => dispatch(setIsLoading(false)));
   };
 
   useEffect(() => {

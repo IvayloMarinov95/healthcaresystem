@@ -7,12 +7,14 @@ import { setIsLoading } from '../../../../features/spinner/isLoading-slice';
 import axios from 'axios';
 import { reasons, status } from '../../../../lib/constants';
 import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
+import { useAppDispatch } from '../../../../app/hooks';
 
 const ReferralsApplication = () => {
   const [toggle, setToggle] = useState<boolean>(false);
   const [input, setInput] = useState<string>('');
   const [referrals, setReferrals] = useState<Array<object>>([]);
   const [filteredList, setFilteredList] = useState<Array<object>>([]);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     getReferrals();
@@ -31,7 +33,7 @@ const ReferralsApplication = () => {
   }, [input, referrals]);
 
   const getReferrals = async () => {
-    setIsLoading(true);
+    dispatch(setIsLoading(true));
     const url = 'http://localhost:5000/api/referrals';
     await axios
       .get(url)
@@ -41,7 +43,7 @@ const ReferralsApplication = () => {
         }
       })
       .catch((error) => console.log('error: ', error))
-      .finally(() => setIsLoading(false));
+      .finally(() => dispatch(setIsLoading(false)));
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) =>
@@ -52,7 +54,7 @@ const ReferralsApplication = () => {
   };
 
   const handleStatusChange = async (status: string, id: string) => {
-    setIsLoading(true);
+    dispatch(setIsLoading(true));
     const url = 'http://localhost:5000/api/referrals/' + id;
     await axios
       .patch(url, { status })
@@ -60,7 +62,7 @@ const ReferralsApplication = () => {
         getReferrals();
       })
       .catch((error) => console.log(error))
-      .finally(() => setIsLoading(false));
+      .finally(() => dispatch(setIsLoading(false)));
   };
 
   return (

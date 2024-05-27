@@ -22,6 +22,8 @@ const Prescriptions: React.FC = () => {
   const ref = useRef<null | HTMLDivElement>(null);
   const [patients, setPatients] = useState<Array<object>>([]);
   const [disease, setDisease] = useState<string>('');
+  const [diseasesList, setDiseasesList] = useState<Array<object>>([]);
+  const [medicines, setMedicines] = useState<Array<object>>([{}]);
   const [additionalInformation, setAdditionalInformation] =
     useState<string>('');
 
@@ -39,10 +41,37 @@ const Prescriptions: React.FC = () => {
 
   useEffect(() => {
     getPatients();
+    getMedicines();
+    getDiseases();
   }, []);
 
+  const getMedicines = async () => {
+    const url = 'http://localhost:5000/api/prescriptions/getMedicineList';
+    await axios
+      .get(url)
+      .then((response) => {
+        if (response?.data) {
+          setMedicines(response.data.medications);
+        }
+      })
+      .catch((error) => console.log('error: ', error));
+  };
+
+  const getDiseases = async () => {
+    dispatch(setIsLoading(true));
+    const url = 'http://localhost:5000/api/prescriptions/getDiseases';
+    await axios
+      .get(url)
+      .then((response) => {
+        if (response?.data) {
+          setDiseasesList(response.data.diseases);
+        }
+      })
+      .catch((error) => console.log('error: ', error))
+      .finally(() => dispatch(setIsLoading(false)));
+  };
+
   const getPatients = async () => {
-    setIsLoading(true);
     const url =
       'http://localhost:5000/api/users/userByRole/' +
       '64f5f6963741f138f0d144e6';
@@ -54,8 +83,7 @@ const Prescriptions: React.FC = () => {
           setPatients(response.data.users);
         }
       })
-      .catch((error) => console.log('error: ', error))
-      .finally(() => setIsLoading(false));
+      .catch((error) => console.log('error: ', error));
   };
 
   const renderTooltip = (props: object) => (
@@ -82,8 +110,9 @@ const Prescriptions: React.FC = () => {
     setMedicineList(newMedicineList);
   };
 
-  const handleDiseaseChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setDisease(e.target.value);
+  const handleDiseaseChange = (option: { label: string; value: object }) => {
+    // @ts-ignore
+    setDisease(option?.value?._id);
   };
 
   const handleAdditionalInformationChange = (
@@ -120,7 +149,7 @@ const Prescriptions: React.FC = () => {
   };
 
   const assignPrescription = async () => {
-    setIsLoading(true);
+    dispatch(setIsLoading(true));
     const url = 'http://localhost:5000/api/prescriptions/createPrescription';
     const prescriptionData = {
       // @ts-ignore
@@ -155,7 +184,7 @@ const Prescriptions: React.FC = () => {
         console.log('error: ', error);
       })
       .finally(() => {
-        setIsLoading(false);
+        dispatch(setIsLoading(false));
         ref?.current?.scrollIntoView({ behavior: 'smooth' });
       });
   };
@@ -186,6 +215,7 @@ const Prescriptions: React.FC = () => {
             medicineList?.map((item, index) => (
               <Medicine
                 key={index}
+                medicineList={medicines}
                 index={index}
                 medicine={item}
                 handleChange={handleChange}
@@ -204,15 +234,21 @@ const Prescriptions: React.FC = () => {
             </OverlayTrigger>
           </div>
           <div className={styles.footer}>
-            <Form.Group controlId="disease" className={styles.end}>
-              <Form.Label>Disease</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter disease"
-                value={disease}
-                onChange={handleDiseaseChange}
-              />
-            </Form.Group>
+            <div className={styles.patient}>
+              <Form.Group controlId="patient">
+                <Form.Label>Disease</Form.Label>
+                <Select
+                  options={diseasesList.map((disease) => ({
+                    // @ts-ignore
+                    label: disease.nameEn,
+                    // @ts-ignore
+                    value: disease,
+                  }))}
+                  // @ts-ignore
+                  onChange={(option) => handleDiseaseChange(option)}
+                />
+              </Form.Group>
+            </div>
             <Form.Group
               controlId="additionalInformation"
               className={styles.end}

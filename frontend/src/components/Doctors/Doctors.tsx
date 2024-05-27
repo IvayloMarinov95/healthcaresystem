@@ -8,14 +8,16 @@ import styles from './Doctors.module.scss';
 import { setIsLoading } from '../../features/spinner/isLoading-slice';
 import axios from 'axios';
 import Search from '../Search/Search';
+import { useAppDispatch } from '../../app/hooks';
 
 const Doctors: React.FC = () => {
   const [doctors, setDoctors] = useState<Array<object>>([]);
   const [filteredList, setFilteredList] = useState<Array<object>>([]);
   const [input, setInput] = useState<string>('');
+  const dispatch = useAppDispatch();
 
   const getDoctors = async () => {
-    setIsLoading(true);
+    dispatch(setIsLoading(true));
     const url =
       'http://localhost:5000/api/users/userByRole/' +
       '64ec71860b9e3c40588277d3';
@@ -28,7 +30,7 @@ const Doctors: React.FC = () => {
         }
       })
       .catch((error) => console.log('error: ', error))
-      .finally(() => setIsLoading(false));
+      .finally(() => dispatch(setIsLoading(false)));
   };
 
   useEffect(() => {

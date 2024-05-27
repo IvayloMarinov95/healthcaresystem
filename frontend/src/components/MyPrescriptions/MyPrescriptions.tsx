@@ -11,7 +11,7 @@ import {
 import { reasons, status } from '../../lib/constants';
 import { setIsLoading } from '../../features/spinner/isLoading-slice';
 import axios from 'axios';
-import { useAppSelector } from '../../app/hooks';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { RootState } from '../../app/store';
 
 const MyPrescriptions: React.FC = () => {
@@ -20,6 +20,7 @@ const MyPrescriptions: React.FC = () => {
   const [prescriptions, setPrescriptions] = useState<Array<object>>([]);
   const [filteredList, setFilteredList] = useState<Array<object>>([]);
   const user = useAppSelector((state: RootState) => state.user.value);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     getPrescriptions();
@@ -46,7 +47,7 @@ const MyPrescriptions: React.FC = () => {
   };
 
   const getPrescriptions = async () => {
-    setIsLoading(true);
+    dispatch(setIsLoading(true));
     // @ts-ignore
     const url = 'http://localhost:5000/api/prescriptions/' + user.userId;
 
@@ -58,7 +59,7 @@ const MyPrescriptions: React.FC = () => {
         }
       })
       .catch((error) => console.log('error: ', error))
-      .finally(() => setIsLoading(false));
+      .finally(() => dispatch(setIsLoading(false)));
   };
 
   return (

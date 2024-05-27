@@ -4,17 +4,19 @@ import Search from '../Search/Search';
 import styles from './Patients.module.scss';
 import { setIsLoading } from '../../features/spinner/isLoading-slice';
 import axios from 'axios';
+import { useAppDispatch } from '../../app/hooks';
 
 const Patients: React.FC = () => {
   const [patients, setPatients] = useState<Array<object>>([]);
   const [filteredList, setFilteredList] = useState<Array<object>>([]);
   const [input, setInput] = useState<string>('');
+  const dispatch = useAppDispatch();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) =>
     setInput(event?.target.value);
 
   const getPatients = async () => {
-    setIsLoading(true);
+    dispatch(setIsLoading(true));
     const url =
       'http://localhost:5000/api/users/userByRole/' +
       '64f5f6963741f138f0d144e6';
@@ -27,7 +29,7 @@ const Patients: React.FC = () => {
         }
       })
       .catch((error) => console.log('error: ', error))
-      .finally(() => setIsLoading(false));
+      .finally(() => dispatch(setIsLoading(false)));
   };
 
   useEffect(() => {

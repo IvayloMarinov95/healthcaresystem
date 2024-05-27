@@ -33,7 +33,7 @@ const MyProfile: React.FC = () => {
 
   const getUserData = async () => {
     if (user) {
-      setIsLoading(true);
+      dispatch(setIsLoading(true));
       // @ts-ignore
       const url = 'http://localhost:5000/api/users/' + user.userId;
       await axios
@@ -52,7 +52,7 @@ const MyProfile: React.FC = () => {
           }
         })
         .catch((error) => console.log('error: ', error))
-        .finally(() => setIsLoading(false));
+        .finally(() => dispatch(setIsLoading(false)));
     }
   };
 

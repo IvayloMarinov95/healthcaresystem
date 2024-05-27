@@ -13,12 +13,14 @@ import Search from '../../../Search/Search';
 import { setIsLoading } from '../../../../features/spinner/isLoading-slice';
 import axios from 'axios';
 import { reasons, status } from '../../../../lib/constants';
+import { useAppDispatch } from '../../../../app/hooks';
 
 const PrescriptionsApplications = () => {
   const [toggle, setToggle] = useState<boolean>(false);
   const [input, setInput] = useState<string>('');
   const [prescriptions, setPrescriptions] = useState<Array<object>>([]);
   const [filteredList, setFilteredList] = useState<Array<object>>([]);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     getPrescriptions();
@@ -37,7 +39,7 @@ const PrescriptionsApplications = () => {
   }, [input, prescriptions]);
 
   const getPrescriptions = async () => {
-    setIsLoading(true);
+    dispatch(setIsLoading(true));
     const url = 'http://localhost:5000/api/prescriptions';
     await axios
       .get(url)
@@ -47,7 +49,7 @@ const PrescriptionsApplications = () => {
         }
       })
       .catch((error) => console.log('error: ', error))
-      .finally(() => setIsLoading(false));
+      .finally(() => dispatch(setIsLoading(false)));
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) =>
@@ -58,7 +60,7 @@ const PrescriptionsApplications = () => {
   };
 
   const handleStatusChange = async (status: string, id: string) => {
-    setIsLoading(true);
+    dispatch(setIsLoading(true));
     const url = 'http://localhost:5000/api/prescriptions/' + id;
     await axios
       .patch(url, { status })
@@ -66,7 +68,7 @@ const PrescriptionsApplications = () => {
         getPrescriptions();
       })
       .catch((error) => console.log(error))
-      .finally(() => setIsLoading(false));
+      .finally(() => dispatch(setIsLoading(false)));
   };
 
   return (

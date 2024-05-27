@@ -8,10 +8,12 @@ import DoctorsSection from '../DoctorsSection/DoctorsSection';
 import PatientSection from '../PatientSection/PatientSection';
 import axios from 'axios';
 import { setIsLoading } from '../../../../features/spinner/isLoading-slice';
+import { useAppDispatch } from '../../../../app/hooks';
 
 const TabLayout = () => {
   const [doctors, setDoctors] = useState<Array<object>>([]);
   const [patients, setPatients] = useState<Array<object>>([]);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     getDoctors();
@@ -19,7 +21,7 @@ const TabLayout = () => {
   }, []);
 
   const getDoctors = async () => {
-    setIsLoading(true);
+    dispatch(setIsLoading(true));
     const url =
       'http://localhost:5000/api/users/userByRole/' +
       '64ec71860b9e3c40588277d3';
@@ -31,11 +33,11 @@ const TabLayout = () => {
         }
       })
       .catch((error) => console.log('error: ', error))
-      .finally(() => setIsLoading(false));
+      .finally(() => dispatch(setIsLoading(false)));
   };
 
   const getPatients = async () => {
-    setIsLoading(true);
+    dispatch(setIsLoading(true));
     const url =
       'http://localhost:5000/api/users/userByRole/' +
       '64f5f6963741f138f0d144e6';
@@ -47,7 +49,7 @@ const TabLayout = () => {
         }
       })
       .catch((error) => console.log('error: ', error))
-      .finally(() => setIsLoading(false));
+      .finally(() => dispatch(setIsLoading(false)));
   };
 
   return (

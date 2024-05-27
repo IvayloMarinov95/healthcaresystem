@@ -3,6 +3,8 @@ const mongoose = require("mongoose");
 const HttpError = require("../models/http-error");
 const Prescription = require("../models/prescriptions");
 const User = require('../models/users');
+const Medication = require('../models/medications');
+const Disease = require('../models/diseases');
 
 const getPrescriptions = async (req, res, next) => {
     let prescriptions;
@@ -17,6 +19,34 @@ const getPrescriptions = async (req, res, next) => {
     }
     res.json({ prescriptions: prescriptions.map((prescription) => prescription.toObject({ getter: true })) });
 };
+
+const getMedicineList = async (req, res, next) => {
+    let medications;
+    try {
+        medications = await Medication.find();
+    } catch (err) {
+        const error = new HttpError(
+            "Fetching prescriptions failed, please try again later.",
+            500
+        );
+        return next(error);
+    }
+    res.json({ medications: medications.map((medication) => medication.toObject({ getter: true })) });
+}
+
+const getDiseases = async (req, res, next) => {
+    let diseases;
+    try {
+        diseases = await Disease.find().limit(7000);
+    } catch (err) {
+        const error = new HttpError(
+            "Fetching prescriptions failed, please try again later.",
+            500
+        );
+        return next(error);
+    }
+    res.json({ diseases: diseases.map((disease) => disease.toObject({ getter: true })) });
+}
 
 const getPrescriptionsByUserId = async (req, res, next) => {
     const userId = req.params.uid;
@@ -135,6 +165,8 @@ const deletePrescription = async (req, res, next) => {
 };
 
 exports.getPrescriptions = getPrescriptions;
+exports.getMedicineList = getMedicineList;
+exports.getDiseases = getDiseases;
 exports.getPrescriptionsByUserId = getPrescriptionsByUserId;
 exports.createPrescription = createPrescription;
 exports.updatePrescriptionStatus = updatePrescriptionStatus;
