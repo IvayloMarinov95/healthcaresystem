@@ -43,15 +43,6 @@ const App = () => {
 
   useEffect(() => {
     axios
-      .get(
-        'http://localhost:5000/api/prescriptions/getFiveMostFrequentDiseases'
-      )
-      .then((response) => console.log(response.data))
-      .catch((error) => console.log('error: ', error));
-  }, []);
-
-  useEffect(() => {
-    axios
       .get('http://localhost:5000/api/roles')
       .then((response) => {
         if (response?.data?.roles) {

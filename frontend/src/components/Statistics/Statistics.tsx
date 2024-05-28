@@ -1,15 +1,27 @@
 import axios from 'axios';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { PieChart } from 'react-minimal-pie-chart';
 import styles from './Statistics.module.scss';
 
 const Statistics: React.FC = () => {
+  const [medicationsList, setMedicationsList] = useState<Array<object>>([]);
+  const [diseasesList, setDiseasesList] = useState<Array<object>>([]);
+
   useEffect(() => {
     axios
       .get(
         'http://localhost:5000/api/prescriptions/getFiveMostFrequentMedications'
       )
-      .then((response) => console.log(response.data))
+      .then((response) => setMedicationsList(response.data))
+      .catch((error) => console.log('error: ', error));
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get(
+        'http://localhost:5000/api/prescriptions/getFiveMostFrequentDiseases'
+      )
+      .then((response) => setDiseasesList(response.data))
       .catch((error) => console.log('error: ', error));
   }, []);
 

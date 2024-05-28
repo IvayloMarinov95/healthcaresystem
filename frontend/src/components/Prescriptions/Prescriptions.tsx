@@ -146,6 +146,7 @@ const Prescriptions: React.FC = () => {
         period: '',
       },
     ]);
+    window.location.reload();
   };
 
   const assignPrescription = async () => {

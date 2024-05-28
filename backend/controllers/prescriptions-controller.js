@@ -67,7 +67,21 @@ const getFiveMostFrequentMedications = async (req, res, next) => {
     medicinesLists.forEach(list => medicationsList.push(list.medicineName));
 
     const topFive = mostFrequent(medicationsList, 5);
-    res.json(topFive);
+    const topFiveDetailed = [];
+    for (element of topFive) {
+        try {
+            element = await Medication.findById(element.id);
+            topFiveDetailed.push(element);
+        } catch (err) {
+            const error = new HttpError(
+                "Fetching medication failed, please try again later.",
+                500
+            );
+            return next(error);
+        }
+    }
+
+    res.json(topFiveDetailed);
 }
 
 const getFiveMostFrequentDiseases = async (req, res, next) => {
@@ -86,7 +100,20 @@ const getFiveMostFrequentDiseases = async (req, res, next) => {
     prescriptions.forEach(prescription => diseases.push(prescription.disease));
 
     const topFive = mostFrequent(diseases, 5);
-    res.json(topFive);
+    const topFiveDetailed = [];
+    for (element of topFive) {
+        try {
+            element = await Disease.findById(element.id);
+            topFiveDetailed.push(element);
+        } catch (err) {
+            const error = new HttpError(
+                "Fetching medication failed, please try again later.",
+                500
+            );
+            return next(error);
+        }
+    }
+    res.json(topFiveDetailed);
 }
 
 const getMedicineList = async (req, res, next) => {
