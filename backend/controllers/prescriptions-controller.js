@@ -70,8 +70,8 @@ const getFiveMostFrequentMedications = async (req, res, next) => {
     const topFiveDetailed = [];
     for (element of topFive) {
         try {
-            element = await Medication.findById(element.id);
-            topFiveDetailed.push(element);
+            medication = await Medication.findById(element.id);
+            topFiveDetailed.push({ ...medication._doc, count: element.count });
         } catch (err) {
             const error = new HttpError(
                 "Fetching medication failed, please try again later.",
@@ -103,8 +103,8 @@ const getFiveMostFrequentDiseases = async (req, res, next) => {
     const topFiveDetailed = [];
     for (element of topFive) {
         try {
-            element = await Disease.findById(element.id);
-            topFiveDetailed.push(element);
+            disease = await Disease.findById(element.id);
+            topFiveDetailed.push({ ...disease._doc, count: element.count });
         } catch (err) {
             const error = new HttpError(
                 "Fetching medication failed, please try again later.",
