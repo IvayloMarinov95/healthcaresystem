@@ -180,7 +180,7 @@ const Prescriptions: React.FC = () => {
       .catch((error) => {
         dispatch(
           // @ts-ignore
-          setToast({ color: 'danger', message: error.response.data.message })
+          setToast({ color: 'danger', message: error?.response?.data?.message })
         );
         console.log('error: ', error);
       })

@@ -169,7 +169,6 @@ const DesktopNavigation: React.FC<Props> = ({ logout }) => {
               >
                 My Dossier
               </Dropdown.Toggle>
-
               <Dropdown.Menu>
                 <Dropdown.Item onClick={openMyPrescriptions}>
                   My Prescriptions

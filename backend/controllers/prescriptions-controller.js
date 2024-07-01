@@ -17,6 +17,38 @@ const getPrescriptions = async (req, res, next) => {
         );
         return next(error);
     }
+
+    for (prescription of prescriptions) {
+        try {
+            const disease = await Disease.findById(prescription.disease);
+            prescription.disease = disease.nameEn;
+        } catch (err) {
+            const error = new HttpError(
+                "Fetching medication failed, please try again later.",
+                500
+            );
+            return next(error);
+        }
+    }
+
+
+    const medicinesArray = [];
+    prescriptions.forEach(prescription => medicinesArray.push(prescription.medicineList));
+
+    const medicinesLists = medicinesArray.flat(1);
+    for (medicine of medicinesLists) {
+        try {
+            const medication = await Medication.findById(medicine.medicineName);
+            medicine.medicineName = medication.name;
+        } catch (err) {
+            const error = new HttpError(
+                "Fetching medication failed, please try again later.",
+                500
+            );
+            return next(error);
+        }
+    }
+
     res.json({ prescriptions: prescriptions.map((prescription) => prescription.toObject({ getter: true })) });
 };
 
@@ -155,6 +187,37 @@ const getPrescriptionsByUserId = async (req, res, next) => {
             500
         );
         return next(error);
+    }
+
+    for (prescription of prescriptions) {
+        try {
+            const disease = await Disease.findById(prescription.disease);
+            prescription.disease = disease.nameEn;
+        } catch (err) {
+            const error = new HttpError(
+                "Fetching medication failed, please try again later.",
+                500
+            );
+            return next(error);
+        }
+    }
+
+
+    const medicinesArray = [];
+    prescriptions.forEach(prescription => medicinesArray.push(prescription.medicineList));
+
+    const medicinesLists = medicinesArray.flat(1);
+    for (medicine of medicinesLists) {
+        try {
+            const medication = await Medication.findById(medicine.medicineName);
+            medicine.medicineName = medication.name;
+        } catch (err) {
+            const error = new HttpError(
+                "Fetching medication failed, please try again later.",
+                500
+            );
+            return next(error);
+        }
     }
     res.json({ prescriptions: prescriptions.map((prescription) => prescription.toObject({ getter: true })) });
 };

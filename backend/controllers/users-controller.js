@@ -173,7 +173,7 @@ const signup = async (req, res, next) => {
     return next(error);
   }
 
-  res.status(201).json({ userId: createdUser.id, email: createdUser.email, token: token });
+  res.status(201).json({ userId: createdUser.id, email: createdUser.email, role: createdUser.role, token: token });
 };
 
 const login = async (req, res, next) => {

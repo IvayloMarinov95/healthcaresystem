@@ -80,8 +80,11 @@ const AuthenticationModal: React.FC<Props> = ({
       })
       .catch((error) => {
         dispatch(
-          // @ts-ignore
-          setToast({ color: 'danger', message: error.response.data.message })
+          setToast({
+            // @ts-ignore
+            color: 'danger',
+            message: error?.response?.data?.message || 'Something went wrong!',
+          })
         );
         console.log('error: ', error);
       })
@@ -114,6 +117,7 @@ const AuthenticationModal: React.FC<Props> = ({
             'userData',
             JSON.stringify({
               userId: response.data.userId,
+              role: response.data.role,
               token: response.data.token,
               expiration: tokenExpirationDate.toISOString(),
             })
@@ -123,8 +127,11 @@ const AuthenticationModal: React.FC<Props> = ({
       })
       .catch((error) => {
         dispatch(
-          // @ts-ignore
-          setToast({ color: 'danger', message: error.response.data.message })
+          setToast({
+            // @ts-ignore
+            color: 'danger',
+            message: error?.response?.data?.message || 'Something went wrong!',
+          })
         );
         console.log('error: ', error);
       })

@@ -35,10 +35,10 @@ const getReferralsByUserId = async (req, res, next) => {
 };
 
 const createReferral = async (req, res, next) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        throw new HttpError("Invalid inputs passed, please check your data.", 422);
-    }
+    // const errors = validationResult(req);
+    // if (!errors.isEmpty()) {
+    //     throw new HttpError("Invalid inputs passed, please check your data.", 422);
+    // }
 
     const {
         user,
@@ -80,7 +80,7 @@ const createReferral = async (req, res, next) => {
         existingUser = await User.findById(user);
     } catch (err) {
         const error = new HttpError(
-            "Creating referral failed, please try again later",
+            "Failed find a user, please try again later",
             500
         );
         return next(error);

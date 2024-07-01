@@ -309,8 +309,11 @@ const Referrals: React.FC = () => {
       })
       .catch((error) => {
         dispatch(
-          // @ts-ignore
-          setToast({ color: 'danger', message: error.response.data.message })
+          setToast({
+            // @ts-ignore
+            color: 'danger',
+            message: error?.response?.data?.message || 'Something went wrong!',
+          })
         );
         console.log('error: ', error);
       })

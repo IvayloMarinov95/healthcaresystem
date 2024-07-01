@@ -69,93 +69,99 @@ const MyReferrals: React.FC = () => {
       <div className={styles.search}>
         <Search input={input} handleChange={handleChange} />
       </div>
-      <div>
-        <Accordion defaultActiveKey="0" className={styles.accordions}>
-          {filteredList?.length > 0 &&
-            filteredList?.map((referral) => (
-              // @ts-ignore
-              <Card key={referral._id}>
-                <Accordion.Toggle
-                  as={Card.Header}
-                  // @ts-ignore
-                  eventKey={referral._id}
-                  className={styles.cardHeader}
-                  onClick={() => handleClick()}
-                >
-                  <div>{!toggle ? <FaAngleRight /> : <FaAngleDown />}</div>
-                  <div>
-                    {/* @ts-ignore */}
-                    Referral № <b>{referral.referralNumber}</b>
-                  </div>
-                </Accordion.Toggle>
-                {/* @ts-ignore */}
-                <Accordion.Collapse eventKey={referral._id}>
-                  <Card.Body className={styles.collapse}>
-                    <div className={styles.referralsDataContainer}>
-                      <div className={styles.referralsDataSections}>
-                        <div className={styles.dataDiv}>
-                          Patient:{' '}
-                          <b className={styles.data}>
-                            {/* @ts-ignore */}
-                            {referral.patientFullName}
-                          </b>
-                        </div>
-                        <div className={styles.dataDiv}>
-                          Patient Id:{' '}
-                          <b className={styles.data}>
-                            {/* @ts-ignore */}
-                            {referral.patientPersonalId}
-                          </b>
-                        </div>
-                      </div>
-                      <div className={styles.referralsDataSections}>
-                        <div className={styles.dataDiv}>
-                          Created By:{' '}
-                          <b className={styles.data}>
-                            {/* @ts-ignore */}
-                            {referral.referringDoctorFullName}
-                          </b>
-                        </div>
-                        <div className={styles.dataDiv}>
-                          Referred doctor:
-                          <b className={styles.data}>
-                            {/* @ts-ignore */}
-                            {referral.doctorFullName}
-                          </b>
-                        </div>
-                      </div>
-                      <div>
-                        <div>
-                          Reason:{' '}
-                          <b className={styles.data}>
-                            {/* @ts-ignore */}
-                            {reasons[referral.reason]}
-                          </b>
-                        </div>
-                      </div>
+      {filteredList?.length > 0 ? (
+        <div>
+          <Accordion defaultActiveKey="0" className={styles.accordions}>
+            {filteredList?.length > 0 &&
+              filteredList?.map((referral) => (
+                // @ts-ignore
+                <Card key={referral._id}>
+                  <Accordion.Toggle
+                    as={Card.Header}
+                    // @ts-ignore
+                    eventKey={referral._id}
+                    className={styles.cardHeader}
+                    onClick={() => handleClick()}
+                  >
+                    <div>{!toggle ? <FaAngleRight /> : <FaAngleDown />}</div>
+                    <div>
+                      {/* @ts-ignore */}
+                      Referral № <b>{referral.referralNumber}</b>
                     </div>
-                    {/* @ts-ignore */}
-                    {referral.status === status.PENDING && (
-                      <div className={styles.referralBtns}>Pending</div>
-                    )}
-                    {/* @ts-ignore */}
-                    {referral.status === status.ACCEPTED && (
-                      <div className={styles.referralBtns}>
-                        <FaCheckCircle className={styles.accepted} /> Accepted
+                  </Accordion.Toggle>
+                  {/* @ts-ignore */}
+                  <Accordion.Collapse eventKey={referral._id}>
+                    <Card.Body className={styles.collapse}>
+                      <div className={styles.referralsDataContainer}>
+                        <div className={styles.referralsDataSections}>
+                          <div className={styles.dataDiv}>
+                            Patient:{' '}
+                            <b className={styles.data}>
+                              {/* @ts-ignore */}
+                              {referral.patientFullName}
+                            </b>
+                          </div>
+                          <div className={styles.dataDiv}>
+                            Patient Id:{' '}
+                            <b className={styles.data}>
+                              {/* @ts-ignore */}
+                              {referral.patientPersonalId}
+                            </b>
+                          </div>
+                        </div>
+                        <div className={styles.referralsDataSections}>
+                          <div className={styles.dataDiv}>
+                            Created By:{' '}
+                            <b className={styles.data}>
+                              {/* @ts-ignore */}
+                              {referral.referringDoctorFullName}
+                            </b>
+                          </div>
+                          <div className={styles.dataDiv}>
+                            Referred doctor:
+                            <b className={styles.data}>
+                              {/* @ts-ignore */}
+                              {referral.doctorFullName}
+                            </b>
+                          </div>
+                        </div>
+                        <div>
+                          <div>
+                            Reason:{' '}
+                            <b className={styles.data}>
+                              {/* @ts-ignore */}
+                              {reasons[referral.reason]}
+                            </b>
+                          </div>
+                        </div>
                       </div>
-                    )}
-                    {/* @ts-ignore */}
-                    {referral.status === status.DECLINED && (
-                      <div className={styles.referralBtns}>
-                        <FaTimesCircle className={styles.declined} /> Declined
-                      </div>
-                    )}
-                  </Card.Body>
-                </Accordion.Collapse>
-              </Card>
-            ))}
-        </Accordion>
-      </div>
+                      {/* @ts-ignore */}
+                      {referral.status === status.PENDING && (
+                        <div className={styles.referralBtns}>Pending</div>
+                      )}
+                      {/* @ts-ignore */}
+                      {referral.status === status.ACCEPTED && (
+                        <div className={styles.referralBtns}>
+                          <FaCheckCircle className={styles.accepted} /> Accepted
+                        </div>
+                      )}
+                      {/* @ts-ignore */}
+                      {referral.status === status.DECLINED && (
+                        <div className={styles.referralBtns}>
+                          <FaTimesCircle className={styles.declined} /> Declined
+                        </div>
+                      )}
+                    </Card.Body>
+                  </Accordion.Collapse>
+                </Card>
+              ))}
+          </Accordion>
+        </div>
+      ) : (
+        <div className={styles.title}>
+          <h3>There are no assigned referrals!</h3>
+        </div>
+      )}
     </div>
   );
 };

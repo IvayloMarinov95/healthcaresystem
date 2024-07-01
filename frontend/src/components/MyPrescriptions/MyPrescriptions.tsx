@@ -70,109 +70,118 @@ const MyPrescriptions: React.FC = () => {
       <div className={styles.search}>
         <Search input={input} handleChange={handleChange} />
       </div>
-      <div>
-        <Accordion defaultActiveKey="0" className={styles.accordions}>
-          {filteredList?.length > 0 &&
-            filteredList?.map((prescription) => (
-              // @ts-ignore
-              <Card key={prescription._id}>
-                <Accordion.Toggle
-                  as={Card.Header}
-                  // @ts-ignore
-                  eventKey={prescription._id}
-                  className={styles.cardHeader}
-                  onClick={() => handleClick()}
-                >
-                  <div>{!toggle ? <FaAngleRight /> : <FaAngleDown />}</div>
-                  <div>
-                    Prescription for the treatment of {/* @ts-ignore */}
-                    <b>{prescription.disease}</b>
-                  </div>
-                </Accordion.Toggle>
-                {/* @ts-ignore */}
-                <Accordion.Collapse eventKey={prescription._id}>
-                  <Card.Body className={styles.collapse}>
-                    <div className={styles.referralsDataContainer}>
-                      <div className={styles.referralsDataSections}>
-                        <div className={styles.dataDiv}>
-                          Patient:{' '}
-                          <b className={styles.data}>
-                            {/* @ts-ignore */}
-                            {prescription.patientName}
-                          </b>
-                        </div>
-                      </div>
-                      <div className={styles.referralsDataSections}>
-                        <div className={styles.dataDiv}>
-                          Medicine list:{' '}
-                          <b className={styles.data}>
-                            {/* @ts-ignore */}
-                            {prescription.referringDoctorFullName}
-                          </b>
-                        </div>
-                      </div>
-                      <div>
-                        {/* @ts-ignore */}
-                        {prescription?.medicineList?.length > 0 &&
-                          // @ts-ignore
-                          prescription.medicineList?.map((item) => (
-                            <div className={styles.medicineRow} key={item._id}>
-                              <div>
-                                <div>Medicine name: </div>
-                                <b className={styles.data}>
-                                  {/* @ts-ignore */}
-                                  {item.medicineName}
-                                </b>
-                              </div>
-                              <div>
-                                <div>Quantity: </div>
-                                <b className={styles.data}>
-                                  {/* @ts-ignore */}
-                                  {item.quantity}
-                                </b>
-                              </div>
-                              <div>
-                                <div>Period: </div>
-                                <b className={styles.data}>
-                                  {/* @ts-ignore */}
-                                  {item.period}
-                                </b>
-                              </div>
-                            </div>
-                          ))}
-                      </div>
-                      <div>
-                        <div>
-                          Additional information:{' '}
-                          <b className={styles.data}>
-                            {/* @ts-ignore */}
-                            {reasons[prescription.additionalInformation]}
-                          </b>
-                        </div>
-                      </div>
+      {filteredList?.length > 0 ? (
+        <div>
+          <Accordion defaultActiveKey="0" className={styles.accordions}>
+            {filteredList?.length > 0 &&
+              filteredList?.map((prescription) => (
+                // @ts-ignore
+                <Card key={prescription._id}>
+                  <Accordion.Toggle
+                    as={Card.Header}
+                    // @ts-ignore
+                    eventKey={prescription._id}
+                    className={styles.cardHeader}
+                    onClick={() => handleClick()}
+                  >
+                    <div>{!toggle ? <FaAngleRight /> : <FaAngleDown />}</div>
+                    <div>
+                      Prescription for the treatment of {/* @ts-ignore */}
+                      <b>{prescription.disease}</b>
                     </div>
-                    {/* @ts-ignore */}
-                    {prescription.status === status.PENDING && (
-                      <div className={styles.referralBtns}>Pending</div>
-                    )}
-                    {/* @ts-ignore */}
-                    {prescription.status === status.ACCEPTED && (
-                      <div className={styles.referralBtns}>
-                        <FaCheckCircle className={styles.accepted} /> Accepted
+                  </Accordion.Toggle>
+                  {/* @ts-ignore */}
+                  <Accordion.Collapse eventKey={prescription._id}>
+                    <Card.Body className={styles.collapse}>
+                      <div className={styles.referralsDataContainer}>
+                        <div className={styles.referralsDataSections}>
+                          <div className={styles.dataDiv}>
+                            Patient:{' '}
+                            <b className={styles.data}>
+                              {/* @ts-ignore */}
+                              {prescription.patientName}
+                            </b>
+                          </div>
+                        </div>
+                        <div className={styles.referralsDataSections}>
+                          <div className={styles.dataDiv}>
+                            Medicine list:{' '}
+                            <b className={styles.data}>
+                              {/* @ts-ignore */}
+                              {prescription.referringDoctorFullName}
+                            </b>
+                          </div>
+                        </div>
+                        <div>
+                          {/* @ts-ignore */}
+                          {prescription?.medicineList?.length > 0 &&
+                            // @ts-ignore
+                            prescription.medicineList?.map((item) => (
+                              <div
+                                className={styles.medicineRow}
+                                key={item._id}
+                              >
+                                <div>
+                                  <div>Medicine name: </div>
+                                  <b className={styles.data}>
+                                    {/* @ts-ignore */}
+                                    {item.medicineName}
+                                  </b>
+                                </div>
+                                <div>
+                                  <div>Quantity: </div>
+                                  <b className={styles.data}>
+                                    {/* @ts-ignore */}
+                                    {item.quantity}
+                                  </b>
+                                </div>
+                                <div>
+                                  <div>Period: </div>
+                                  <b className={styles.data}>
+                                    {/* @ts-ignore */}
+                                    {item.period}
+                                  </b>
+                                </div>
+                              </div>
+                            ))}
+                        </div>
+                        <div>
+                          <div>
+                            Additional information:{' '}
+                            <b className={styles.data}>
+                              {/* @ts-ignore */}
+                              {reasons[prescription.additionalInformation]}
+                            </b>
+                          </div>
+                        </div>
                       </div>
-                    )}
-                    {/* @ts-ignore */}
-                    {prescription.status === status.DECLINED && (
-                      <div className={styles.referralBtns}>
-                        <FaTimesCircle className={styles.declined} /> Declined
-                      </div>
-                    )}
-                  </Card.Body>
-                </Accordion.Collapse>
-              </Card>
-            ))}
-        </Accordion>
-      </div>
+                      {/* @ts-ignore */}
+                      {prescription.status === status.PENDING && (
+                        <div className={styles.referralBtns}>Pending</div>
+                      )}
+                      {/* @ts-ignore */}
+                      {prescription.status === status.ACCEPTED && (
+                        <div className={styles.referralBtns}>
+                          <FaCheckCircle className={styles.accepted} /> Accepted
+                        </div>
+                      )}
+                      {/* @ts-ignore */}
+                      {prescription.status === status.DECLINED && (
+                        <div className={styles.referralBtns}>
+                          <FaTimesCircle className={styles.declined} /> Declined
+                        </div>
+                      )}
+                    </Card.Body>
+                  </Accordion.Collapse>
+                </Card>
+              ))}
+          </Accordion>
+        </div>
+      ) : (
+        <div className={styles.title}>
+          <h3>There are no assigned prescriptions!</h3>
+        </div>
+      )}
     </div>
   );
 };
