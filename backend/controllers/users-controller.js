@@ -8,6 +8,8 @@ const HttpError = require("../models/http-error");
 const User = require("../models/users");
 const Role = require("../models/roles");
 const PersonalInformation = require('../models/personal-informations');
+const Prescription = require('../models/prescriptions');
+const Referral = require('../models/referrals');
 
 const getUsers = async (req, res, next) => {
   let users;
@@ -349,6 +351,8 @@ const deleteUser = async (req, res, next) => {
     sess.startTransaction();
     await user.remove({ session: sess });
     await PersonalInformation.deleteOne({ user: userId });
+    await Prescription.deleteOne({ user: userId });
+    await Referral.deleteOne({ user: userId });
     user.role.users.pull(user);
     await user.role.save({ session: sess });
     await sess.commitTransaction();
