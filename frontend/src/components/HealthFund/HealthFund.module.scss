@@ -9,7 +9,7 @@
 }
 
 .referralsDataContainer {
-  width: 70%;
+  width: 100%;
   text-align: left;
 }
 
@@ -110,7 +110,7 @@ a {
 .medicineRow {
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: flex-start;
   background: lightgrey;
   padding: 10px;
   border-radius: 5px;
@@ -127,6 +127,11 @@ a {
   fill: red;
   height: 40px;
   width: 40px;
+}
+.referralBtns {
+  display: flex;
+  margin-top: 20px;
+  text-align: center;
 }
 
 @media (max-width: 900px) {
