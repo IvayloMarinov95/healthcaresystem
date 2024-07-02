@@ -147,6 +147,13 @@ const Prescriptions: React.FC = () => {
       },
     ]);
     window.location.reload();
+    dispatch(
+      setToast({
+        // @ts-ignore
+        color: 'success',
+        message: 'Prescription assigned successful!',
+      })
+    );
   };
 
   const assignPrescription = async () => {
@@ -167,13 +174,6 @@ const Prescriptions: React.FC = () => {
       .post(url, prescriptionData)
       .then((response) => {
         if (response?.data) {
-          dispatch(
-            setToast({
-              // @ts-ignore
-              color: 'success',
-              message: 'Prescription assigned successful!',
-            })
-          );
           clearData();
         }
       })
@@ -185,7 +185,6 @@ const Prescriptions: React.FC = () => {
         console.log('error: ', error);
       })
       .finally(() => {
-        dispatch(setIsLoading(false));
         ref?.current?.scrollIntoView({ behavior: 'smooth' });
       });
   };

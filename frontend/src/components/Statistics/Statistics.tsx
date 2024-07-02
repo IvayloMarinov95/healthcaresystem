@@ -22,9 +22,9 @@ const Statistics: React.FC = () => {
     getFiveMostFrequentDiseases();
   }, []);
 
-  const getFiveMostFrequentMedications = async () => {
+  const getFiveMostFrequentMedications = () => {
     dispatch(setIsLoading(true));
-    await axios
+    axios
       .get(
         'http://localhost:5000/api/prescriptions/getFiveMostFrequentMedications'
       )
@@ -40,9 +40,9 @@ const Statistics: React.FC = () => {
       .finally(() => dispatch(setIsLoading(false)));
   };
 
-  const getFiveMostFrequentDiseases = async () => {
+  const getFiveMostFrequentDiseases = () => {
     dispatch(setIsLoading(true));
-    await axios
+    axios
       .get(
         'http://localhost:5000/api/prescriptions/getFiveMostFrequentDiseases'
       )

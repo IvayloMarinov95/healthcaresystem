@@ -102,7 +102,7 @@ const getFiveMostFrequentMedications = async (req, res, next) => {
     const topFiveDetailed = [];
     for (element of topFive) {
         try {
-            medication = await Medication.findById(element.id);
+            const medication = await Medication.findById(element.id);
             topFiveDetailed.push({ ...medication._doc, count: element.count });
         } catch (err) {
             const error = new HttpError(
@@ -135,7 +135,7 @@ const getFiveMostFrequentDiseases = async (req, res, next) => {
     const topFiveDetailed = [];
     for (element of topFive) {
         try {
-            disease = await Disease.findById(element.id);
+            const disease = await Disease.findById(element.id);
             topFiveDetailed.push({ ...disease._doc, count: element.count });
         } catch (err) {
             const error = new HttpError(
